@@ -17,8 +17,8 @@ public class HelloController {
 	@PostMapping("/sum")
 	public int getSum(@RequestBody Adder myAdder)
 	{
-		int a = myAdder.getFirstInt();
-		int b = myAdder.getSecondInt();
+		final int a = myAdder.getFirstInt();
+		final int b = myAdder.getSecondInt();
 
 		return a + b;
 	}
