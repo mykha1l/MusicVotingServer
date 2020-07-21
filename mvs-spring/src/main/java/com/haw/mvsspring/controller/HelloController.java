@@ -14,7 +14,7 @@ public class HelloController {
 		return "WebApp says hello!";
 	}
 
-	@GetMapping("/sum")
+	@PostMapping("/sum")
 	public int getSum(@RequestBody Adder myAdder)
 	{
 		int a = myAdder.getFirstInt();
