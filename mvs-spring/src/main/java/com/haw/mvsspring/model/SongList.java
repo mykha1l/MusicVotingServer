@@ -5,10 +5,10 @@ import java.util.ArrayList;
 
 public class SongList {
 
-    public static ArrayList<Song> init() {
+    public static ArrayList<Song> init(final String path) {
 
         ArrayList<Song> songList = new ArrayList<>();
-        final File file = new File("../MVS-WebApp/songs");
+        final File file = new File(path);
         final String[] fileList = file.list();
         for (final String name : fileList) {
             songList.add(new Song(name));
