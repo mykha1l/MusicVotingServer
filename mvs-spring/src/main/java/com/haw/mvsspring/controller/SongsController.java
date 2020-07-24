@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 public class SongsController {
 
     @GetMapping("/api/v1/songs")
-    public List<Song> index() {
+    public List<Song> getSongList() {
         return SongList.init("../MVS-WebApp/songs");
     }
 
