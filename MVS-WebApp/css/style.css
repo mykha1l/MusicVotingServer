@@ -37,3 +37,16 @@ body {
     text-align: center;
     font-weight: 700;
 }
+
+.error {
+    margin-right: auto;
+    margin-left: auto;
+    color: red;
+    text-align: center;
+    font-weight: 600;
+    margin-top: 5em;
+    padding: 2em;
+    width: max-content;
+    border: 2px solid red;
+    background-color: rgb(247, 217, 217);
+}

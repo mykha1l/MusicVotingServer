@@ -15,9 +15,16 @@ function createSongList(data) {
     }
 }
 
+function renderErrorMsg(message) {
+    const errorNode = document.createElement("div");
+    errorNode.className = "error";
+    errorNode.innerHTML = message;
+    document.getElementsByTagName("body")[0].appendChild(errorNode);
+}
+
 function init() {
     getAllSongs().then(data => createSongList(data))
-        .catch(reason => console.log(reason.message));
+        .catch(reason => renderErrorMsg(reason.message));
 }
 
 document.onload = init();
