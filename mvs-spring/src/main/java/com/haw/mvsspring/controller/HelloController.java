@@ -9,12 +9,6 @@ import java.util.HashMap;
 @RestController
 public class HelloController {
 
-	@GetMapping("/")
-	public String index()
-	{
-		return "WebApp says hello!";
-	}
-
 	@PostMapping("/sum")
 	public int getSum(@RequestBody Adder myAdder)
 	{
