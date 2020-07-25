@@ -1,6 +1,7 @@
 package com.haw.mvsspring;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import java.io.File;
 import java.io.IOException;
@@ -38,6 +39,16 @@ class MvsSpringApplicationTests {
 		assertEquals(songsList.get(0).getRawName(), "song1.mp3");
 		assertEquals(songsList.get(1).getRawName(), "song2.mp3");
 		assertEquals(songsList.get(2).getRawName(), "song3.mp3");
+	}
+
+	@Test
+	void readListOfSongsWithNonMp3Files() throws IOException {
+		final File file = new File("../MVS-WebApp/songs/test/text.txt");
+		file.createNewFile();
+		final ArrayList<Song> songsList = SongList.init("../MVS-WebApp/songs/test/");
+		final Song s = songsList.stream().filter(song -> "text.txt".equals(song.getRawName()) ).findAny().orElse(null);
+		file.delete();
+		assertNull(s);
 	}
 
 	@AfterAll
