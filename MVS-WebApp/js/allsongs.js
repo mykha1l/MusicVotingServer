@@ -34,5 +34,3 @@ function init() {
     getAllSongs().then(data => createSongList(data, songListContainer))
         .catch(reason => renderErrorMsg(reason.message));
 }
-
-document.onload = init();
