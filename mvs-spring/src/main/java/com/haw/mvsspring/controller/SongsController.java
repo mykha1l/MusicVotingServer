@@ -17,7 +17,7 @@ public class SongsController {
     }
 
     @GetMapping("/api/v1/pairs")
-    public List<List<Song>> getSongPairs() {
+    public List<Song[]> getSongPairs() {
         return new SongList("../MVS-WebApp/songs").getSongPairs();
     }
 

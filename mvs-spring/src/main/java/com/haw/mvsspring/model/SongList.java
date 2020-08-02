@@ -25,14 +25,14 @@ public class SongList {
         return songList;
     }
 
-    public List<List<Song>> getSongPairs() {
-        List<List<Song>> votingList = new ArrayList<>();
+    public List<Song[]> getSongPairs() {
+        final List<Song[]> votingList = new ArrayList<>();
         int i = 0;
         while (i < songList.size()) {
-            List<Song> pair = new ArrayList<>();
-            pair.add(songList.get(i));
+            final Song[] pair = new Song[2];
+            pair[0] = songList.get(i);
             if (++i < songList.size()) {
-                pair.add(songList.get(i));
+                pair[1] = songList.get(i);
             }
             votingList.add(pair);
         }
