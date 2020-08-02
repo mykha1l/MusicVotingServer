@@ -32,7 +32,7 @@ class MvsSpringApplicationTests {
 
 	}
 
-	@Test
+	/*@Test
 	void readListOfSongs() throws IOException {
 
 		final ArrayList<Song> songsList = SongList.init("../MVS-WebApp/songs/test/");
@@ -49,7 +49,7 @@ class MvsSpringApplicationTests {
 		final Song s = songsList.stream().filter(song -> "text.txt".equals(song.getRawName()) ).findAny().orElse(null);
 		file.delete();
 		assertNull(s);
-	}
+	}*/
 
 	@AfterAll
 	public static void done() {

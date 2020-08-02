@@ -13,7 +13,12 @@ public class SongsController {
 
     @GetMapping("/api/v1/songs")
     public List<Song> getSongList() {
-        return SongList.init("../MVS-WebApp/songs");
+        return new SongList("../MVS-WebApp/songs").getSongList();
+    }
+
+    @GetMapping("/api/v1/pairs")
+    public List<List<Song>> getSongPairs() {
+        return new SongList("../MVS-WebApp/songs").getSongPairs();
     }
 
 }
