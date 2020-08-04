@@ -11,6 +11,10 @@ function findSongListContainer() {
 
 function createSongList(data, songListContainer) {
     for (const song of data) {
+        const artistNode = document.createElement("div");
+        artistNode.className = "artist";
+        artistNode.innerHTML = song.artist;
+        songListContainer.appendChild(artistNode);
         const songNode = document.createElement("div");
         songNode.className = "song";
         songNode.innerHTML = song.title ? song.title : song.filename;
