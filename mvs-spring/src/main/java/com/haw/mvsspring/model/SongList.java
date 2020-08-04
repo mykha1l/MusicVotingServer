@@ -9,7 +9,7 @@ import org.apache.commons.io.filefilter.WildcardFileFilter;
 
 public class SongList {
 
-    private ArrayList<Song> songList;
+    private final ArrayList<Song> songList;
 
     public SongList(final String path) {
         songList = new ArrayList<>();
@@ -17,7 +17,7 @@ public class SongList {
         final FileFilter fileFilter = new WildcardFileFilter("*.mp3");
         final File[] fileList = file.listFiles(fileFilter);
         for (final File song : fileList) {
-            songList.add(new Song(song.getName()));
+            songList.add(new Song(song));
         }
     }
 
