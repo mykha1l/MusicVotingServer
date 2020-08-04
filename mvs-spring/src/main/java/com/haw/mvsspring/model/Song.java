@@ -1,19 +1,13 @@
 package com.haw.mvsspring.model;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
 
-import org.apache.tika.exception.TikaException;
-import org.apache.tika.metadata.Metadata;
-import org.apache.tika.parser.ParseContext;
-import org.apache.tika.parser.Parser;
-import org.apache.tika.parser.mp3.Mp3Parser;
-import org.xml.sax.*;
-import org.xml.sax.SAXException;
-import org.xml.sax.helpers.DefaultHandler;
+import com.mpatric.mp3agic.ID3v1;
+import com.mpatric.mp3agic.ID3v2;
+import com.mpatric.mp3agic.InvalidDataException;
+import com.mpatric.mp3agic.Mp3File;
+import com.mpatric.mp3agic.UnsupportedTagException;
 
 public class Song {
 
@@ -23,32 +17,27 @@ public class Song {
     private String genre;
     private String album;
     private String duration;
+    private byte[] albumImage;
 
-    public Song(final File mp3File) {
-        try {
-            final InputStream input = new FileInputStream(mp3File);
-            final ContentHandler handler = new DefaultHandler();
-            final Metadata metadata = new Metadata();
-            final Parser parser = new Mp3Parser();
-            final ParseContext parseCtx = new ParseContext();
-            parser.parse(input, handler, metadata, parseCtx);
-            input.close();
-            this.filename = mp3File.getName();
-            this.title = metadata.get("title");
-            this.artist = metadata.get("xmpDM:artist");
-            this.genre = metadata.get("xmpDM:genre");
-            this.album = metadata.get("xmpDM:album");
-            this.duration = metadata.get("xmpDM:duration");
-        } catch (final FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (final IOException e) {
-            e.printStackTrace();
-        } catch (final SAXException e) {
-            e.printStackTrace();
-        } catch (final TikaException e) {
-            e.printStackTrace();
-        }
+    public Song(final File file) throws UnsupportedTagException, InvalidDataException, IOException {
+        Mp3File mp3file = new Mp3File(file);
+        this.filename = file.getName();
+        this.duration = String.valueOf(mp3file.getLengthInSeconds());
         
+        if (mp3file.hasId3v2Tag()) {
+            ID3v2 id3v2Tag = mp3file.getId3v2Tag();
+            this.title = id3v2Tag.getTitle();
+            this.artist = id3v2Tag.getArtist();
+            this.album = id3v2Tag.getAlbum();
+            this.genre = id3v2Tag.getGenreDescription();
+            this.albumImage = id3v2Tag.getAlbumImage();
+        } else if (mp3file.hasId3v1Tag()) {
+            ID3v1 id3v1Tag = mp3file.getId3v1Tag();
+            this.title = id3v1Tag.getTitle();
+            this.artist = id3v1Tag.getArtist();
+            this.album = id3v1Tag.getAlbum();
+            this.genre = id3v1Tag.getGenreDescription();
+        }        
     }
 
     public String getFilename() {
@@ -69,6 +58,9 @@ public class Song {
     }
     public String getDuration() {
         return duration;
+    }
+    public byte[] getAlbumImage() {
+        return albumImage;
     }
 
 }
