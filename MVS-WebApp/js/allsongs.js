@@ -13,7 +13,7 @@ function createSongList(data, songListContainer) {
     for (const song of data) {
         const songNode = document.createElement("div");
         songNode.className = "song";
-        songNode.innerHTML = song.rawName;
+        songNode.innerHTML = song.title ? song.title : song.filename;
         songListContainer.appendChild(songNode);
     }
 }
