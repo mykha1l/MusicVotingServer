@@ -31,7 +31,12 @@ body {
     flex-wrap: wrap;
     justify-content: center;
 }
+
 .song {
+    cursor: pointer;
+}
+
+.song-name {
     color: gray;
     margin: 5px;
     text-align: center;

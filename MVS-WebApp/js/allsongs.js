@@ -9,16 +9,34 @@ function findSongListContainer() {
     return document.getElementsByClassName("songlist")[0];
 }
 
+function clearSongListContainer(songListContainer) {
+    songListContainer.innerHTML = "";
+}
+
+function createSongNodeElement(className, data, parent, onclick) {
+    const el = document.createElement("div");
+    el.className = className;
+    if (data) {
+        el.innerHTML = data;
+    }
+    if (onclick) {
+        el.onclick = onclick;
+    }
+    parent.appendChild(el);
+
+    return el;
+}
+
+function createSongNode(song, songListContainer, onclick) {
+    const songEl = createSongNodeElement("song", null, songListContainer, onclick);
+    createSongNodeElement("artist", song.artist, songEl );
+    createSongNodeElement("song-name", song.title ? song.title : song.filename, songEl );
+}
+
 function createSongList(data, songListContainer) {
+    clearSongListContainer(songListContainer);
     for (const song of data) {
-        const artistNode = document.createElement("div");
-        artistNode.className = "artist";
-        artistNode.innerHTML = song.artist;
-        songListContainer.appendChild(artistNode);
-        const songNode = document.createElement("div");
-        songNode.className = "song";
-        songNode.innerHTML = song.title ? song.title : song.filename;
-        songListContainer.appendChild(songNode);
+        createSongNode(song, songListContainer)
     }
 }
 
@@ -29,7 +47,7 @@ function renderErrorMsg(message) {
     document.getElementsByTagName("body")[0].appendChild(errorNode);
 }
 
-function init() {
+function initAllSongs() {
     const songListContainer = findSongListContainer();
     if (!songListContainer) {
         renderErrorMsg("Cannot find songListContainer");
