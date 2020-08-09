@@ -30,6 +30,7 @@ function createSongNodeElement(className, data, parent, onclick) {
 function createSongNode(song, songListContainer, onclick) {
     const songEl = createSongNodeElement("song", null, songListContainer, onclick);
     createSongNodeElement("artist", song.artist, songEl );
+    createSongNodeElement("image", (song.albumImage) ? '<img width ="200px" src="data:image/png;base64,' + song.albumImage + '" />' : '' , songEl );
     createSongNodeElement("song-name", song.title ? song.title : song.filename, songEl );
 }
 

@@ -34,6 +34,9 @@ body {
 
 .song {
     cursor: pointer;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
 }
 
 .song-name {
@@ -42,6 +45,11 @@ body {
     text-align: center;
     font-weight: 700;
     padding-bottom: 5px;
+    flex: 0 0 50%;
+}
+
+.image {
+    flex: 0 0 100%;
 }
 
 .artist {
@@ -50,6 +58,7 @@ body {
     text-align: center;
     font-weight: 400;
     padding-top: 5px;
+    flex: 0 0 50%;
 }
 
 .error {
