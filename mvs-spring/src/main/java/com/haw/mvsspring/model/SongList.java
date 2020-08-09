@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileFilter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import com.mpatric.mp3agic.InvalidDataException;
@@ -13,7 +14,7 @@ import org.apache.commons.io.filefilter.WildcardFileFilter;
 
 public class SongList {
 
-    private final ArrayList<Song> songList;
+    private ArrayList<Song> songList;
 
     public SongList(final String path) throws UnsupportedTagException, InvalidDataException, IOException {
         songList = new ArrayList<>();
@@ -30,6 +31,7 @@ public class SongList {
     }
 
     public List<Song[]> getSongPairs() {
+        Collections.shuffle(songList);
         final List<Song[]> votingList = new ArrayList<>();
         int i = 0;
         while (i < songList.size()) {
