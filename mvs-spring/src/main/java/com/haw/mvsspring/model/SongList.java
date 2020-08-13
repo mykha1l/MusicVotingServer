@@ -41,6 +41,7 @@ public class SongList {
                 pair[1] = songList.get(i);
             }
             votingList.add(pair);
+            ++i;
         }
 
         return votingList;
