@@ -24,4 +24,9 @@ public class SongsController {
         return new SongList("../MVS-WebApp/songs").getSongPairs();
     }
 
+    @PostMapping("/api/v1/vote")
+    void newEmployee(@RequestBody List<String> songs) {
+      System.out.println("received votes: " + songs.toString());
+    }
+
 }
