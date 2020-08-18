@@ -15,15 +15,31 @@ class _HomeState extends State<Home> {
         title: Text('Music Voting System'),
         centerTitle: true,
       ),
-      body: Column(
-        children: <Widget>[
-          FlatButton.icon(
+      body: Center(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            RaisedButton.icon(
               onPressed: () {
                 Navigator.pushNamed(context, '/songList');
               },
               icon: Icon(Icons.music_note),
-              label: Text('List of all songs'))
-        ],
+              label:
+                  Text('List of all songs', style: TextStyle(fontSize: 18.0)),
+              padding: const EdgeInsets.all(20.0),
+            ),
+            const SizedBox(height: 30),
+            RaisedButton.icon(
+              onPressed: () {
+                Navigator.pushNamed(context, '/pairsOfSongs');
+              },
+              icon: Icon(Icons.music_note),
+              label: Text('Pairs of Songs', style: TextStyle(fontSize: 18.0)),
+              padding: const EdgeInsets.all(20.0),
+            ),
+            const SizedBox(height: 30),
+          ],
+        ),
       ),
     );
   }

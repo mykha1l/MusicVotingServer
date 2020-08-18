@@ -2,18 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:mvs_flutter/Model/Song.dart';
 import 'package:mvs_flutter/services/apiexamples.dart';
 
-class SongList extends StatefulWidget {
+class PairsOfSongs extends StatefulWidget {
   @override
-  _SongListState createState() => _SongListState();
+  _PairsOfSongsState createState() => _PairsOfSongsState();
 }
 
-class _SongListState extends State<SongList> {
+class _PairsOfSongsState extends State<PairsOfSongs> {
   List<Song> _songs = List<Song>();
 
   @override
   void initState() {
     super.initState();
-    fetchSongs().then((value) {
+    fetchPairsOfSongs().then((value) {
       setState(() {
         _songs.addAll(value);
       });
@@ -25,7 +25,7 @@ class _SongListState extends State<SongList> {
     return Scaffold(
       backgroundColor: Colors.grey[200],
       appBar: new AppBar(
-        title: Text('All Songs'),
+        title: Text('Voting Panel'),
         centerTitle: true,
         elevation: 0,
       ),
