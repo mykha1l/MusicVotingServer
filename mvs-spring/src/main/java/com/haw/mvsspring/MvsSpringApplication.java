@@ -19,6 +19,7 @@ public class MvsSpringApplication {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/api/v1/songs").allowedOrigins("*");
+                registry.addMapping("/api/v1/pairs").allowedOrigins("*");
             }
         };
     }
