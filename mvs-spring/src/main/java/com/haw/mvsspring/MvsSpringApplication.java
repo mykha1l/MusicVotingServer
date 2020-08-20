@@ -20,6 +20,7 @@ public class MvsSpringApplication {
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/api/v1/songs").allowedOrigins("*");
                 registry.addMapping("/api/v1/pairs").allowedOrigins("*");
+                registry.addMapping("/api/v1/vote").allowedOrigins("*");
             }
         };
     }
