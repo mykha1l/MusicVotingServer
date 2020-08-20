@@ -31,7 +31,6 @@ public class SongList {
     }
 
     public List<Song[]> getSongPairs() {
-        Collections.shuffle(songList);
         final List<Song[]> votingList = new ArrayList<>();
         int i = 0;
         while (i < songList.size()) {
