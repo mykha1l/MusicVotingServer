@@ -3,6 +3,10 @@ package com.haw.mvsspring.controller;
 import java.io.IOException;
 import java.util.List;
 
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+
+import com.haw.mvsspring.model.MyPlayer;
 import com.haw.mvsspring.model.Song;
 import com.haw.mvsspring.model.SongList;
 import com.haw.mvsspring.model.VotesHandler;
@@ -10,6 +14,8 @@ import com.mpatric.mp3agic.InvalidDataException;
 import com.mpatric.mp3agic.UnsupportedTagException;
 
 import org.springframework.web.bind.annotation.*;
+
+import javazoom.jl.decoder.JavaLayerException;
 
 @RequestMapping
 @RestController
@@ -29,10 +35,12 @@ public class SongsController {
     }
 
     @PostMapping("/api/v1/vote")
-    void newEmployee(@RequestBody List<String> songs) {
+    void newEmployee(@RequestBody List<String> songs)
+            throws UnsupportedAudioFileException, IOException, LineUnavailableException, JavaLayerException {
         VotesHandler.votes.add(songs);
         if (VotesHandler.votes.size() == MAX_VOTERS) {
             System.out.println("Mostly voted songs: " + VotesHandler.getMostlyVotedSongs(MAX_SONGS_SELECTED));
+            MyPlayer.play(VotesHandler.getMostlyVotedSongs(MAX_SONGS_SELECTED));
         }
         System.out.println("received votes: " + songs.toString());
     }
