@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.FileFilter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import com.mpatric.mp3agic.InvalidDataException;
@@ -31,20 +30,31 @@ public class SongList {
     }
 
     public List<Song[]> getSongPairs() {
-        Collections.shuffle(songList);
+        
+        makeSongListEven();
+        
+        return makePairsList();
+    }
+
+    private void makeSongListEven() {
+        if ((songList.size() % 2) != 0) {
+            songList.remove(songList.size() - 1);
+        }
+    }
+
+    private List<Song[]> makePairsList() {
+
         final List<Song[]> votingList = new ArrayList<>();
-        int i = 0;
-        while (i < songList.size()) {
+        for (int i = 0; i < songList.size(); i = i + 2) {
             final Song[] pair = new Song[2];
             pair[0] = songList.get(i);
-            if (++i < songList.size()) {
-                pair[1] = songList.get(i);
-            }
+            pair[1] = songList.get(i + 1);
             votingList.add(pair);
-            ++i;
         }
 
         return votingList;
     }
+
+    
 
 }

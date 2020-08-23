@@ -50,10 +50,6 @@ function renderErrorMsg(message) {
 
 function initAllSongs() {
     const songListContainer = findSongListContainer();
-    if (!songListContainer) {
-        renderErrorMsg("Cannot find songListContainer");
-        return;
-    }
     getAllSongs().then(data => createSongList(data, songListContainer))
         .catch(reason => renderErrorMsg(reason.message));
 }
