@@ -11,24 +11,22 @@ Future<List<Song>> fetchSongs() async {
     var songsJson = json.decode(response.body);
     for (var noteJson in songsJson) {
       songs.add(Song.fromJson(noteJson));
-      print(songsJson);
     }
   }
   return songs;
 }
 
-Future<List<Song>> fetchPairsOfSongs() async {
-  Response response = await get('http://10.194.1.191:8080/api/v1/pairs');
-  var songs = List<Song>();
-  if (response.statusCode == 200) {
-    List<dynamic> data = jsonDecode(response.body);
-    //var songsJson = json.decode(response.body);
-    //var replaced = songsJson.substring(1);
-    //print(data);
-    for (var noteJson in data) {
-      print(Song.fromJson(noteJson));
-      songs.add(Song.fromJson(noteJson));
+Future<List<List<Song>>> getSongs() async {
+  try {
+    Response response = await get('http://10.194.1.191:8080/api/v1/pairs');
+    var songs = List<List<Song>>();
+    if (response.statusCode == 200) {
+      songs = songFromJson(response.body);
+      return songs;
+    } else {
+      return List<List<Song>>();
     }
+  } catch (e) {
+    return List<List<Song>>();
   }
-  return songs;
 }
