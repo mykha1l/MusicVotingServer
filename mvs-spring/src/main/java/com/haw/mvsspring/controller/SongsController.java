@@ -35,7 +35,7 @@ public class SongsController {
     }
 
     @PostMapping("/api/v1/vote")
-    void newEmployee(@RequestBody List<String> songs)
+    void submitVotes(@RequestBody List<String> songs)
             throws UnsupportedAudioFileException, IOException, LineUnavailableException, JavaLayerException {
         VotesHandler.votes.add(songs);
         if (VotesHandler.votes.size() == MAX_VOTERS) {
