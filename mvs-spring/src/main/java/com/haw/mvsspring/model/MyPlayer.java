@@ -13,11 +13,14 @@ public class MyPlayer {
 
     public static void play(List<String> filenames)
             throws FileNotFoundException, JavaLayerException, UnsupportedEncodingException {
-        final File file = new File("../MVS-WebApp/songs/" + filenames.get(0));
-        final FileInputStream fis = new FileInputStream(file);
-        final Player playMP3 = new Player(fis);
 
-        playMP3.play();
+        for (final String filename : filenames) {
+            final File file = new File("../MVS-WebApp/songs/" + filename);
+            final FileInputStream fis = new FileInputStream(file);
+            final Player playMP3 = new Player(fis);
+            playMP3.play(100);
+            playMP3.close();
+        }
     }
 
 }
