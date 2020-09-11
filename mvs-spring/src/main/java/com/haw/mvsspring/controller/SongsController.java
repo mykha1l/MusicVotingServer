@@ -42,4 +42,9 @@ public class SongsController {
         System.out.println("received votes: " + songs.toString());
     }
 
+    @GetMapping("/api/v1/currentSong")
+    public String getCurrentSong() {
+        return MyPlayer.currentSong;
+    }
+
 }

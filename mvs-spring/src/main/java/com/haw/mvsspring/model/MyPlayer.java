@@ -11,6 +11,8 @@ import javazoom.jl.player.*;
 
 public class MyPlayer {
 
+    public static String currentSong;
+
     public static void play(List<String> filenames)
             throws FileNotFoundException, JavaLayerException, UnsupportedEncodingException {
 
@@ -18,7 +20,8 @@ public class MyPlayer {
             final File file = new File("../MVS-WebApp/songs/" + filename);
             final FileInputStream fis = new FileInputStream(file);
             final Player playMP3 = new Player(fis);
-            playMP3.play(100);
+            currentSong = filename;
+            playMP3.play(300);
             playMP3.close();
         }
     }

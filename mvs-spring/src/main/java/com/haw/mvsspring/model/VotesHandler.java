@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 
 public class VotesHandler {
 
-    public static int votersNumber = 2;
+    public static int votersNumber = 1;
     public static int playlistSize = 3;
 
     public static final ArrayList<List<String>> votes = new ArrayList<>();
