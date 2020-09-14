@@ -11,13 +11,16 @@ import java.util.stream.Collectors;
 
 public class VotesHandler {
 
+    public static int votersNumber = 1;
+    public static int playlistSize = 3;
+
     public static final ArrayList<List<String>> votes = new ArrayList<>();
 
-    public static ArrayList<String> getMostlyVotedSongs(final int resultSize) {
+    public static ArrayList<String> getMostlyVotedSongs() {
         final Map<String, Integer> songMap = createSongMap(votes);
         final Map<String, Integer> sortedSongMap = sortSongMap(songMap);
 
-        return getTopSongs(sortedSongMap, resultSize);
+        return getTopSongs(sortedSongMap);
     }
 
     public static Map<String, Integer> createSongMap(final ArrayList<List<String>> votesArray) {
@@ -41,13 +44,13 @@ public class VotesHandler {
                 .collect(Collectors.toMap(Entry::getKey, Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new));
     }
 
-    public static ArrayList<String> getTopSongs(final Map<String, Integer> sortedSongMap, int resultSize) {
+    public static ArrayList<String> getTopSongs(final Map<String, Integer> sortedSongMap) {
         final ArrayList<String> result = new ArrayList<>();
         int i = 0;
         for (Map.Entry<String, Integer> entry : sortedSongMap.entrySet()) {
             result.add(entry.getKey());
             i++;
-            if (i == resultSize) {
+            if (i == playlistSize) {
                 break;
             }
         }
