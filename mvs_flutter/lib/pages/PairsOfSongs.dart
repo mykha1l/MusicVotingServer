@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mvs_flutter/Model/Song.dart';
-import 'package:mvs_flutter/services/apiexamples.dart';
+import 'package:mvs_flutter/services/ApiExamples.dart';
 
 class PairsOfSongs extends StatefulWidget {
   @override
@@ -9,15 +9,26 @@ class PairsOfSongs extends StatefulWidget {
 
 class _PairsOfSongsState extends State<PairsOfSongs> {
   List<List<Song>> _songs = List<List<Song>>();
+  bool _isChecked = true;
+  List<bool> inputs = new List<bool>();
 
   @override
   void initState() {
     super.initState();
-    getSongs().then((value) {
+    fetchPairOfSongs().then((value) {
       setState(() {
         _songs.addAll(value);
+        for (int i = 0; i < 20; i++) {
+          inputs.add(true);
+        }
         print(_songs);
       });
+    });
+  }
+
+  void ItemChange(bool val, int index) {
+    setState(() {
+      inputs[index] = val;
     });
   }
 
@@ -50,6 +61,8 @@ class _PairsOfSongsState extends State<PairsOfSongs> {
               padding: const EdgeInsets.all(16.0),
               child: Column(
                 children: <Widget>[
+//                  CheckboxListTile(
+//                    value: inputs[index],
                   Text(artist1),
                   Text(
                     song2[0].artist == null
@@ -75,6 +88,9 @@ class _PairsOfSongsState extends State<PairsOfSongs> {
                     song2[1].title == null ? withUpperCase2 : song2[1].title,
                     style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
                   ),
+                  // controlAffinity: ListTileControlAffinity.leading,
+                  // onChanged:(bool val){ItemChange(val, index);}
+                  //),
                 ],
               ),
             ),

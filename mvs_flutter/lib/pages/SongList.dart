@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mvs_flutter/Model/Song.dart';
-import 'package:mvs_flutter/services/apiexamples.dart';
+import 'package:mvs_flutter/services/ApiExamples.dart';
 
 class SongList extends StatefulWidget {
   @override
@@ -13,7 +13,7 @@ class _SongListState extends State<SongList> {
   @override
   void initState() {
     super.initState();
-    fetchSongs().then((value) {
+    fetchListOfSongs().then((value) {
       setState(() {
         _songs.addAll(value);
       });
