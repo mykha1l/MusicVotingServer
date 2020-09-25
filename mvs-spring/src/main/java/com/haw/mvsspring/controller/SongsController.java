@@ -47,4 +47,9 @@ public class SongsController {
         return MyPlayer.currentSong;
     }
 
+    @GetMapping("/api/v1/stop")
+    public void stopPlaying() {
+        MyPlayer.stop();
+    }
+
 }

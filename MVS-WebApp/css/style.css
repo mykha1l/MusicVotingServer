@@ -73,3 +73,8 @@ body {
     border: 2px solid red;
     background-color: rgb(247, 217, 217);
 }
+
+.stop-button {
+    background-color: red;
+    width: max-content;
+}
