@@ -10,9 +10,11 @@ import com.haw.mvsspring.model.MyPlayer;
 import com.haw.mvsspring.model.Song;
 import com.haw.mvsspring.model.SongList;
 import com.haw.mvsspring.model.VotesHandler;
+import com.haw.mvsspring.service.SongService;
 import com.mpatric.mp3agic.InvalidDataException;
 import com.mpatric.mp3agic.UnsupportedTagException;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javazoom.jl.decoder.JavaLayerException;
@@ -21,14 +23,17 @@ import javazoom.jl.decoder.JavaLayerException;
 @RestController
 public class SongsController {
 
+    @Autowired
+    private SongService songService;
+
     @GetMapping("/api/v1/songs")
     public List<Song> getSongList() throws UnsupportedTagException, InvalidDataException, IOException {
-        return new SongList("../MVS-WebApp/songs").getSongList();
+        return songService.getAllSongs();
     }
 
     @GetMapping("/api/v1/pairs")
     public List<Song[]> getSongPairs() throws UnsupportedTagException, InvalidDataException, IOException {
-        return new SongList("../MVS-WebApp/songs").getSongPairs();
+        return new SongList(songService).getSongPairs();
     }
 
     @PostMapping("/api/v1/vote")
