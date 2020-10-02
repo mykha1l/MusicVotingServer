@@ -1,4 +1,4 @@
-const initAllSongs = () => {
+export const initAllSongs = () => {
     const songListContainer = findSongListContainer();
     getAllSongs().then(data => createSongList(data, songListContainer))
         .catch(reason => renderErrorMsg(reason.message));
@@ -53,5 +53,3 @@ function renderErrorMsg(message) {
     errorNode.innerHTML = message;
     document.getElementsByTagName("body")[0].appendChild(errorNode);
 }
-
-export default initAllSongs;

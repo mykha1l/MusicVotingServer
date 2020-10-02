@@ -6,20 +6,13 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <div class="navbar">
-    <img src="img/icon.png" />
-    <button class="navigationbar-items" onclick="initAllSongs();">All Songs</button>
-    <button class="navigationbar-items">Current Song</button>
-    <button class="navigationbar-items">Mostly votted</button>
-    <button class="navigationbar-items">Setting</button>
+  <div class="navbar-container">
   </div>
   <div class="songlist">
   </div>
 
   <!-- Note: when deploying, replace "development.js" with "production.min.js". -->
-  <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
   <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>  <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
-  <script src="js/allsongs.js"></script>
-  <script src="js/reactComponents/currentSong.js" type="text/babel"></script>
+  <script src="mvs-webpack/dist/main.js"></script>
 </body>
 </html>
