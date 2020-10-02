@@ -19,22 +19,23 @@ public class SongList {
 
     public List<Song[]> getSongPairs() {
         
-        makeSongListEven();
+        final var evenSongList = getEvenSongList();
         
-        return makePairsList();
+        return getPairsList(evenSongList);
     }
 
-    private void makeSongListEven() {
-        var songList = songService.getAllSongs();
+    private List<Song> getEvenSongList() {
+        final var songList = getSongList();
         if ((songList.size() % 2) != 0) {
             songList.remove(songList.size() - 1);
         }
+
+        return songList;
     }
 
-    private List<Song[]> makePairsList() {
+    private List<Song[]> getPairsList(List<Song> songList) {
 
         final List<Song[]> votingList = new ArrayList<>();
-        var songList = songService.getAllSongs();
         for (int i = 0; i < songList.size(); i = i + 2) {
             final Song[] pair = new Song[2];
             pair[0] = songList.get(i);

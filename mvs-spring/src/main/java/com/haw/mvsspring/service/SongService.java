@@ -18,7 +18,7 @@ public class SongService {
     private final SongDao songDao;
 
     @Autowired
-    public SongService(@Qualifier("simpleDao") SongDao songDao)
+    public SongService(@Qualifier("sqlite") SongDao songDao)
             throws UnsupportedTagException, InvalidDataException, IOException {
         songDao.init();
         this.songDao = songDao;
