@@ -1,5 +1,5 @@
 export const initAllSongs = () => {
-    const songListContainer = findSongListContainer();
+    const songListContainer = document.getElementsByClassName("songlist")[0];
     getAllSongs().then(data => createSongList(data, songListContainer))
         .catch(reason => renderErrorMsg(reason.message));
 }
@@ -11,11 +11,7 @@ async function getAllSongs() {
     return json;
 }
 
-function findSongListContainer() {
-    return document.getElementsByClassName("songlist")[0];
-}
-
-function clearSongListContainer(songListContainer) {
+export const clearSongListContainer = (songListContainer) => {
     songListContainer.innerHTML = "";
 }
 
@@ -33,7 +29,7 @@ function createSongNodeElement(className, data, parent, onclick) {
     return el;
 }
 
-function createSongNode(song, songListContainer, onclick) {
+export const createSongNode = (song, songListContainer, onclick) => {
     const songEl = createSongNodeElement("song", null, songListContainer, onclick);
     createSongNodeElement("artist", song.artist, songEl );
     createSongNodeElement("image", (song.albumImage) ? '<img width ="200px" src="data:image/png;base64,' + song.albumImage + '" />' : '' , songEl );
@@ -47,7 +43,7 @@ function createSongList(data, songListContainer) {
     }
 }
 
-function renderErrorMsg(message) {
+export const renderErrorMsg = (message) => {
     const errorNode = document.createElement("div");
     errorNode.className = "error";
     errorNode.innerHTML = message;

@@ -1,3 +1,7 @@
+import { renderErrorMsg } from './allsongs'
+import { clearSongListContainer } from './allsongs'
+import { createSongNode } from './allsongs'
+
 var songPairs = [];
 var votes = [];
 
@@ -39,8 +43,8 @@ function displayPair(index, songListContainer) {
     });
 }
 
-function initVoting() {
-    const songListContainer = findSongListContainer();
+export const initVoting = () => {
+    const songListContainer = document.getElementsByClassName("songlist")[0];
     if (!songListContainer) {
         renderErrorMsg("Cannot find songListContainer");
         return;

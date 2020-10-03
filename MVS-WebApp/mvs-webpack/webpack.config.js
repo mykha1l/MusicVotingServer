@@ -1,7 +1,12 @@
 const HtmlWebPackPlugin = require("html-webpack-plugin");
+const path = require('path');
 
 module.exports = {
-    entry: './src/js/reactComponents/admin.js',
+    entry: './src/js/reactComponents/user.js',
+    output: {
+        path: path.resolve(__dirname, 'dist'),
+        filename: "user.js"
+    },
     module: {
         rules: [
             {

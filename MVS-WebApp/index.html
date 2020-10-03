@@ -9,16 +9,14 @@
 </head>
 
 <body>
-  <div class="navbar">
-    <img src="img/icon.png" />
-    <button class="navigationbar-items" onclick="() => initAllSongs();">All Songs</button>
-    <button class="navigationbar-items" onclick="() => initVoting();">Start voting</button>
+  <div class="navbar-container">
   </div>
   <div class="songlist">
   </div>
 
-  <script src="js/allsongs.js"></script>
-  <script src="js/voting.js"></script>
+  <!-- Note: when deploying, replace "development.js" with "production.min.js". -->
+  <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>  <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+  <script src="mvs-webpack/dist/user.js"></script>
 </body>
 
 </html>
