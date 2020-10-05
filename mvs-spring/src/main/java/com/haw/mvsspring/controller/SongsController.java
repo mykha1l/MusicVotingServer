@@ -8,7 +8,6 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 
 import com.haw.mvsspring.model.MyPlayer;
 import com.haw.mvsspring.model.Song;
-import com.haw.mvsspring.model.SongList;
 import com.haw.mvsspring.model.VotesHandler;
 import com.haw.mvsspring.service.SongService;
 import com.mpatric.mp3agic.InvalidDataException;
@@ -33,7 +32,7 @@ public class SongsController {
 
     @GetMapping("/api/v1/pairs")
     public List<Song[]> getSongPairs() throws UnsupportedTagException, InvalidDataException, IOException {
-        return new SongList(songService).getSongPairs();
+        return songService.getSongPairs();
     }
 
     @PostMapping("/api/v1/vote")
