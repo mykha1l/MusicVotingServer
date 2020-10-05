@@ -1,4 +1,4 @@
-package com.haw.mvsspring.model;
+package com.haw.mvsspring.service;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -9,21 +9,24 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.stream.Collectors;
 
+import org.springframework.stereotype.Service;
+
+@Service
 public class VotesHandler {
 
-    public static int votersNumber = 1;
-    public static int playlistSize = 3;
+    public final int votersNumber = 2;
+    public final int playlistSize = 3;
 
-    public static final ArrayList<List<String>> votes = new ArrayList<>();
+    public final ArrayList<List<String>> votes = new ArrayList<>();
 
-    public static ArrayList<String> getMostlyVotedSongs() {
+    public ArrayList<String> getMostlyVotedSongs() {
         final Map<String, Integer> songMap = createSongMap(votes);
         final Map<String, Integer> sortedSongMap = sortSongMap(songMap);
 
         return getTopSongs(sortedSongMap);
     }
 
-    public static Map<String, Integer> createSongMap(final ArrayList<List<String>> votesArray) {
+    public Map<String, Integer> createSongMap(final ArrayList<List<String>> votesArray) {
         final Map<String, Integer> songMap = new HashMap<>();
         for (final List<String> list : votes) {
             for (final String name : list) {
@@ -39,12 +42,12 @@ public class VotesHandler {
         return songMap;
     }
 
-    public static Map<String, Integer> sortSongMap(final Map<String, Integer> songMap) {
+    public Map<String, Integer> sortSongMap(final Map<String, Integer> songMap) {
         return songMap.entrySet().stream().sorted(Entry.comparingByValue(Comparator.reverseOrder()))
                 .collect(Collectors.toMap(Entry::getKey, Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new));
     }
 
-    public static ArrayList<String> getTopSongs(final Map<String, Integer> sortedSongMap) {
+    public ArrayList<String> getTopSongs(final Map<String, Integer> sortedSongMap) {
         final ArrayList<String> result = new ArrayList<>();
         int i = 0;
         for (Map.Entry<String, Integer> entry : sortedSongMap.entrySet()) {

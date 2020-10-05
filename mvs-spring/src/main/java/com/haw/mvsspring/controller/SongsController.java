@@ -8,7 +8,7 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 
 import com.haw.mvsspring.model.MyPlayer;
 import com.haw.mvsspring.model.Song;
-import com.haw.mvsspring.model.VotesHandler;
+import com.haw.mvsspring.service.VotesHandler;
 import com.haw.mvsspring.service.SongService;
 import com.mpatric.mp3agic.InvalidDataException;
 import com.mpatric.mp3agic.UnsupportedTagException;
@@ -25,6 +25,9 @@ public class SongsController {
     @Autowired
     private SongService songService;
 
+    @Autowired
+    private VotesHandler votesHandler;
+
     @GetMapping("/api/v1/songs")
     public List<Song> getSongList() throws UnsupportedTagException, InvalidDataException, IOException {
         return songService.getAllSongs();
@@ -38,10 +41,10 @@ public class SongsController {
     @PostMapping("/api/v1/vote")
     void submitVotes(@RequestBody List<String> songs)
             throws UnsupportedAudioFileException, IOException, LineUnavailableException, JavaLayerException {
-        VotesHandler.votes.add(songs);
-        if (VotesHandler.votes.size() == VotesHandler.votersNumber) {
-            System.out.println("Mostly voted songs: " + VotesHandler.getMostlyVotedSongs());
-            MyPlayer.play(VotesHandler.getMostlyVotedSongs());
+                votesHandler.votes.add(songs);
+        if (votesHandler.votes.size() == votesHandler.votersNumber) {
+            System.out.println("Mostly voted songs: " + votesHandler.getMostlyVotedSongs());
+            MyPlayer.play(votesHandler.getMostlyVotedSongs());
         }
         System.out.println("received votes: " + songs.toString());
     }
