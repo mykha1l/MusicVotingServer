@@ -1,4 +1,4 @@
-package com.haw.mvsspring.model;
+package com.haw.mvsspring.service;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -6,15 +6,18 @@ import java.io.FileNotFoundException;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import javazoom.jl.decoder.JavaLayerException;
 import javazoom.jl.player.*;
 
+@Service
 public class MyPlayer {
 
-    public static String currentSong;
-    public static Player player;
+    public String currentSong;
+    public Player player;
 
-    public static void play(List<String> filenames)
+    public void play(List<String> filenames)
             throws FileNotFoundException, JavaLayerException, UnsupportedEncodingException {
 
         for (final String filename : filenames) {
@@ -27,7 +30,7 @@ public class MyPlayer {
         }
     }
 
-    public static void stop() {
+    public void stop() {
         if (player != null) {
             player.close();
         }
