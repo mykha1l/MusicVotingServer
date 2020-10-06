@@ -3,14 +3,17 @@ package com.haw.mvsspring.dao;
 import java.io.File;
 import java.io.FileFilter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
+import com.haw.mvsspring.Exeptions.MyDatabaseExeption;
 import com.haw.mvsspring.model.Song;
 import com.mpatric.mp3agic.InvalidDataException;
 import com.mpatric.mp3agic.UnsupportedTagException;
 
 import org.apache.commons.io.filefilter.WildcardFileFilter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -35,12 +38,19 @@ public class SongDataAccessService implements SongDao {
     @Override
     public List<Song> getAllSongs() {
         final String sql = "SELECT * FROM song";
-        return jdbcTemplate.query(sql, (resultSet, i) -> {
-            return new Song( resultSet.getString("filename"),
-                    resultSet.getString("title"), resultSet.getString("artist"), resultSet.getString("genre"),
-                    resultSet.getString("album"), resultSet.getString("duration"),
-                    resultSet.getBytes("album_image"));
-        });
+        try {
+            var result = jdbcTemplate.query(sql, (resultSet, i) -> {
+                return new Song(resultSet.getString("filename"), resultSet.getString("title"),
+                        resultSet.getString("artist"), resultSet.getString("genre"), resultSet.getString("album"),
+                        resultSet.getString("duration"), resultSet.getBytes("album_image"));
+            });
+            if (result.isEmpty()) {
+                throw new MyDatabaseExeption("Database is empty.");
+            }
+            return result;
+        } catch (DataAccessException ex) {
+            throw new MyDatabaseExeption(ex);
+        }
     }
 
     public int removeAll() {
