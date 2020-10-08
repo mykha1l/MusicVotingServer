@@ -4,7 +4,7 @@ export const initAllSongs = () => {
         .catch(reason => renderErrorMsg(reason.message));
 }
 
-async function getAllSongs() {
+export async function getAllSongs() {
     const response = await fetch("http://localhost:8080/api/v1/songs");
     const json = await response.json();
 
