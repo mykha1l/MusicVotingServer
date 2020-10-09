@@ -5,14 +5,14 @@ import { createSongNode } from './allsongs'
 var songPairs = [];
 var votes = [];
 
-async function getPairs() {
+export async function getPairs() {
     const response = await fetch("http://localhost:8080/api/v1/pairs");
     const json = await response.json();
 
     return json;
 }
 
-async function sendVotes(votes) {
+export async function sendVotes(votes) {
     const response = await fetch('http://localhost:8080/api/v1/vote', {
         method: 'post',
         headers: {

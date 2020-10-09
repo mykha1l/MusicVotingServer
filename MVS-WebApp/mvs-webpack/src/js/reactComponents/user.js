@@ -3,6 +3,7 @@
 import { Navbar } from './navbar'
 import { SongList } from './songList';
 import { getAllSongs } from '../allsongs';
+import { getPairs } from '../voting';
 
 class User extends React.Component {
 
@@ -10,7 +11,8 @@ class User extends React.Component {
         super(props);
         this.state = {
             buttonClicked: '',
-            allSongs: ''
+            allSongs: '',
+            songPairs: '',
         };
     }
 
@@ -22,6 +24,8 @@ class User extends React.Component {
         if (prevState.buttonClicked != this.state.buttonClicked) {
             if (this.state.buttonClicked === 'allSongs') {
                 getAllSongs().then(data => { this.setState({ allSongs: data }) });
+            } else if (this.state.buttonClicked === 'voting') {
+                getPairs().then(data => { this.setState({ songPairs: data }) })
             }
         }
     }
@@ -30,7 +34,7 @@ class User extends React.Component {
         return (
             <div>
                 <Navbar buttonClicked={this.buttonClicked.bind(this)}></Navbar>
-                <SongList songs={this.state.allSongs}></SongList>
+                <SongList songs={this.state.allSongs} pairs={this.state.songPairs}></SongList>
             </div>
         )
     }
