@@ -1,7 +1,7 @@
 'use strict';
 
 import { Song } from './song'
-import {sendVotes} from '../voting'
+import {sendVotes} from '../api'
 
 export class SongList extends React.Component {
 

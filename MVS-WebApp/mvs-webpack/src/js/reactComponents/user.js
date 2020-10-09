@@ -2,8 +2,7 @@
 
 import { Navbar } from './navbar'
 import { SongList } from './songList';
-import { getAllSongs } from '../allsongs';
-import { getPairs } from '../voting';
+import { getAllSongs, getPairs } from '../api';
 
 class User extends React.Component {
 
