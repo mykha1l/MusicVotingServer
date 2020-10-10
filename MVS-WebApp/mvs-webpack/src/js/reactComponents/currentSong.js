@@ -1,9 +1,10 @@
 'use strict';
 
 class SkipButton extends React.Component {
+
     render() {
         return (
-            <button>
+            <button onClick={() => fetch("http://localhost:8080/api/v1/stop").then(() => this.props.reload())}>
                 Skip
             </button>
         )
@@ -19,6 +20,14 @@ export class CurrentSong extends React.Component {
         };
     }
 
+    reload() {
+        fetch('http://localhost:8080/api/v1/currentSong')
+            .then(response => response.text())
+            .then(data => this.setState({
+                data: data,
+            }));
+    }
+
     componentDidMount() {
         fetch('http://localhost:8080/api/v1/currentSong')
             .then(response => response.text())
@@ -30,7 +39,7 @@ export class CurrentSong extends React.Component {
         return (
             <div>
                 <div>{data}</div>
-                <SkipButton></SkipButton>
+                <SkipButton reload={this.reload.bind(this)}></SkipButton>
             </div>
         );
     }

@@ -7,8 +7,8 @@ export class AdminNavbar extends React.Component {
         return (
             <div className="navbar">
                 <img src="img/icon.png"></img>
-                <button className="navigationbar-items">All Songs</button>
-                <button className="navigationbar-items" onClick={() => displayCurrentSong()}>Current Song</button>
+                <button className="navigationbar-items" onClick={() => this.props.buttonClicked("allSongs")}>All Songs</button>
+                <button className="navigationbar-items" onClick={() => this.props.buttonClicked("currentSong")}>Current Song</button>
                 <button className="navigationbar-items">Mostly votted</button>
                 <button className="navigationbar-items">Setting</button>
             </div>
