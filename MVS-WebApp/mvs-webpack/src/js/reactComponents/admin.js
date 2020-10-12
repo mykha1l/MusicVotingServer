@@ -1,10 +1,9 @@
 'use strict';
 
-import {AdminNavbar} from './admin-navbar'
-import {CurrentSong} from './currentSong'
+import { AdminNavbar } from './admin-navbar'
+import { CurrentSong } from './currentSong'
 import { SongList } from './songList'
 import { getAllSongs } from '../api'
-import { Song } from './song'
 
 class Admin extends React.Component {
 

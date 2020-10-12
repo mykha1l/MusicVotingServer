@@ -1,7 +1,5 @@
 'use strict';
 
-import { displayCurrentSong } from "../admin"
-
 export class AdminNavbar extends React.Component {
     render() {
         return (

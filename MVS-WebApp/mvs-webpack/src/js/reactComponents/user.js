@@ -16,8 +16,8 @@ class User extends React.Component {
     }
 
     buttonClicked(button) {
-        this.setState({buttonClicked : button});
-    } 
+        this.setState({ buttonClicked: button });
+    }
 
     componentDidUpdate(prevProps, prevState) {
         if (prevState.buttonClicked != this.state.buttonClicked) {
