@@ -48,6 +48,7 @@ public class SongsController {
         if (votesHandler.votes.size() == votesHandler.votersNumber) {
             System.out.println("Mostly voted songs: " + votesHandler.getMostlyVotedSongs());
             myPlayer.play(votesHandler.getMostlyVotedSongs());
+            votesHandler.votes.clear();
         }
         System.out.println("received votes: " + songs.toString());
     }
