@@ -22,3 +22,12 @@ export async function getPairs() {
 
     return json;
 }
+
+export async function getMostlyVoted() {
+    const response = await fetch("http://localhost:8080/api/v1/mostlyVoted");
+    if (response.ok) {
+        return await response.json();
+    } else {
+        throw new Error('Cannot get mostly voted songs. Status: ' +  response.status);
+    }
+}
