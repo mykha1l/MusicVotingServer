@@ -44,7 +44,7 @@ public class SongsController {
     @PostMapping("/api/v1/vote")
     void submitVotes(@RequestBody List<String> songs)
             throws UnsupportedAudioFileException, IOException, LineUnavailableException, JavaLayerException {
-                votesHandler.votes.add(songs);
+        votesHandler.votes.add(songs);
         if (votesHandler.votes.size() == votesHandler.votersNumber) {
             System.out.println("Mostly voted songs: " + votesHandler.getMostlyVotedSongs());
             myPlayer.play(votesHandler.getMostlyVotedSongs());
