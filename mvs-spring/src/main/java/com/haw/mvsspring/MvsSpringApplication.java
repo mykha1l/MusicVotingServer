@@ -32,6 +32,7 @@ public class MvsSpringApplication {
                 registry.addMapping("/api/v1/songs").allowedOrigins("*");
                 registry.addMapping("/api/v1/pairs").allowedOrigins("*");
                 registry.addMapping("/api/v1/vote").allowedOrigins("*");
+                registry.addMapping("/api/v1/mostlyVoted").allowedOrigins("*");
             }
         };
     }

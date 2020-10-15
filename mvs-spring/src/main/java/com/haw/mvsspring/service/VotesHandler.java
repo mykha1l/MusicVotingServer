@@ -18,12 +18,13 @@ public class VotesHandler {
     public final int playlistSize = 3;
 
     public final ArrayList<List<String>> votes = new ArrayList<>();
+    public ArrayList<String> mostlyVoted = new ArrayList<>();
 
-    public ArrayList<String> getMostlyVotedSongs() {
+    public ArrayList<String> calculateMostlyVotedSongs() {
         final Map<String, Integer> songMap = createSongMap(votes);
         final Map<String, Integer> sortedSongMap = sortSongMap(songMap);
-
-        return getTopSongs(sortedSongMap);
+        mostlyVoted = getTopSongs(sortedSongMap);
+        return mostlyVoted;
     }
 
     public Map<String, Integer> createSongMap(final ArrayList<List<String>> votesArray) {

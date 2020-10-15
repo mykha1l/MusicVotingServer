@@ -1,5 +1,7 @@
 package com.haw.mvsspring.controller;
 
+import java.util.ArrayList;
+
 import java.io.IOException;
 import java.util.List;
 
@@ -46,8 +48,8 @@ public class SongsController {
             throws UnsupportedAudioFileException, IOException, LineUnavailableException, JavaLayerException {
         votesHandler.votes.add(songs);
         if (votesHandler.votes.size() == votesHandler.votersNumber) {
-            System.out.println("Mostly voted songs: " + votesHandler.getMostlyVotedSongs());
-            myPlayer.play(votesHandler.getMostlyVotedSongs());
+            System.out.println("Mostly voted songs: " + votesHandler.calculateMostlyVotedSongs());
+            myPlayer.play(votesHandler.calculateMostlyVotedSongs());
             votesHandler.votes.clear();
         }
         System.out.println("received votes: " + songs.toString());
@@ -56,6 +58,11 @@ public class SongsController {
     @GetMapping("/api/v1/currentSong")
     public String getCurrentSong() {
         return myPlayer.currentSong;
+    }
+
+    @GetMapping("/api/v1/mostlyVoted")
+    public ArrayList<String> mostlyVotedSongs() {
+       return votesHandler.mostlyVoted; 
     }
 
     @GetMapping("/api/v1/stop")
