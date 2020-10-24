@@ -1,12 +1,12 @@
 export async function getAllSongs() {
-    const response = await fetch("http://localhost:8080/api/v1/songs");
+    const response = await fetch("http://mvs.local:8080/api/v1/songs");
     const json = await response.json();
 
     return json;
 }
 
 export async function sendVotes(votes) {
-    const response = await fetch('http://localhost:8080/api/v1/vote', {
+    const response = await fetch('http://mvs.local:8080/api/v1/vote', {
         method: 'post',
         headers: {
             'Accept': 'application/json',
@@ -17,14 +17,14 @@ export async function sendVotes(votes) {
 }
 
 export async function getPairs() {
-    const response = await fetch("http://localhost:8080/api/v1/pairs");
+    const response = await fetch("http://mvs.local:8080/api/v1/pairs");
     const json = await response.json();
 
     return json;
 }
 
 export async function getMostlyVoted() {
-    const response = await fetch("http://localhost:8080/api/v1/mostlyVoted");
+    const response = await fetch("http://mvs.local:8080/api/v1/mostlyVoted");
     if (response.ok) {
         return await response.json();
     } else {
