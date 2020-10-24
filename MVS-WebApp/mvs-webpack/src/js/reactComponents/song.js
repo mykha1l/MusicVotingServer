@@ -9,13 +9,16 @@ export class Song extends React.Component {
                     <div className='song'>{this.props.data}</div>
                 )
             } else {
+                const artist = this.props.data.artist ? this.props.data.artist : this.props.data.filename;
                 return (
                     <div className='song' onClick={() => this.props.onClick(this.props.data.filename)}>
-                        <div className='artist'>{this.props.data.artist}</div>
+                        <div className='artist'>{artist}</div>
                         <div className='image'>
-                            <img width='200px' src={'data:image/png;base64,' + this.props.data.albumImage} />
+                            <img width='200px' src={this.props.data.albumImage ?
+                                'data:image/png;base64,' + this.props.data.albumImage :
+                                'img/no-image.png'} />
                         </div>
-                        <div className='song-name'>{this.props.data.title}</div>
+                        <div className='song-name'>{this.props.data.title ? this.props.data.title : '...'}</div>
                     </div>
                 )
             }
