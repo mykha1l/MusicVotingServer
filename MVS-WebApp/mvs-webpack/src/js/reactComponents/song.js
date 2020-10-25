@@ -14,7 +14,7 @@ export class Song extends React.Component {
                     <div className='song' onClick={() => this.props.onClick(this.props.data.filename)}>
                         <div className='artist'>{artist}</div>
                         <div className='image'>
-                            <img width='200px' src={this.props.data.albumImage ?
+                            <img width='100%' src={this.props.data.albumImage ?
                                 'data:image/png;base64,' + this.props.data.albumImage :
                                 'img/no-image.png'} />
                         </div>
