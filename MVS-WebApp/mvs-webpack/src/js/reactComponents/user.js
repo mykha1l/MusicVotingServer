@@ -3,6 +3,7 @@
 import { Navbar } from './navbar'
 import { SongList } from './songList';
 import { getAllSongs, getPairs } from '../api';
+import { SongUpload } from './SongUpload';
 
 class User extends React.Component {
 
@@ -30,12 +31,21 @@ class User extends React.Component {
     }
 
     render() {
-        return (
-            <div>
-                <Navbar buttonClicked={this.buttonClicked.bind(this)}></Navbar>
-                <SongList songs={this.state.allSongs} pairs={this.state.songPairs}></SongList>
-            </div>
-        )
+        if (this.state.buttonClicked === 'upload') {
+            return (
+                <div>
+                    <Navbar buttonClicked={this.buttonClicked.bind(this)}></Navbar>
+                    <SongUpload></SongUpload>
+                </div>
+            )
+        } else {
+            return (
+                <div>
+                    <Navbar buttonClicked={this.buttonClicked.bind(this)}></Navbar>
+                    <SongList songs={this.state.allSongs} pairs={this.state.songPairs}></SongList>
+                </div>
+            )
+        }
     }
 }
 
