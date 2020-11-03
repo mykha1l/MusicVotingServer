@@ -1,7 +1,7 @@
 package com.haw.mvsspring.controller;
 
 import java.util.ArrayList;
-
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
@@ -65,10 +65,23 @@ public class SongsController {
     @PostMapping("/api/v1/upload")
     public ResponseEntity upload(@RequestBody MultipartFile file) {
         System.out.println("received upload: " + file.getOriginalFilename());
+        final String filePath = "../MVS-WebApp/songs/" + file.getOriginalFilename();
         try (InputStream inputStream = file.getInputStream()) {
-            final String filePath = "../MVS-WebApp/songs/" + file.getOriginalFilename();
             Files.copy(inputStream, Paths.get(filePath), StandardCopyOption.REPLACE_EXISTING);
         } catch (IOException ex) {
+            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        try {
+            final Song song = new Song(new File(filePath));
+            songService.addSong(song);
+        } catch (UnsupportedTagException e) {
+            e.printStackTrace();
+            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        } catch (InvalidDataException e) {
+            e.printStackTrace();
+            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        } catch (IOException e) {
+            e.printStackTrace();
             return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return new ResponseEntity(HttpStatus.OK);
