@@ -3,18 +3,17 @@
 export class SongUpload extends React.Component {
 
     upload(input) {
-        fetch('http://www.example.net', {
+        const formData = new FormData();
+        formData.append('file', input.target.files[0]);
+        fetch('http://mvs.local:8080/api/v1/upload', {
             method: 'POST',
-            headers: {
-                "Content-Type": "audio/mpeg"
-            },
-            body: input.target.files[0]
+            body: formData
         }).then(
             response => response.json()
         ).then(
             success => console.log(success)
         ).catch(
-            error => console.log(error)
+            error => console.log("Song upload error: " + error)
         );
     }
 

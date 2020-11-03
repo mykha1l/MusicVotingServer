@@ -3,6 +3,10 @@ package com.haw.mvsspring.controller;
 import java.util.ArrayList;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.List;
 
 import javax.sound.sampled.LineUnavailableException;
@@ -16,7 +20,10 @@ import com.mpatric.mp3agic.InvalidDataException;
 import com.mpatric.mp3agic.UnsupportedTagException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javazoom.jl.decoder.JavaLayerException;
 
@@ -44,7 +51,7 @@ public class SongsController {
     }
 
     @PostMapping("/api/v1/vote")
-    void submitVotes(@RequestBody List<String> songs)
+    void submitVotes(@RequestBody final List<String> songs)
             throws UnsupportedAudioFileException, IOException, LineUnavailableException, JavaLayerException {
         votesHandler.votes.add(songs);
         if (votesHandler.votes.size() == votesHandler.votersNumber) {
@@ -53,6 +60,18 @@ public class SongsController {
             votesHandler.votes.clear();
         }
         System.out.println("received votes: " + songs.toString());
+    }
+
+    @PostMapping("/api/v1/upload")
+    public ResponseEntity upload(@RequestBody MultipartFile file) {
+        System.out.println("received upload: " + file.getOriginalFilename());
+        try (InputStream inputStream = file.getInputStream()) {
+            final String filePath = "../MVS-WebApp/songs/" + file.getOriginalFilename();
+            Files.copy(inputStream, Paths.get(filePath), StandardCopyOption.REPLACE_EXISTING);
+        } catch (IOException ex) {
+            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return new ResponseEntity(HttpStatus.OK);
     }
 
     @GetMapping("/api/v1/currentSong")
