@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.haw.mvsspring.Exeptions.MyDatabaseExeption;
+import com.haw.mvsspring.Exceptions.MyDatabaseException;
 import com.haw.mvsspring.model.Song;
 import com.mpatric.mp3agic.InvalidDataException;
 import com.mpatric.mp3agic.UnsupportedTagException;
@@ -45,11 +45,11 @@ public class SongDataAccessService implements SongDao {
                         resultSet.getString("duration"), resultSet.getBytes("album_image"));
             });
             if (result.isEmpty()) {
-                throw new MyDatabaseExeption("Database is empty.");
+                throw new MyDatabaseException("Database is empty.");
             }
             return result;
         } catch (DataAccessException ex) {
-            throw new MyDatabaseExeption(ex);
+            throw new MyDatabaseException(ex);
         }
     }
 

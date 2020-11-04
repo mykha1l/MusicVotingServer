@@ -13,11 +13,16 @@ class User extends React.Component {
             buttonClicked: '',
             allSongs: '',
             songPairs: '',
+            error: '',
         };
     }
 
     buttonClicked(button) {
-        this.setState({ buttonClicked: button });
+        this.setState({ buttonClicked: button, error: '' });
+    }
+
+    catchError(error) {
+        this.setState({error: error, buttonClicked: '', allSongs: '', songPairs: ''});
     }
 
     componentDidUpdate(prevProps, prevState) {
@@ -31,11 +36,18 @@ class User extends React.Component {
     }
 
     render() {
-        if (this.state.buttonClicked === 'upload') {
+        if (this.state.error) {
             return (
                 <div>
                     <Navbar buttonClicked={this.buttonClicked.bind(this)}></Navbar>
-                    <SongUpload></SongUpload>
+                    <div className='error'>{this.state.error}</div>
+                </div>
+            )
+        } else if (this.state.buttonClicked === 'upload') {
+            return (
+                <div>
+                    <Navbar buttonClicked={this.buttonClicked.bind(this)}></Navbar>
+                    <SongUpload error={this.catchError.bind(this)}></SongUpload>
                 </div>
             )
         } else {

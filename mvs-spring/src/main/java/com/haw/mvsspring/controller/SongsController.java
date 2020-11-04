@@ -13,6 +13,7 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
 import com.haw.mvsspring.service.MyPlayer;
+import com.haw.mvsspring.Exceptions.FileUploadException;
 import com.haw.mvsspring.model.Song;
 import com.haw.mvsspring.service.VotesHandler;
 import com.haw.mvsspring.service.SongService;
@@ -66,23 +67,27 @@ public class SongsController {
     public ResponseEntity upload(@RequestBody MultipartFile file) {
         System.out.println("received upload: " + file.getOriginalFilename());
         final String filePath = "../MVS-WebApp/songs/" + file.getOriginalFilename();
+        final File localFile = new File(filePath);
         try (InputStream inputStream = file.getInputStream()) {
             Files.copy(inputStream, Paths.get(filePath), StandardCopyOption.REPLACE_EXISTING);
         } catch (IOException ex) {
             return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
         }
         try {
-            final Song song = new Song(new File(filePath));
+            final Song song = new Song(localFile);
             songService.addSong(song);
         } catch (UnsupportedTagException e) {
             e.printStackTrace();
-            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+            localFile.delete();
+            throw new FileUploadException(e);
         } catch (InvalidDataException e) {
             e.printStackTrace();
-            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+            localFile.delete();
+            throw new FileUploadException(e);
         } catch (IOException e) {
             e.printStackTrace();
-            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+            localFile.delete();
+            throw new FileUploadException(e);
         }
         return new ResponseEntity(HttpStatus.OK);
     }

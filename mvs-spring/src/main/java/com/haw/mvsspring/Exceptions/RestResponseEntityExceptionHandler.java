@@ -1,4 +1,4 @@
-package com.haw.mvsspring.Exeptions;
+package com.haw.mvsspring.Exceptions;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -11,10 +11,15 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @ControllerAdvice
 public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionHandler {
 
-    @ExceptionHandler(value = { MyDatabaseExeption.class })
+    @ExceptionHandler(value = { MyDatabaseException.class })
     protected ResponseEntity<Object> handleConflict(RuntimeException ex, WebRequest request) {
         final String bodyOfResponse = "Database exeption: " + ex.getMessage();
         return handleExceptionInternal(ex, bodyOfResponse, new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR, request);
     }
 
+    @ExceptionHandler(value = { FileUploadException.class })
+    protected ResponseEntity<Object> handleFileUploadException(RuntimeException ex, WebRequest request) {
+        final String bodyOfResponse = "File upload exeption: " + ex.getMessage();
+        return handleExceptionInternal(ex, bodyOfResponse, new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR, request);
+    }
 }
