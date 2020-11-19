@@ -22,10 +22,8 @@ Future<List<List<Song>>> fetchPairOfSongs() async {
     var songs = List<List<Song>>();
     if (response.statusCode == 200) {
       songs = songFromJson(response.body);
-      return songs;
-    } else {
-      return List<List<Song>>();
     }
+    return songs;
   } catch (e) {
     return List<List<Song>>();
   }

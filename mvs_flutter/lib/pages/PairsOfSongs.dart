@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:mvs_flutter/Model/Song.dart';
 import 'package:mvs_flutter/services/ApiExamples.dart';
 
+import 'package:mvs_flutter/pages/PairsOfSongPage.dart';
+
 class PairsOfSongs extends StatefulWidget {
   @override
   _PairsOfSongsState createState() => _PairsOfSongsState();
@@ -9,95 +11,41 @@ class PairsOfSongs extends StatefulWidget {
 
 class _PairsOfSongsState extends State<PairsOfSongs> {
   List<List<Song>> _songs = List<List<Song>>();
-  bool _isChecked = true;
-  List<bool> inputs = new List<bool>();
-
-  @override
-  void initState() {
-    super.initState();
-    fetchPairOfSongs().then((value) {
-      setState(() {
-        _songs.addAll(value);
-        for (int i = 0; i < 20; i++) {
-          inputs.add(true);
-        }
-        print(_songs);
-      });
-    });
-  }
-
-  void ItemChange(bool val, int index) {
-    setState(() {
-      inputs[index] = val;
-    });
-  }
+  List<Song> addedSongs = new List<Song>();
+  var song;
 
   @override
   Widget build(BuildContext context) {
+    print('Fourth Step');
     return Scaffold(
-      backgroundColor: Colors.grey[200],
-      appBar: new AppBar(
-        title: Text('Voting Panel'),
-        centerTitle: true,
-        elevation: 0,
-      ),
-      body: ListView.builder(
-        itemBuilder: (context, index) {
-          List<Song> song2 = _songs[index];
-          //Below variables are for deleting mp3 in the end of String  and capitalize first Letter
-          var myString = song2[0].filename;
-          var withoutMp3 = myString.replaceAll(RegExp('.mp3'), '');
-          var withUpperCase =
-              withoutMp3[0].toUpperCase() + withoutMp3.substring(1);
-          var myString2 = song2[1].filename;
-          var withoutMp32 = myString2.replaceAll(RegExp('.mp3'), '');
-          var withUpperCase2 =
-              withoutMp32[1].toUpperCase() + withoutMp32.substring(1);
-          String artist1 = '1.Artist ';
-          String artist2 = '2.Artist ';
-          String song = 'Song ';
-          return Card(
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                children: <Widget>[
-//                  CheckboxListTile(
-//                    value: inputs[index],
-                  Text(artist1),
-                  Text(
-                    song2[0].artist == null
-                        ? 'No Artist data'
-                        : song2[0].artist,
-                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
-                  ),
-                  Text(song),
-                  Text(
-                    song2[0].title == null ? withUpperCase : song2[0].title,
-                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
-                  ),
-                  const SizedBox(height: 30),
-                  Text(artist2),
-                  Text(
-                    song2[1].artist == null
-                        ? 'No Artist data'
-                        : song2[1].artist,
-                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
-                  ),
-                  Text(song),
-                  Text(
-                    song2[1].title == null ? withUpperCase2 : song2[1].title,
-                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
-                  ),
-                  // controlAffinity: ListTileControlAffinity.leading,
-                  // onChanged:(bool val){ItemChange(val, index);}
-                  //),
-                ],
-              ),
-            ),
-          );
-        },
-        itemCount: _songs.length,
-      ),
-    );
+        backgroundColor: Colors.grey[200],
+        appBar: new AppBar(
+          title: Text('Voting Panel'),
+          centerTitle: true,
+          elevation: 0,
+        ),
+        body: Container(
+            child: FutureBuilder<List<List<Song>>>(
+                future: fetchPairOfSongs(),
+                builder: (BuildContext context, AsyncSnapshot snapshot) {
+                  //var snapshotData = snapshot.data;
+                  //print('SnapShot values are $snapshotData');
+                  if (snapshot.hasData) {
+                    _songs.addAll(snapshot.data);
+                    for (var songs in _songs) {
+                      for (song in songs) {
+                        addedSongs.add(song);
+                      }
+                    }
+
+                    //print(addedSongs);
+
+                    return PairsOfSongsPage(addedSongs);
+                  } else if (snapshot.data == null) {
+                    return Container(child: Center(child: Text("Loading...")));
+                  }
+
+                  return new CircularProgressIndicator();
+                })));
   }
 }
