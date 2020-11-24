@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mvs_flutter/Model/Song.dart';
 import 'package:mvs_flutter/services/ApiExamples.dart';
 
-import 'package:mvs_flutter/pages/PairsOfSongPage.dart';
+import 'package:mvs_flutter/pages/PairsOfSongsPage.dart';
 
 class PairsOfSongs extends StatefulWidget {
   @override
@@ -37,9 +37,6 @@ class _PairsOfSongsState extends State<PairsOfSongs> {
                         addedSongs.add(song);
                       }
                     }
-
-                    //print(addedSongs);
-
                     return PairsOfSongsPage(addedSongs);
                   } else if (snapshot.data == null) {
                     return Container(child: Center(child: Text("Loading...")));

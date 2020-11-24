@@ -13,12 +13,19 @@ class _PairsOfSongsPageState extends State<PairsOfSongsPage> {
   int firstNumber = 0;
   int secondNumber = 1;
 
-  void newState() {
+  void addNumber() {
     setState(() {
       firstNumber = firstNumber + 2;
       secondNumber = secondNumber + 2;
-      print("New first number is $firstNumber");
-      print("New second  number is $secondNumber");
+      // print("New first number is $firstNumber");
+      // print("New second  number is $secondNumber");
+    });
+  }
+
+  void subtractionNumber() {
+    setState(() {
+      firstNumber = firstNumber - 2;
+      secondNumber = secondNumber - 2;
     });
   }
 
@@ -27,6 +34,15 @@ class _PairsOfSongsPageState extends State<PairsOfSongsPage> {
     print('Burdayam ishleyirem');
 
     List<Song> newAddedSongs = widget.addedSongs;
+
+    String newFirstNumber = newAddedSongs[0].filename;
+    String newSecondNumber = newAddedSongs[1].filename;
+    String newNinthNumber = newAddedSongs[8].filename;
+    String newTenthNumber = newAddedSongs[9].filename;
+
+    print(
+        '1.Filename $newFirstNumber,2.Filename $newSecondNumber,9.Filename $newNinthNumber,10.Filename $newTenthNumber ');
+
     //print('new songs $newAddedSongs');
     var myString = newAddedSongs[0].filename;
     var withoutMp3 = myString.replaceAll(RegExp('.mp3'), '');
@@ -54,7 +70,7 @@ class _PairsOfSongsPageState extends State<PairsOfSongsPage> {
                 child: Container(
                     alignment: Alignment.topCenter,
                     height: 100,
-                    color: Colors.brown,
+                    color: Colors.cyan[100],
                     child: Column(children: <Widget>[
                       Text(artist1),
                       Text(
@@ -83,7 +99,7 @@ class _PairsOfSongsPageState extends State<PairsOfSongsPage> {
                 child: Container(
                     alignment: Alignment.topCenter,
                     height: 100,
-                    color: Colors.cyan,
+                    color: Colors.cyan[100],
                     child: Column(children: <Widget>[
                       Text(artist2),
                       Text(
@@ -98,7 +114,7 @@ class _PairsOfSongsPageState extends State<PairsOfSongsPage> {
                       Text(
                         newAddedSongs[secondNumber].title == null
                             ? withUpperCase2
-                            : newAddedSongs[1].title,
+                            : newAddedSongs[secondNumber].title,
                         style: TextStyle(
                             fontSize: 14, fontWeight: FontWeight.bold),
                       ),
@@ -115,6 +131,12 @@ class _PairsOfSongsPageState extends State<PairsOfSongsPage> {
                 heroTag: "btn1",
                 onPressed: () {
                   print('You pressed left button');
+
+                  if (firstNumber > 0) {
+                    subtractionNumber();
+                  } else if (firstNumber == 0) {
+                    showAlertDialog2(context);
+                  }
                 },
                 child: Icon(Icons.navigate_before),
               ),
@@ -122,7 +144,12 @@ class _PairsOfSongsPageState extends State<PairsOfSongsPage> {
                 heroTag: "btn2",
                 onPressed: () {
                   print('You pressed right button');
-                  newState();
+
+                  if (firstNumber < 8) {
+                    addNumber();
+                  } else {
+                    showAlertDialog(context);
+                  }
                 },
                 child: Icon(Icons.navigate_next),
               )
@@ -130,4 +157,65 @@ class _PairsOfSongsPageState extends State<PairsOfSongsPage> {
           ),
         ));
   }
+}
+
+showAlertDialog(BuildContext context) {
+  // set up the buttons
+  Widget cancelButton = FlatButton(
+    child: Text("Cancel"),
+    onPressed: () {
+      Navigator.of(context, rootNavigator: true).pop();
+    },
+  );
+  Widget continueButton = FlatButton(
+    child: Text("Send"),
+    onPressed: () {},
+  );
+
+  // set up the AlertDialog
+  AlertDialog alert = AlertDialog(
+    title: Text("AlertDialog"),
+    content: Text(
+        "You have chosen all songs in list. Please press send button for sending."),
+    actions: [
+      cancelButton,
+      continueButton,
+    ],
+  );
+
+  // show the dialog
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return alert;
+    },
+  );
+}
+
+showAlertDialog2(BuildContext context) {
+  // set up the button
+  Widget okButton = FlatButton(
+    child: Text("OK"),
+    onPressed: () {
+      Navigator.of(context, rootNavigator: true).pop();
+    },
+  );
+
+  // set up the AlertDialog
+  AlertDialog alert = AlertDialog(
+    title: Text("Alert"),
+    content: Text(
+        "There is not songs for listing. Please press Ok button for continue."),
+    actions: [
+      okButton,
+    ],
+  );
+
+  // show the dialog
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return alert;
+    },
+  );
 }
