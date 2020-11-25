@@ -12,13 +12,9 @@ class _SongListState extends State<SongList> {
 
   @override
   void initState() {
-    print('1');
     super.initState();
-    print('2');
     fetchListOfSongs().then((value) {
-      print('3');
       setState(() {
-        print('4');
         _songs.addAll(value);
       });
     });
@@ -26,7 +22,6 @@ class _SongListState extends State<SongList> {
 
   @override
   Widget build(BuildContext context) {
-    print('5');
     return Scaffold(
       backgroundColor: Colors.grey[200],
       appBar: new AppBar(

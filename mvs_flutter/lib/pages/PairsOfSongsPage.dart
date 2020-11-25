@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mvs_flutter/Model/Song.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class PairsOfSongsPage extends StatefulWidget {
   final List<Song> addedSongs;
@@ -12,6 +13,10 @@ class PairsOfSongsPage extends StatefulWidget {
 class _PairsOfSongsPageState extends State<PairsOfSongsPage> {
   int firstNumber = 0;
   int secondNumber = 1;
+  Color _colorContainer1 = Colors.cyan[100];
+  Color _colorContainer2 = Colors.cyan[100];
+  Color _color1 = Colors.grey[500];
+  Color _color2 = Colors.grey[500];
 
   void addNumber() {
     setState(() {
@@ -32,18 +37,33 @@ class _PairsOfSongsPageState extends State<PairsOfSongsPage> {
   @override
   Widget build(BuildContext context) {
     print('Burdayam ishleyirem');
+    SharedPreferences containerSaves;
+    SharedPreferences.setMockInitialValues({});
 
     List<Song> newAddedSongs = widget.addedSongs;
 
-    String newFirstNumber = newAddedSongs[0].filename;
-    String newSecondNumber = newAddedSongs[1].filename;
-    String newNinthNumber = newAddedSongs[8].filename;
-    String newTenthNumber = newAddedSongs[9].filename;
+    addBoolToSF() async {
+      print('Burdan kecdi');
+      containerSaves = await SharedPreferences.getInstance();
+      print('Burdan keche bilmedi');
+      String key = newAddedSongs[firstNumber].artist;
+      bool boolValue1 = containerSaves.getBool('$key');
+      print('Key 1 value is $boolValue1');
 
-    print(
-        '1.Filename $newFirstNumber,2.Filename $newSecondNumber,9.Filename $newNinthNumber,10.Filename $newTenthNumber ');
+      containerSaves.setBool('$key', true);
+      bool boolValue2 = containerSaves.getBool('$key');
+      print('Key 2 value is $boolValue2');
+    }
 
-    //print('new songs $newAddedSongs');
+    // String newFirstNumber = newAddedSongs[0].filename;
+    // String newSecondNumber = newAddedSongs[1].filename;
+    // String newNinthNumber = newAddedSongs[8].filename;
+    // String newTenthNumber = newAddedSongs[9].filename;
+
+    // print(
+    //     '1.Filename $newFirstNumber,2.Filename $newSecondNumber,9.Filename $newNinthNumber,10.Filename $newTenthNumber ');
+
+    // print('new songs $newAddedSongs');
     var myString = newAddedSongs[0].filename;
     var withoutMp3 = myString.replaceAll(RegExp('.mp3'), '');
     var withUpperCase = withoutMp3[0].toUpperCase() + withoutMp3.substring(1);
@@ -64,61 +84,108 @@ class _PairsOfSongsPageState extends State<PairsOfSongsPage> {
           margin: const EdgeInsets.all(10.0),
           child: Column(children: <Widget>[
             InkWell(
-                onTap: () {
-                  print('First Inkwell pressed');
-                },
-                child: Container(
-                    alignment: Alignment.topCenter,
-                    height: 100,
-                    color: Colors.cyan[100],
-                    child: Column(children: <Widget>[
-                      Text(artist1),
-                      Text(
-                        newAddedSongs[firstNumber].artist == null
-                            ? 'No Artist data'
-                            : newAddedSongs[firstNumber].artist,
-                        style: TextStyle(
-                            fontSize: 14, fontWeight: FontWeight.bold),
+              onTap: () {
+                addBoolToSF();
+
+                setState(() {
+                  _colorContainer1 = _colorContainer1 == Colors.red[100]
+                      ? Colors.cyan[100]
+                      : Colors.red[100];
+                });
+              },
+              child: Container(
+                  height: 100,
+                  color: _colorContainer1,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Column(children: <Widget>[
+                        const SizedBox(height: 10),
+                        Text(artist1),
+                        Text(
+                          newAddedSongs[firstNumber].artist == null
+                              ? 'No Artist data'
+                              : newAddedSongs[firstNumber].artist,
+                          style: TextStyle(
+                              fontSize: 14, fontWeight: FontWeight.bold),
+                        ),
+                        const SizedBox(height: 10),
+                        Text(newSong),
+                        Text(
+                          newAddedSongs[firstNumber].title == null
+                              ? withUpperCase
+                              : newAddedSongs[firstNumber].title,
+                          style: TextStyle(
+                              fontSize: 14, fontWeight: FontWeight.bold),
+                        ),
+                      ]),
+                      IconButton(
+                        icon: Icon(Icons.favorite),
+                        color: _color1,
+                        iconSize: 30.0,
+                        onPressed: () {
+                          setState(() {
+                            _color1 = _color1 == Colors.red[600]
+                                ? Colors.grey[500]
+                                : Colors.red[600];
+                          });
+                        },
                       ),
-                      const SizedBox(height: 10),
-                      Text(newSong),
-                      Text(
-                        newAddedSongs[firstNumber].title == null
-                            ? withUpperCase
-                            : newAddedSongs[firstNumber].title,
-                        style: TextStyle(
-                            fontSize: 14, fontWeight: FontWeight.bold),
-                      ),
-                    ]))),
+                    ],
+                  )),
+            ),
             const SizedBox(height: 30),
             InkWell(
-                onTap: () {
-                  print('Press ishleyir');
-                  print('Second Inkwell pressed');
-                },
-                child: Container(
-                    alignment: Alignment.topCenter,
-                    height: 100,
-                    color: Colors.cyan[100],
-                    child: Column(children: <Widget>[
-                      Text(artist2),
-                      Text(
-                        newAddedSongs[secondNumber].artist == null
-                            ? 'No Artist data'
-                            : newAddedSongs[secondNumber].artist,
-                        style: TextStyle(
-                            fontSize: 14, fontWeight: FontWeight.bold),
+              onTap: () {
+                addBoolToSF();
+
+                setState(() {
+                  _colorContainer1 = _colorContainer1 == Colors.red[100]
+                      ? Colors.cyan[100]
+                      : Colors.red[100];
+                });
+              },
+              child: Container(
+                  height: 100,
+                  color: _colorContainer1,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Column(children: <Widget>[
+                        const SizedBox(height: 10),
+                        Text(artist1),
+                        Text(
+                          newAddedSongs[secondNumber].artist == null
+                              ? 'No Artist data'
+                              : newAddedSongs[secondNumber].artist,
+                          style: TextStyle(
+                              fontSize: 14, fontWeight: FontWeight.bold),
+                        ),
+                        const SizedBox(height: 10),
+                        Text(newSong),
+                        Text(
+                          newAddedSongs[secondNumber].title == null
+                              ? withUpperCase
+                              : newAddedSongs[secondNumber].title,
+                          style: TextStyle(
+                              fontSize: 14, fontWeight: FontWeight.bold),
+                        ),
+                      ]),
+                      IconButton(
+                        icon: Icon(Icons.favorite),
+                        color: _color2,
+                        iconSize: 30.0,
+                        onPressed: () {
+                          setState(() {
+                            _color2 = _color2 == Colors.red[600]
+                                ? Colors.grey[500]
+                                : Colors.red[600];
+                          });
+                        },
                       ),
-                      const SizedBox(height: 10),
-                      Text(newSong),
-                      Text(
-                        newAddedSongs[secondNumber].title == null
-                            ? withUpperCase2
-                            : newAddedSongs[secondNumber].title,
-                        style: TextStyle(
-                            fontSize: 14, fontWeight: FontWeight.bold),
-                      ),
-                    ]))),
+                    ],
+                  )),
+            ),
           ]),
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
@@ -147,6 +214,8 @@ class _PairsOfSongsPageState extends State<PairsOfSongsPage> {
 
                   if (firstNumber < 8) {
                     addNumber();
+                    _colorContainer1 = Colors.cyan[100];
+                    _colorContainer2 = Colors.cyan[100];
                   } else {
                     showAlertDialog(context);
                   }
