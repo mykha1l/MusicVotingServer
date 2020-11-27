@@ -34,6 +34,7 @@ public class MvsSpringApplication {
                 registry.addMapping("/api/v1/vote").allowedOrigins("*");
                 registry.addMapping("/api/v1/mostlyVoted").allowedOrigins("*");
                 registry.addMapping("/api/v1/upload").allowedOrigins("*");
+                registry.addMapping("/api/v1/getUser").allowedOrigins("*");
             }
         };
     }
