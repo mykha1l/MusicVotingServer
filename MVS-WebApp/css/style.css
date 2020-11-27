@@ -9,6 +9,7 @@ body {
     flex-wrap: wrap;
     justify-content: left;
     border-bottom: 1px solid gray;
+    align-items: center;
 }
 
 .navigationbar-items {
@@ -28,6 +29,13 @@ body {
 .navigationbar-items:hover {
     background-color: rgb(211, 211, 42);
   }
+
+.navigationbar-username {
+    text-align: right;
+    flex-grow: 1;
+    padding-right: 2em;
+    height: max-content;
+}
 
 .songlist {
     display: grid;

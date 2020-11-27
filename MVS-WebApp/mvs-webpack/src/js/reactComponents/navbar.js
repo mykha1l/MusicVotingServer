@@ -1,6 +1,19 @@
 'use strict';
 
+import { getUser } from '../api';
+
 export class Navbar extends React.Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            user: ''
+        }
+    }
+
+    componentDidMount() {
+        getUser().then((data) => { this.setState({ user: data }) });
+    }
 
     render() {
         return (
@@ -9,6 +22,7 @@ export class Navbar extends React.Component {
                 <button className="navigationbar-items" onClick={() => this.props.buttonClicked("allSongs")}>All Songs</button>
                 <button className="navigationbar-items" onClick={() => this.props.buttonClicked("voting")}>Start voting</button>
                 <button className="navigationbar-items" onClick={() => this.props.buttonClicked("upload")}>Song Upload</button>
+                <div class="navigationbar-username">{this.state.user}</div>
             </div>
         )
     }

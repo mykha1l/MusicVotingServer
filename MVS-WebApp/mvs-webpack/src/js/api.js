@@ -31,3 +31,10 @@ export async function getMostlyVoted() {
         throw new Error('Cannot get mostly voted songs. Status: ' +  response.status);
     }
 }
+
+export async function getUser() {
+    const response = await fetch("http://mvs.local:8080/api/v1/getUser");
+    const text = await response.text();
+
+    return text;
+}
