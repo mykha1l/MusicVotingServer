@@ -21,7 +21,7 @@ export class CurrentSong extends React.Component {
     }
 
     reload() {
-        fetch('http://mvs.local:8080/api/v1/currentSong')
+        fetch('/api/v1/currentSong')
             .then(response => response.text())
             .then(data => this.setState({
                 data: data,
@@ -29,7 +29,7 @@ export class CurrentSong extends React.Component {
     }
 
     componentDidMount() {
-        fetch('http://mvs.local:8080/api/v1/currentSong')
+        fetch('/api/v1/currentSong')
             .then(response => response.text())
             .then(data => this.setState({ data }));
     }

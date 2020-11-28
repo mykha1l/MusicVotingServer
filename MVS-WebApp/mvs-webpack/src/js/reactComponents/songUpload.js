@@ -5,7 +5,7 @@ export class SongUpload extends React.Component {
     upload(input) {
         const formData = new FormData();
         formData.append('file', input.target.files[0]);
-        fetch('http://mvs.local:8080/api/v1/upload', {
+        fetch('/api/v1/upload', {
             method: 'POST',
             body: formData
         }).then(
