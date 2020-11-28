@@ -11,7 +11,7 @@ export class AdminNavbar extends Navbar {
                 <button className="navigationbar-items" onClick={() => this.props.buttonClicked("currentSong")}>Current Song</button>
                 <button className="navigationbar-items" onClick={() => this.props.buttonClicked("mostlyVoted")}>Mostly votted</button>
                 <button className="navigationbar-items">Setting</button>
-                <div class="navigationbar-username">{this.state.user}</div>
+                <div className="navigationbar-username">{this.state.user}</div>
             </div>
         )
     }
