@@ -28,7 +28,7 @@ class Admin extends React.Component {
             if (this.state.buttonClicked === 'allSongs') {
                 getAllSongs().then(data => { this.setState({ allSongs: data, error: null }) });
             } else if (this.state.buttonClicked === 'currentSong') {
-                this.setState({ allSongs: null, error: null });
+                this.setState({ allSongs: null, error: null, currentSong: true });
             } else if (this.state.buttonClicked === 'mostlyVoted') {
                 getMostlyVoted().then(data => { this.setState({ mostlyVoted: data, allSongs: null, currentSong: null, error: null }); })
                     .catch((error) => {
