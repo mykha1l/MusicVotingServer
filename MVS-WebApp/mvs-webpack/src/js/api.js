@@ -38,3 +38,14 @@ export async function getUser() {
 
     return text;
 }
+
+export async function getCurrentSong() {
+    const response = await fetch("/api/v1/currentSong");
+    const text = await response.text();
+
+    return text;
+}
+
+export async function skipSong() {
+    await fetch("/api/v1/stop");
+}

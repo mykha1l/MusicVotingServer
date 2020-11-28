@@ -1,10 +1,12 @@
 'use strict';
 
+import { skipSong, getCurrentSong } from '../api'
+
 class SkipButton extends React.Component {
 
     render() {
         return (
-            <button onClick={() => fetch("http://mvs.local:8080/api/v1/stop").then(() => this.props.reload())}>
+            <button onClick={() => skipSong().then(() => this.props.reload())}>
                 Skip
             </button>
         )
@@ -21,16 +23,14 @@ export class CurrentSong extends React.Component {
     }
 
     reload() {
-        fetch('/api/v1/currentSong')
-            .then(response => response.text())
+        getCurrentSong()
             .then(data => this.setState({
                 data: data,
             }));
     }
 
     componentDidMount() {
-        fetch('/api/v1/currentSong')
-            .then(response => response.text())
+        getCurrentSong()
             .then(data => this.setState({ data }));
     }
 
