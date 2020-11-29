@@ -28,3 +28,15 @@ Future<List<List<Song>>> fetchPairOfSongs() async {
     return List<List<Song>>();
   }
 }
+
+Future<Response> postRequest(List<String> votes) async {
+  var url = 'http://10.0.2.2:8080/api/v1/vote';
+
+  //encode Map to JSON
+  var body = json.encode(votes);
+
+  Response response = await post(url,
+      headers: {"Content-Type": "application/json"}, body: body);
+
+  return response;
+}

@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:mvs_flutter/Model/Song.dart';
+import 'dart:convert';
+import 'package:mvs_flutter/services/ApiExamples.dart';
 
 class PairsOfSongsPage extends StatefulWidget {
   final List<Song> addedSongs;
+  final List<String> votes = [];
 
   PairsOfSongsPage(this.addedSongs);
 
@@ -43,6 +46,42 @@ class _PairsOfSongsPageState extends State<PairsOfSongsPage> {
       firstNumber = firstNumber - 2;
       secondNumber = secondNumber - 2;
     });
+  }
+
+  showAlertDialog(BuildContext context) {
+    // set up the buttons
+    Widget cancelButton = FlatButton(
+      child: Text("Cancel"),
+      onPressed: () {
+        Navigator.of(context, rootNavigator: true).pop();
+      },
+    );
+    Widget continueButton = FlatButton(
+      child: Text("Send"),
+      onPressed: () {
+        postRequest(widget.votes);
+        Navigator.pushNamed(context, '/home');
+      },
+    );
+
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      title: Text("AlertDialog"),
+      content: Text(
+          "You have chosen all songs in list. Please press send button for sending."),
+      actions: [
+        cancelButton,
+        continueButton,
+      ],
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
   }
 
   @override
@@ -111,10 +150,23 @@ class _PairsOfSongsPageState extends State<PairsOfSongsPage> {
                             : Colors.grey,
                         iconSize: 40.0,
                         onPressed: () {
-                          setState(() {
-                            //print('You pressed left button');
-                            likedList[firstNumber] = !likedList[firstNumber];
-                          });
+                          if (likedList[secondNumber] == false) {
+                            setState(() {
+                              //print('You pressed left button');
+                              likedList[firstNumber] = !likedList[firstNumber];
+                              if (likedList[firstNumber] == true) {
+                                widget.votes
+                                    .add(newAddedSongs[firstNumber].filename);
+                                print(widget.votes);
+                                print(jsonEncode(widget.votes));
+                              } else {
+                                widget.votes.remove(
+                                    newAddedSongs[firstNumber].filename);
+                              }
+                            });
+                          } else {
+                            showAlertDialog3(context);
+                          }
                         },
                       ),
                     ],
@@ -156,14 +208,34 @@ class _PairsOfSongsPageState extends State<PairsOfSongsPage> {
                             : Colors.grey,
                         iconSize: 40.0,
                         onPressed: () {
-                          setState(() {
-                            //print('You pressed left button');
-                            likedList[secondNumber] = !likedList[secondNumber];
-                          });
+                          if (likedList[firstNumber] == false) {
+                            setState(() {
+                              //print('You pressed left button');
+                              likedList[secondNumber] =
+                                  !likedList[secondNumber];
+                              if (likedList[secondNumber] == true) {
+                                widget.votes
+                                    .add(newAddedSongs[secondNumber].filename);
+                              } else {
+                                widget.votes.remove(
+                                    newAddedSongs[secondNumber].filename);
+                              }
+                            });
+                          } else {
+                            showAlertDialog3(context);
+                          }
                         },
                       ),
                     ],
                   )),
+            ),
+            const SizedBox(height: 20),
+            Text(
+              'Please choose 1 of this 2 songs and press next button for further pairs. In total there is 10 songs.You can choose only 5 of them for voting .',
+              style: TextStyle(
+                fontSize: 16.0,
+                color: Colors.red[400],
+              ),
             ),
           ]),
         ),
@@ -207,39 +279,6 @@ class _PairsOfSongsPageState extends State<PairsOfSongsPage> {
   }
 }
 
-showAlertDialog(BuildContext context) {
-  // set up the buttons
-  Widget cancelButton = FlatButton(
-    child: Text("Cancel"),
-    onPressed: () {
-      Navigator.of(context, rootNavigator: true).pop();
-    },
-  );
-  Widget continueButton = FlatButton(
-    child: Text("Send"),
-    onPressed: () {},
-  );
-
-  // set up the AlertDialog
-  AlertDialog alert = AlertDialog(
-    title: Text("AlertDialog"),
-    content: Text(
-        "You have chosen all songs in list. Please press send button for sending."),
-    actions: [
-      cancelButton,
-      continueButton,
-    ],
-  );
-
-  // show the dialog
-  showDialog(
-    context: context,
-    builder: (BuildContext context) {
-      return alert;
-    },
-  );
-}
-
 showAlertDialog2(BuildContext context) {
   // set up the button
   Widget okButton = FlatButton(
@@ -254,6 +293,33 @@ showAlertDialog2(BuildContext context) {
     title: Text("Alert"),
     content: Text(
         "There is not songs for listing. Please press Ok button for continue."),
+    actions: [
+      okButton,
+    ],
+  );
+
+  // show the dialog
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return alert;
+    },
+  );
+}
+
+showAlertDialog3(BuildContext context) {
+  // set up the button
+  Widget okButton = FlatButton(
+    child: Text("OK"),
+    onPressed: () {
+      Navigator.of(context, rootNavigator: true).pop();
+    },
+  );
+
+  // set up the AlertDialog
+  AlertDialog alert = AlertDialog(
+    title: Text("Alert"),
+    content: Text("You can only choose one of this pair songs"),
     actions: [
       okButton,
     ],
