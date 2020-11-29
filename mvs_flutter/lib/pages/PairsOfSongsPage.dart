@@ -16,11 +16,7 @@ class PairsOfSongsPage extends StatefulWidget {
 class _PairsOfSongsPageState extends State<PairsOfSongsPage> {
   int firstNumber = 0;
   int secondNumber = 1;
-  Color _colorContainer1 = Colors.cyan[100];
-  Color _colorContainer2 = Colors.cyan[100];
-  bool firstBoolValue;
-  bool secondBoolValue;
-
+  Color _colorContainer = Colors.cyan[100];
   List<bool> likedList;
 
   void fillList() {
@@ -28,9 +24,6 @@ class _PairsOfSongsPageState extends State<PairsOfSongsPage> {
       likedList = new List<bool>.generate(10, (i) {
         return false;
       });
-
-      bool newBool = likedList[0];
-      print('Boolean value is $newBool');
     }
   }
 
@@ -86,15 +79,8 @@ class _PairsOfSongsPageState extends State<PairsOfSongsPage> {
 
   @override
   Widget build(BuildContext context) {
-    print('Burdayam ishleyirem');
-
     List<Song> newAddedSongs = widget.addedSongs;
-
     fillList();
-
-    // for (var i = 0; i <= 9; i++) {
-    //   print(newAddedSongs[i].filename);
-    // }
 
     var myString = newAddedSongs[0].filename;
     var withoutMp3 = myString.replaceAll(RegExp('.mp3'), '');
@@ -119,7 +105,7 @@ class _PairsOfSongsPageState extends State<PairsOfSongsPage> {
               onTap: () {},
               child: Container(
                   height: 100,
-                  color: _colorContainer1,
+                  color: _colorContainer,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
@@ -177,7 +163,7 @@ class _PairsOfSongsPageState extends State<PairsOfSongsPage> {
               onTap: () {},
               child: Container(
                   height: 100,
-                  color: _colorContainer1,
+                  color: _colorContainer,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
@@ -231,7 +217,7 @@ class _PairsOfSongsPageState extends State<PairsOfSongsPage> {
             ),
             const SizedBox(height: 20),
             Text(
-              'Please choose 1 of this 2 songs and press next button for further pairs. In total there is 10 songs.You can choose only 5 of them for voting .',
+              'Please choose 1 of these 2 songs and press next button for further pairs. In total there is 10 songs.You can choose only 5 of them for voting .',
               style: TextStyle(
                 fontSize: 16.0,
                 color: Colors.red[400],
@@ -265,8 +251,6 @@ class _PairsOfSongsPageState extends State<PairsOfSongsPage> {
 
                   if (firstNumber < 8) {
                     addNumber();
-                    _colorContainer1 = Colors.cyan[100];
-                    _colorContainer2 = Colors.cyan[100];
                   } else {
                     showAlertDialog(context);
                   }
@@ -292,7 +276,7 @@ showAlertDialog2(BuildContext context) {
   AlertDialog alert = AlertDialog(
     title: Text("Alert"),
     content: Text(
-        "There is not songs for listing. Please press Ok button for continue."),
+        "This is a first step.You can't go back. Please press next button for further pairs."),
     actions: [
       okButton,
     ],
@@ -319,7 +303,7 @@ showAlertDialog3(BuildContext context) {
   // set up the AlertDialog
   AlertDialog alert = AlertDialog(
     title: Text("Alert"),
-    content: Text("You can only choose one of this pair songs"),
+    content: Text("You can only choose 1 song for favorite from this pairs"),
     actions: [
       okButton,
     ],
