@@ -16,7 +16,6 @@ class _PairsOfSongsState extends State<PairsOfSongs> {
 
   @override
   Widget build(BuildContext context) {
-    print('Fourth Step');
     return Scaffold(
         backgroundColor: Colors.grey[200],
         appBar: new AppBar(

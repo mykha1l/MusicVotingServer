@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:mvs_flutter/Model/Song.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class PairsOfSongsPage extends StatefulWidget {
   final List<Song> addedSongs;
 
   PairsOfSongsPage(this.addedSongs);
+
   @override
   _PairsOfSongsPageState createState() => _PairsOfSongsPageState();
 }
@@ -15,15 +15,26 @@ class _PairsOfSongsPageState extends State<PairsOfSongsPage> {
   int secondNumber = 1;
   Color _colorContainer1 = Colors.cyan[100];
   Color _colorContainer2 = Colors.cyan[100];
-  Color _color1 = Colors.grey[500];
-  Color _color2 = Colors.grey[500];
+  bool firstBoolValue;
+  bool secondBoolValue;
+
+  List<bool> likedList;
+
+  void fillList() {
+    if (likedList?.isEmpty ?? true) {
+      likedList = new List<bool>.generate(10, (i) {
+        return false;
+      });
+
+      bool newBool = likedList[0];
+      print('Boolean value is $newBool');
+    }
+  }
 
   void addNumber() {
     setState(() {
       firstNumber = firstNumber + 2;
       secondNumber = secondNumber + 2;
-      // print("New first number is $firstNumber");
-      // print("New second  number is $secondNumber");
     });
   }
 
@@ -37,33 +48,15 @@ class _PairsOfSongsPageState extends State<PairsOfSongsPage> {
   @override
   Widget build(BuildContext context) {
     print('Burdayam ishleyirem');
-    SharedPreferences containerSaves;
-    SharedPreferences.setMockInitialValues({});
 
     List<Song> newAddedSongs = widget.addedSongs;
 
-    addBoolToSF() async {
-      print('Burdan kecdi');
-      containerSaves = await SharedPreferences.getInstance();
-      print('Burdan keche bilmedi');
-      String key = newAddedSongs[firstNumber].artist;
-      bool boolValue1 = containerSaves.getBool('$key');
-      print('Key 1 value is $boolValue1');
+    fillList();
 
-      containerSaves.setBool('$key', true);
-      bool boolValue2 = containerSaves.getBool('$key');
-      print('Key 2 value is $boolValue2');
-    }
+    // for (var i = 0; i <= 9; i++) {
+    //   print(newAddedSongs[i].filename);
+    // }
 
-    // String newFirstNumber = newAddedSongs[0].filename;
-    // String newSecondNumber = newAddedSongs[1].filename;
-    // String newNinthNumber = newAddedSongs[8].filename;
-    // String newTenthNumber = newAddedSongs[9].filename;
-
-    // print(
-    //     '1.Filename $newFirstNumber,2.Filename $newSecondNumber,9.Filename $newNinthNumber,10.Filename $newTenthNumber ');
-
-    // print('new songs $newAddedSongs');
     var myString = newAddedSongs[0].filename;
     var withoutMp3 = myString.replaceAll(RegExp('.mp3'), '');
     var withUpperCase = withoutMp3[0].toUpperCase() + withoutMp3.substring(1);
@@ -84,15 +77,7 @@ class _PairsOfSongsPageState extends State<PairsOfSongsPage> {
           margin: const EdgeInsets.all(10.0),
           child: Column(children: <Widget>[
             InkWell(
-              onTap: () {
-                addBoolToSF();
-
-                setState(() {
-                  _colorContainer1 = _colorContainer1 == Colors.red[100]
-                      ? Colors.cyan[100]
-                      : Colors.red[100];
-                });
-              },
+              onTap: () {},
               child: Container(
                   height: 100,
                   color: _colorContainer1,
@@ -121,13 +106,14 @@ class _PairsOfSongsPageState extends State<PairsOfSongsPage> {
                       ]),
                       IconButton(
                         icon: Icon(Icons.favorite),
-                        color: _color1,
-                        iconSize: 30.0,
+                        color: likedList[firstNumber]
+                            ? Colors.red[600]
+                            : Colors.grey,
+                        iconSize: 40.0,
                         onPressed: () {
                           setState(() {
-                            _color1 = _color1 == Colors.red[600]
-                                ? Colors.grey[500]
-                                : Colors.red[600];
+                            //print('You pressed left button');
+                            likedList[firstNumber] = !likedList[firstNumber];
                           });
                         },
                       ),
@@ -136,15 +122,7 @@ class _PairsOfSongsPageState extends State<PairsOfSongsPage> {
             ),
             const SizedBox(height: 30),
             InkWell(
-              onTap: () {
-                addBoolToSF();
-
-                setState(() {
-                  _colorContainer1 = _colorContainer1 == Colors.red[100]
-                      ? Colors.cyan[100]
-                      : Colors.red[100];
-                });
-              },
+              onTap: () {},
               child: Container(
                   height: 100,
                   color: _colorContainer1,
@@ -153,7 +131,7 @@ class _PairsOfSongsPageState extends State<PairsOfSongsPage> {
                     children: [
                       Column(children: <Widget>[
                         const SizedBox(height: 10),
-                        Text(artist1),
+                        Text(artist2),
                         Text(
                           newAddedSongs[secondNumber].artist == null
                               ? 'No Artist data'
@@ -165,7 +143,7 @@ class _PairsOfSongsPageState extends State<PairsOfSongsPage> {
                         Text(newSong),
                         Text(
                           newAddedSongs[secondNumber].title == null
-                              ? withUpperCase
+                              ? withUpperCase2
                               : newAddedSongs[secondNumber].title,
                           style: TextStyle(
                               fontSize: 14, fontWeight: FontWeight.bold),
@@ -173,13 +151,14 @@ class _PairsOfSongsPageState extends State<PairsOfSongsPage> {
                       ]),
                       IconButton(
                         icon: Icon(Icons.favorite),
-                        color: _color2,
-                        iconSize: 30.0,
+                        color: likedList[secondNumber]
+                            ? Colors.red[600]
+                            : Colors.grey,
+                        iconSize: 40.0,
                         onPressed: () {
                           setState(() {
-                            _color2 = _color2 == Colors.red[600]
-                                ? Colors.grey[500]
-                                : Colors.red[600];
+                            //print('You pressed left button');
+                            likedList[secondNumber] = !likedList[secondNumber];
                           });
                         },
                       ),
@@ -197,7 +176,7 @@ class _PairsOfSongsPageState extends State<PairsOfSongsPage> {
               FloatingActionButton(
                 heroTag: "btn1",
                 onPressed: () {
-                  print('You pressed left button');
+                  //print('You pressed left button');
 
                   if (firstNumber > 0) {
                     subtractionNumber();
@@ -210,7 +189,7 @@ class _PairsOfSongsPageState extends State<PairsOfSongsPage> {
               FloatingActionButton(
                 heroTag: "btn2",
                 onPressed: () {
-                  print('You pressed right button');
+                  //print('You pressed right button');
 
                   if (firstNumber < 8) {
                     addNumber();
