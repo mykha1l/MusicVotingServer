@@ -3,8 +3,10 @@ import 'dart:convert';
 import 'package:http/http.dart';
 import 'package:mvs_flutter/Model/Song.dart';
 
+const String HOST = 'http://10.0.2.2:8080';
+
 Future<List<Song>> fetchListOfSongs() async {
-  Response response = await get('http://10.0.2.2:8080/api/v1/songs');
+  final Response response = await get(HOST + '/api/v1/songs');
   var songs = List<Song>();
   if (response.statusCode == 200) {
     var songsJson = json.decode(response.body);
@@ -17,7 +19,7 @@ Future<List<Song>> fetchListOfSongs() async {
 
 Future<List<List<Song>>> fetchPairOfSongs() async {
   try {
-    Response response = await get('http://10.0.2.2:8080/api/v1/pairs');
+    final Response response = await get(HOST + '/api/v1/pairs');
     var songs = List<List<Song>>();
     if (response.statusCode == 200) {
       songs = songFromJson(response.body);
@@ -29,7 +31,7 @@ Future<List<List<Song>>> fetchPairOfSongs() async {
 }
 
 Future<Response> postRequest(List<String> votes) async {
-  var url = 'http://10.0.2.2:8080/api/v1/vote';
+  const String url = HOST + '/api/v1/vote';
 
   //encode Map to JSON
   var body = json.encode(votes);
