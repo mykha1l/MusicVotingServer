@@ -21,8 +21,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable().authorizeRequests().antMatchers("/api/v1/mostlyVoted", "/admin.html").hasRole("ADMIN").and().httpBasic()
-                .authenticationEntryPoint(authEntryPoint).and().logout().invalidateHttpSession(true)
-                .deleteCookies("JSESSIONID");
+                .authenticationEntryPoint(authEntryPoint);
     }
 
     @Autowired

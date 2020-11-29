@@ -1,6 +1,6 @@
 'use strict';
 
-import { getUser } from '../api';
+import { getUser, logout } from '../api';
 
 export class Navbar extends React.Component {
 
@@ -22,7 +22,8 @@ export class Navbar extends React.Component {
                 <button className="navigationbar-items" onClick={() => this.props.buttonClicked("allSongs")}>All Songs</button>
                 <button className="navigationbar-items" onClick={() => this.props.buttonClicked("voting")}>Start voting</button>
                 <button className="navigationbar-items" onClick={() => this.props.buttonClicked("upload")}>Song Upload</button>
-                <div class="navigationbar-username">{this.state.user}</div>
+                <div className="navigationbar-username">{this.state.user}</div>
+                <button className="navigationbar-items" onClick={() => logout()}>Logout</button>
             </div>
         )
     }

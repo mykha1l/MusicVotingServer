@@ -49,3 +49,9 @@ export async function getCurrentSong() {
 export async function skipSong() {
     await fetch("/api/v1/stop");
 }
+
+export async function logout() {
+    const url = 'http://abc@' + window.location.hostname + ':8080';
+    console.log(url);
+    window.location.href = url;
+}
