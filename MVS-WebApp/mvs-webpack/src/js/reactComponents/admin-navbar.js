@@ -1,6 +1,8 @@
 'use strict';
 
-export class AdminNavbar extends React.Component {
+import { Navbar } from './navbar';
+
+export class AdminNavbar extends Navbar {
     render() {
         return (
             <div className="navbar">
@@ -9,6 +11,7 @@ export class AdminNavbar extends React.Component {
                 <button className="navigationbar-items" onClick={() => this.props.buttonClicked("currentSong")}>Current Song</button>
                 <button className="navigationbar-items" onClick={() => this.props.buttonClicked("mostlyVoted")}>Mostly votted</button>
                 <button className="navigationbar-items">Setting</button>
+                <div className="navigationbar-username">{this.state.user}</div>
             </div>
         )
     }
