@@ -1,6 +1,8 @@
 # MusicVotingServer
 Bachelor Project
 
+<img src="rasp.jpg" alt="Raspberry Pi photo" border="0" width="300"></a>
+
 Music Voting Server - is an application that generates playlists according to collected votes from users and plays music. It runs in a local wi-fi network and can be installed on Raspberry Pi (or any other computer).
 
 Server side is written in Java using Spring Boot framework. On the client side there are React web app and mobile flutter client app available.
