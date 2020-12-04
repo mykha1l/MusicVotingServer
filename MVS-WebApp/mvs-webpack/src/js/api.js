@@ -24,7 +24,7 @@ export async function getPairs() {
 }
 
 export async function getMostlyVoted() {
-    const response = await fetch("/api/v1/mostlyVoted");
+    const response = await fetch("/api/v1/songs/mostlyVoted");
     if (response.ok) {
         return await response.json();
     } else {
@@ -33,21 +33,21 @@ export async function getMostlyVoted() {
 }
 
 export async function getUser() {
-    const response = await fetch("/api/v1/getUser");
+    const response = await fetch("/api/v1/user");
     const text = await response.text();
 
     return text;
 }
 
 export async function getCurrentSong() {
-    const response = await fetch("/api/v1/currentSong");
+    const response = await fetch("/api/v1/songs/current");
     const text = await response.text();
 
     return text;
 }
 
 export async function skipSong() {
-    await fetch("/api/v1/stop");
+    await fetch("/api/v1/songs/current/stop");
 }
 
 export async function logout() {

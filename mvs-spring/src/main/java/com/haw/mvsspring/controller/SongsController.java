@@ -65,7 +65,7 @@ public class SongsController {
         System.out.println("received votes: " + songs.toString());
     }
 
-    @PostMapping("/api/v1/upload")
+    @PostMapping("/api/v1/songs/upload")
     public ResponseEntity upload(@RequestBody MultipartFile file) {
         System.out.println("received upload: " + file.getOriginalFilename());
         final String filePath = "../MVS-WebApp/songs/" + file.getOriginalFilename();
@@ -94,22 +94,22 @@ public class SongsController {
         return new ResponseEntity(HttpStatus.OK);
     }
 
-    @GetMapping("/api/v1/currentSong")
+    @GetMapping("/api/v1/songs/current")
     public String getCurrentSong() {
         return myPlayer.currentSong;
     }
 
-    @GetMapping("/api/v1/mostlyVoted")
+    @GetMapping("/api/v1/songs/mostlyVoted")
     public ArrayList<String> mostlyVotedSongs() {
        return votesHandler.mostlyVoted; 
     }
 
-    @GetMapping("/api/v1/stop")
+    @GetMapping("/api/v1/songs/current/stop")
     public void stopPlaying() {
         myPlayer.stop();
     }
 
-    @GetMapping("/api/v1/getUser")
+    @GetMapping("/api/v1/user")
     public String getUser() {
         final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         return authentication.getName();

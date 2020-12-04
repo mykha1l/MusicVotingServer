@@ -5,7 +5,8 @@ export class SongUpload extends React.Component {
     upload(input) {
         const formData = new FormData();
         formData.append('file', input.target.files[0]);
-        fetch('/api/v1/upload', {
+        //TODO move to api.js
+        fetch('/api/v1/songs/upload', {
             method: 'POST',
             body: formData
         }).then(
