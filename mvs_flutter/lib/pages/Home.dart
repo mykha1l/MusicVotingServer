@@ -38,6 +38,14 @@ class _HomeState extends State<Home> {
               padding: const EdgeInsets.all(20.0),
             ),
             const SizedBox(height: 30),
+            RaisedButton.icon(
+              onPressed: () {
+                Navigator.pushNamed(context, '/uploadSongs');
+              },
+              icon: Icon(Icons.music_note),
+              label: Text('Song Upload', style: TextStyle(fontSize: 18.0)),
+              padding: const EdgeInsets.all(20.0),
+            ),
           ],
         ),
       ),
