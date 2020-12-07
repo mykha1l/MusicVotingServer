@@ -4,6 +4,7 @@ import { Navbar } from './navbar'
 import { SongList } from './songList';
 import { getAllSongs, getPairs } from '../api';
 import { SongUpload } from './SongUpload';
+import {RegistrationForm} from './registrationForm';
 
 class User extends React.Component {
 
@@ -48,6 +49,13 @@ class User extends React.Component {
                 <div>
                     <Navbar buttonClicked={this.buttonClicked.bind(this)}></Navbar>
                     <SongUpload error={this.catchError.bind(this)}></SongUpload>
+                </div>
+            )
+        } else if (this.state.buttonClicked === 'register') {
+            return (
+                <div>
+                    <Navbar buttonClicked={this.buttonClicked.bind(this)}></Navbar>
+                    <RegistrationForm></RegistrationForm>
                 </div>
             )
         } else {

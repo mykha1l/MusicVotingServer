@@ -93,3 +93,13 @@ body {
     background-color: red;
     width: max-content;
 }
+
+form {
+    display: flex;
+    flex-direction: column;
+    padding: 1em;
+}
+
+form > * {
+    width: min-content;
+}
