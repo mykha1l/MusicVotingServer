@@ -51,7 +51,5 @@ export async function skipSong() {
 }
 
 export async function logout() {
-    const url = 'http://abc@' + window.location.hostname + ':8080';
-    console.log(url);
-    window.location.href = url;
+    await fetch("/logout", {method: 'POST'});
 }

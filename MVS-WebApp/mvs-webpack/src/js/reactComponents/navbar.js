@@ -16,7 +16,6 @@ export class Navbar extends React.Component {
     }
 
     render() {
-        const { isLoggedIn } = this.state.user !=='anonymousUser';
         return (
             <div className="navbar">
                 <img src="img/icon.png" />
@@ -25,9 +24,11 @@ export class Navbar extends React.Component {
                 <button className="navigationbar-items" onClick={() => this.props.buttonClicked("upload")}>Song Upload</button>
                 <div className="navigationbar-username">{this.state.user}</div>
                 {
-                    isLoggedIn ? <button className="navigationbar-items" onClick={() => logout()}>Logout</button>
+                    this.state.user !== 'anonymousUser' ? <button className="navigationbar-items" onClick={
+                        () => logout().then(() => location.reload())
+                    }>Logout</button>
                         : <div>
-                            <button className="navigationbar-items" onClick={() => logout()}>Log in</button>
+                            <button className="navigationbar-items" onClick={() => this.props.buttonClicked("login")}>Log in</button>
                             <button className="navigationbar-items" onClick={() => this.props.buttonClicked("register")}>Register</button>
                         </div>
                 }
