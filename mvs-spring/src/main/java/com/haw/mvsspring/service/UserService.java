@@ -51,4 +51,8 @@ public class UserService {
         session.setAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY, sc);
     }
 
+    public User getUser(final String username) {
+        return userDao.getUser(username);
+    }
+
 }

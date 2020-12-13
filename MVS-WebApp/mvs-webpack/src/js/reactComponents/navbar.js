@@ -12,7 +12,7 @@ export class Navbar extends React.Component {
     }
 
     componentDidMount() {
-        getUser().then((data) => { this.setState({ user: data }) });
+        getUser().then((data) => { this.setState({ user: data.username }) });
     }
 
     render() {

@@ -56,4 +56,15 @@ public class UserDataAccessService implements UserDao {
         return 0;
     }
 
+    @Override
+    public User getUser(final String name) {
+        final String sql = "SELECT * FROM users WHERE username = ?";
+        final User user = jdbcTemplate.queryForObject(sql, new Object[] { name }, (rs,
+                rowNum) -> new User(rs.getString("username"), rs.getString("password"), rs.getBoolean("enabled")));
+        final String sqlAuth = "SELECT authority FROM authorities WHERE username = ?";
+        final String auth = jdbcTemplate.queryForObject(sqlAuth, new Object[] { name }, String.class);
+        user.setAuthority(auth);
+        return user;
+    }
+
 }

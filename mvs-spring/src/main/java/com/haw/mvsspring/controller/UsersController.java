@@ -28,9 +28,14 @@ public class UsersController {
     private UserService userService;
 
     @GetMapping("/api/v1/user")
-    public String getUser() {
+    public User getUser() {
         final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        return authentication.getName();
+        final String name = authentication.getName();
+        if (name.equals("anonymousUser")) {
+            return new User(name, null, false);
+        }
+
+        return userService.getUser(name);
     }
 
     @PostMapping("/api/v1/register")

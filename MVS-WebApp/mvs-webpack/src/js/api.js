@@ -34,9 +34,9 @@ export async function getMostlyVoted() {
 
 export async function getUser() {
     const response = await fetch("/api/v1/user");
-    const text = await response.text();
+    const result = await response.json();
 
-    return text;
+    return result;
 }
 
 export async function getCurrentSong() {

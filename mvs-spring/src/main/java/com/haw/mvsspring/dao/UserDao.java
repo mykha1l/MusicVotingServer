@@ -12,4 +12,6 @@ public interface UserDao {
 
     int init();
 
+    User getUser(String name);
+
 }
