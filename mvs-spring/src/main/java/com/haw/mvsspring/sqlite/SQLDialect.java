@@ -1,3 +1,4 @@
+// SQLite Dialect was taken from https://stackoverflow.com/questions/24232892/spring-boot-and-sqlite
 package com.haw.mvsspring.sqlite;
 import java.sql.Types;
  
