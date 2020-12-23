@@ -1,3 +1,25 @@
+@media only screen and (max-width: 768px) {
+    .navigationbar-items {
+        display: none;
+    }
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+  }
+  
+.dropdown-content {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    right: 1px;
+  }
+
 body {
     margin: 0px;
     padding: 0px;

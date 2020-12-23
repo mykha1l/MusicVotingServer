@@ -1,6 +1,7 @@
 'use strict';
 
 import { getUser, logout } from '../api';
+import { Hamburger } from './hamburger';
 
 export class Navbar extends React.Component {
 
@@ -32,6 +33,7 @@ export class Navbar extends React.Component {
                             <button className="navigationbar-items" onClick={() => this.props.buttonClicked("register")}>Register</button>
                         </div>
                 }
+                {window.innerWidth < 768 ? <Hamburger buttonClicked={this.props.buttonClicked}></Hamburger> : null}
             </div>
         )
     }
