@@ -38,42 +38,19 @@ class User extends React.Component {
     }
 
     render() {
-        if (this.state.error) {
-            return (
-                <div>
-                    <Navbar buttonClicked={this.buttonClicked.bind(this)}></Navbar>
-                    <div className='error'>{this.state.error}</div>
-                </div>
-            )
-        } else if (this.state.buttonClicked === 'upload') {
-            return (
-                <div>
-                    <Navbar buttonClicked={this.buttonClicked.bind(this)}></Navbar>
-                    <SongUpload error={this.catchError.bind(this)}></SongUpload>
-                </div>
-            )
-        } else if (this.state.buttonClicked === 'register') {
-            return (
-                <div>
-                    <Navbar buttonClicked={this.buttonClicked.bind(this)}></Navbar>
-                    <RegistrationForm></RegistrationForm>
-                </div>
-            )
-        } else if (this.state.buttonClicked === 'login') {
-            return (
-                <div>
-                    <Navbar buttonClicked={this.buttonClicked.bind(this)}></Navbar>
-                    <LoginForm></LoginForm>
-                </div>
-            )
-        } else {
-            return (
-                <div>
-                    <Navbar buttonClicked={this.buttonClicked.bind(this)}></Navbar>
-                    <SongList songs={this.state.allSongs} pairs={this.state.songPairs}></SongList>
-                </div>
-            )
-        }
+        const BUTTON_CLICKED = {
+            upload: <SongUpload error={this.catchError.bind(this)}></SongUpload>,
+            register: <RegistrationForm></RegistrationForm>,
+            login: <LoginForm></LoginForm>,
+            allSongs: <SongList songs={this.state.allSongs} pairs={this.state.songPairs}></SongList>,
+            voting: <SongList songs={this.state.allSongs} pairs={this.state.songPairs}></SongList>,
+        };
+        return (
+            <div>
+                <Navbar buttonClicked={this.buttonClicked.bind(this)}></Navbar>
+                {this.state.error ? <div className='error'>{this.state.error}</div> : BUTTON_CLICKED[this.state.buttonClicked]}
+            </div>
+        )
     }
 }
 
