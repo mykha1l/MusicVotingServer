@@ -4,8 +4,8 @@ import { Navbar } from './navbar'
 import { SongList } from './songList';
 import { getAllSongs, getPairs } from '../api';
 import { SongUpload } from './SongUpload';
-import {RegistrationForm} from './registrationForm';
-import {LoginForm} from './loginForm';
+import { RegistrationForm } from './registrationForm';
+import { LoginForm } from './loginForm';
 
 class User extends React.Component {
 
