@@ -2,11 +2,16 @@ package com.haw.mvsspring.model;
 
 public class UserDTO {
 
-    private String username, password;
+    private String username, password, nationality, genre;
+    private int age;
 
-    public UserDTO(String username, String password) {
+    public UserDTO(final String username, final String password, final int age, final String nationality,
+            final String genre) {
         this.username = username;
         this.password = password;
+        this.age = age;
+        this.nationality = nationality;
+        this.genre = genre;
     }
 
     public String getUsername() {
@@ -15,6 +20,18 @@ public class UserDTO {
 
     public String getPassword() {
         return this.password;
+    }
+
+    public int getAge() {
+        return this.age;
+    }
+
+    public String getNationality() {
+        return this.nationality;
+    }
+
+    public String getGenre() {
+        return this.genre;
     }
 
 }
