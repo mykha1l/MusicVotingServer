@@ -41,8 +41,7 @@ public class UsersController {
     @PostMapping("/api/v1/register")
     RedirectView registerUser(@ModelAttribute final UserDTO userDTO, HttpServletRequest req) {
         final User user = new User(userDTO.getUsername(),
-                securityConfig.passwordEncoder().encode(userDTO.getPassword()), userDTO.getAge(),
-                userDTO.getNationality(), userDTO.getGenre(), "ROLE_USER", true);
+                securityConfig.passwordEncoder().encode(userDTO.getPassword()), "ROLE_USER", true);
         userService.addUser(user);
         userService.login(userDTO, req);
         return new RedirectView("/index.html", false);

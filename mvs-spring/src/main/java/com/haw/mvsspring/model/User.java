@@ -7,19 +7,12 @@ public class User {
 
     private String username;
     private String password;
-    private int age;
-    private String nationality;
-    private String genre;
     private String authority;
     private boolean isEnabled;
 
-    public User(final String username, final String password, final int age, final String nationality,
-            final String genre, final String authority, final boolean isEnabled) {
+    public User (String username, String password, String authority, boolean isEnabled) {
         this.username = username;
         this.password = password;
-        this.age = age;
-        this.nationality = nationality;
-        this.genre = genre;
         this.authority = authority;
         this.isEnabled = isEnabled;
     }
@@ -40,18 +33,6 @@ public class User {
         return password;
     }
 
-    public int getAge() {
-        return age;
-    }
-
-    public String getNationality() {
-        return nationality;
-    }
-
-    public String getGenre() {
-        return genre;
-    }
-
     public String getAuthority() {
         return authority;
     }
@@ -66,18 +47,6 @@ public class User {
 
     public void setPassword(final String password) {
         this.password = password;
-    }
-
-    public void setAge(final int age) {
-        this.age = age;
-    }
-
-    public void setNationality(final String nationality) {
-        this.nationality = nationality;
-    }
-
-    public void setGenre(final String genre) {
-        this.genre = genre;
     }
 
     public void setAuthority(final String authority) {

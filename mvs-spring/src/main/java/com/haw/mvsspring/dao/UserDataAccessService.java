@@ -28,10 +28,6 @@ public class UserDataAccessService implements UserDao {
 
         final String sqlAuthorities = "INSERT INTO authorities (username, authority) VALUES(?, ?)";
         jdbcTemplate.update(sqlAuthorities, new Object[] { user.getUsername(), user.getAuthority() });
-
-        final String sqlDetails = "INSERT INTO user_details (username, nationality, genre, age) VALUES(?, ?, ?, ?)";
-        jdbcTemplate.update(sqlDetails,
-                new Object[] { user.getUsername(), user.getNationality(), user.getGenre(), user.getAge() });
         return 0;
     }
 
@@ -41,7 +37,7 @@ public class UserDataAccessService implements UserDao {
                 "SELECT * FROM users INNER JOIN authorities ON users.username = authorities.username",
                 new RowMapper<User>() {
                     public User mapRow(ResultSet rs, int rowNum) throws SQLException {
-                        User user = new User(rs.getString("username"), rs.getString("password"), 0, null, null,
+                        User user = new User(rs.getString("username"), rs.getString("password"),
                                 rs.getString("authority"), rs.getBoolean("enabled"));
                         return user;
                     }
@@ -57,9 +53,6 @@ public class UserDataAccessService implements UserDao {
         final String sqlAuth = "CREATE TABLE IF NOT EXISTS authorities"
                 + "(username varchar_ignorecase(50) not null,authority varchar_ignorecase(50) not null,constraint fk_authorities_users foreign key(username) references users(username))";
         jdbcTemplate.execute(sqlAuth);
-        final String sqlDetails = "CREATE TABLE IF NOT EXISTS user_details"
-                + "(username varchar_ignorecase(50) not null primary key,nationality varchar_ignorecase(50),genre varchar_ignorecase(50), age number, constraint fk_user_details foreign key(username) references users(username))";
-        jdbcTemplate.execute(sqlDetails);
         return 0;
     }
 
