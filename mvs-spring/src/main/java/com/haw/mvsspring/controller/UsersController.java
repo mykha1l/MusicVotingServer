@@ -1,5 +1,7 @@
 package com.haw.mvsspring.controller;
 
+import java.util.HashMap;
+
 import javax.servlet.http.HttpServletRequest;
 
 import com.haw.mvsspring.authentication.SecurityConfig;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.view.RedirectView;
 
@@ -39,9 +42,17 @@ public class UsersController {
     }
 
     @PostMapping("/api/v1/register")
-    RedirectView registerUser(@ModelAttribute final UserDTO userDTO, HttpServletRequest req) {
-        final User user = new User(userDTO.getUsername(),
-                securityConfig.passwordEncoder().encode(userDTO.getPassword()), "ROLE_USER", true);
+    RedirectView registerUser(@RequestParam HashMap<String, Object> formData, HttpServletRequest req) {
+        
+        final String username = formData.get("username").toString();
+        final String password = formData.get("password").toString();
+        final String age = formData.get("age").toString();
+        final String nationality = formData.get("nationality").toString();
+        final String genre = formData.get("genre").toString();
+        final UserDTO userDTO = new UserDTO(username, password);
+        
+        final User user = new User(username, securityConfig.passwordEncoder().encode(password), Integer.valueOf(age),
+                nationality, genre, "ROLE_USER", true);
         userService.addUser(user);
         userService.login(userDTO, req);
         return new RedirectView("/index.html", false);
