@@ -4,12 +4,14 @@ import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.haw.mvsspring.Exceptions.MyDatabaseException;
 import com.haw.mvsspring.authentication.SecurityConfig;
 import com.haw.mvsspring.model.User;
 import com.haw.mvsspring.model.UserDTO;
 import com.haw.mvsspring.service.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -46,14 +48,19 @@ public class UsersController {
         
         final String username = formData.get("username").toString();
         final String password = formData.get("password").toString();
-        final String age = formData.get("age").toString();
+        final Integer age = formData.get("age").toString().isEmpty() ? 0
+                : Integer.parseInt(formData.get("age").toString());
         final String nationality = formData.get("nationality").toString();
         final String genre = formData.get("genre").toString();
         final UserDTO userDTO = new UserDTO(username, password);
         
-        final User user = new User(username, securityConfig.passwordEncoder().encode(password), Integer.valueOf(age),
+        final User user = new User(username, securityConfig.passwordEncoder().encode(password), age,
                 nationality, genre, "ROLE_USER", true);
-        userService.addUser(user);
+        try {
+            userService.addUser(user);
+        } catch (DataAccessException ex) {
+            throw new MyDatabaseException(ex);
+        }
         userService.login(userDTO, req);
         return new RedirectView("/index.html", false);
     }
