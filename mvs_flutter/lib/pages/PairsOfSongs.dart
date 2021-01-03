@@ -17,31 +17,37 @@ class _PairsOfSongsState extends State<PairsOfSongs> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.grey[200],
-        appBar: new AppBar(
-          title: Text('Voting Panel'),
-          centerTitle: true,
-          elevation: 0,
-        ),
-        body: Container(
-            child: FutureBuilder<List<List<Song>>>(
-                future: fetchPairOfSongs(),
-                builder: (BuildContext context, AsyncSnapshot snapshot) {
-                  //var snapshotData = snapshot.data;
-                  //print('SnapShot values are $snapshotData');
-                  if (snapshot.hasData) {
-                    _songs.addAll(snapshot.data);
-                    for (var songs in _songs) {
-                      for (song in songs) {
-                        addedSongs.add(song);
-                      }
-                    }
-                    return PairsOfSongsPage(addedSongs);
-                  } else if (snapshot.data == null) {
-                    return Container(child: Center(child: Text("Loading...")));
-                  }
+      backgroundColor: Colors.grey[200],
+      appBar: new AppBar(
+        title: Text('Voting Panel'),
+        centerTitle: true,
+        elevation: 0,
+      ),
+      body: Container(
+        child: FutureBuilder<List<List<Song>>>(
+          future: fetchPairOfSongs(),
+          builder: (BuildContext context, AsyncSnapshot snapshot) {
+            if (snapshot.hasData) {
+              _songs.addAll(snapshot.data);
 
-                  return new CircularProgressIndicator();
-                })));
+              for (var songs in _songs) {
+                for (song in songs) {
+                  addedSongs.add(song);
+                }
+              }
+              return PairsOfSongsPage(addedSongs);
+            } else if (snapshot.data == null) {
+              return Container(
+                child: Center(
+                  child: CircularProgressIndicator(),
+                ),
+              );
+            }
+
+            return new CircularProgressIndicator();
+          },
+        ),
+      ),
+    );
   }
 }

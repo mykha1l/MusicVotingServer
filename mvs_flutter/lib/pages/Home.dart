@@ -19,32 +19,57 @@ class _HomeState extends State<Home> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            RaisedButton.icon(
-              onPressed: () {
-                Navigator.pushNamed(context, '/songList');
-              },
-              icon: Icon(Icons.music_note),
-              label:
-                  Text('List of all songs', style: TextStyle(fontSize: 18.0)),
-              padding: const EdgeInsets.all(20.0),
+            ButtonTheme(
+              buttonColor: Colors.blue[400],
+              minWidth: 200.0,
+              height: 60.0,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20)),
+              child: RaisedButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, '/songList');
+                },
+                child: Text(
+                  'All Songs',
+                  style: TextStyle(color: Colors.white, fontSize: 17),
+                ),
+              ),
+            ),
+            const SizedBox(
+              height: 30,
+            ),
+            ButtonTheme(
+              buttonColor: Colors.blue[400],
+              minWidth: 200.0,
+              height: 60.0,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20)),
+              child: RaisedButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, '/pairsOfSongs');
+                },
+                child: Text(
+                  'Start Voting',
+                  style: TextStyle(color: Colors.white, fontSize: 17),
+                ),
+              ),
             ),
             const SizedBox(height: 30),
-            RaisedButton.icon(
-              onPressed: () {
-                Navigator.pushNamed(context, '/pairsOfSongs');
-              },
-              icon: Icon(Icons.music_note),
-              label: Text('Pairs of Songs', style: TextStyle(fontSize: 18.0)),
-              padding: const EdgeInsets.all(20.0),
-            ),
-            const SizedBox(height: 30),
-            RaisedButton.icon(
-              onPressed: () {
-                Navigator.pushNamed(context, '/uploadSongs');
-              },
-              icon: Icon(Icons.music_note),
-              label: Text('Song Upload', style: TextStyle(fontSize: 18.0)),
-              padding: const EdgeInsets.all(20.0),
+            ButtonTheme(
+              buttonColor: Colors.blue[400],
+              minWidth: 200.0,
+              height: 60.0,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20)),
+              child: RaisedButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, '/uploadSongs');
+                },
+                child: Text(
+                  'Song Upload',
+                  style: TextStyle(color: Colors.white, fontSize: 17),
+                ),
+              ),
             ),
           ],
         ),
