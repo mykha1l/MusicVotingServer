@@ -107,4 +107,9 @@ public class SongsController {
         myPlayer.stop();
     }
 
+    @DeleteMapping(value = "/api/v1/songs/{id}")
+    public void deleteSong(@PathVariable Integer id) {
+        System.out.println("The song with  id :" + id + "is deleted.");
+    }
+
 }
