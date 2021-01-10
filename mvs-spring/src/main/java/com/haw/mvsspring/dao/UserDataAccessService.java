@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
+import com.haw.mvsspring.authentication.SecurityConfig;
 import com.haw.mvsspring.model.User;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,9 @@ import org.springframework.stereotype.Repository;
 public class UserDataAccessService implements UserDao {
 
     private final JdbcTemplate jdbcTemplate;
+
+    @Autowired
+    private SecurityConfig securityConfig;
 
     @Autowired
     public UserDataAccessService(JdbcTemplate jdbcTemplate) {
@@ -55,11 +59,16 @@ public class UserDataAccessService implements UserDao {
                 + "(username varchar_ignorecase(50) not null primary key,password varchar_ignorecase(500) not null,enabled boolean not null)";
         jdbcTemplate.execute(sql);
         final String sqlAuth = "CREATE TABLE IF NOT EXISTS authorities"
-                + "(username varchar_ignorecase(50) not null,authority varchar_ignorecase(50) not null,constraint fk_authorities_users foreign key(username) references users(username))";
+                + "(username varchar_ignorecase(50) not null primary key,authority varchar_ignorecase(50) not null,constraint fk_authorities_users foreign key(username) references users(username))";
         jdbcTemplate.execute(sqlAuth);
         final String sqlDetails = "CREATE TABLE IF NOT EXISTS user_details"
                 + "(username varchar_ignorecase(50) not null primary key,nationality varchar_ignorecase(50),genre varchar_ignorecase(50), age number, constraint fk_user_details foreign key(username) references users(username))";
         jdbcTemplate.execute(sqlDetails);
+        final String sqlAdmin = "INSERT OR IGNORE INTO users ( username, password, enabled ) VALUES( ?, ?, ? )";
+        jdbcTemplate.update(sqlAdmin,
+                new Object[] { "admin", securityConfig.passwordEncoder().encode("admin"), 1});
+        final String sqlAuthorities = "INSERT OR IGNORE INTO authorities ( username, authority) VALUES( ?, ? )";
+        jdbcTemplate.update(sqlAuthorities, new Object[] { "admin", "ROLE_ADMIN" });
         return 0;
     }
 
