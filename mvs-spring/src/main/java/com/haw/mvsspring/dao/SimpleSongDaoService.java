@@ -50,5 +50,8 @@ public class SimpleSongDaoService implements SongDao {
         }
         return 0;
     }
-    
+
+    public int deleteSong(Integer id){
+        return 0;
+    }
 }

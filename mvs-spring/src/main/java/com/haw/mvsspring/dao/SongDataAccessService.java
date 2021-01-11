@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.haw.mvsspring.Exceptions.MyDatabaseException;
+import com.haw.mvsspring.Exceptions.WrongDataException;
 import com.haw.mvsspring.model.Song;
 import com.mpatric.mp3agic.InvalidDataException;
 import com.mpatric.mp3agic.UnsupportedTagException;
@@ -56,6 +57,25 @@ public class SongDataAccessService implements SongDao {
     public int removeAll() {
         final String sql = "DELETE FROM song";
         jdbcTemplate.execute(sql);
+        return 0;
+    }
+    
+    private boolean exists(final int id) {
+        final String sql = "SELECT COUNT(*) FROM song WHERE id=" + id;
+        final int count = jdbcTemplate.queryForObject(sql, Integer.class);
+        return count == 1;
+    }
+
+    public int deleteSong(Integer id) {
+        try {
+            if (!exists(id)) {
+                throw new WrongDataException("There is no song with id : " + id);
+            }
+            final String sql = "DELETE FROM song WHERE id=?";
+            jdbcTemplate.update(sql, new Object[] { id });
+        } catch (DataAccessException ex) {
+            throw new MyDatabaseException(ex);
+        }
         return 0;
     }
 

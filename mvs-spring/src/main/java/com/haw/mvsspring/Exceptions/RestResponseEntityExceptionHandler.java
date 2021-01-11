@@ -22,4 +22,10 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
         final String bodyOfResponse = "File upload exeption: " + ex.getMessage();
         return handleExceptionInternal(ex, bodyOfResponse, new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR, request);
     }
+
+    @ExceptionHandler(value = { WrongDataException.class })
+    protected ResponseEntity<Object> handleWrongDataException(RuntimeException ex, WebRequest request) {
+        final String bodyOfResponse = "Invalid data: " + ex.getMessage();
+        return handleExceptionInternal(ex, bodyOfResponse, new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
+    }
 }

@@ -62,4 +62,8 @@ public class SongService {
         return votingList;
     }
 
+    public int deleteSong(Integer id) {
+        songDao.deleteSong(id);
+        return 0;
+    }
 }

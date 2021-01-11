@@ -15,4 +15,5 @@ public interface SongDao {
 
     int init() throws UnsupportedTagException, InvalidDataException, IOException;
     
+    int deleteSong(Integer id);
 }

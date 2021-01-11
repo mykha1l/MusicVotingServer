@@ -109,7 +109,7 @@ public class SongsController {
 
     @DeleteMapping(value = "/api/v1/songs/{id}")
     public void deleteSong(@PathVariable Integer id) {
-        System.out.println("The song with  id :" + id + "is deleted.");
+        songService.deleteSong(id);
     }
 
 }
