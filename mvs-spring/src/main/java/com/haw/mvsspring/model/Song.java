@@ -40,6 +40,19 @@ public class Song {
         this.albumImage = albumImage;
     }
 
+    public Song(Integer id, String filename, String title, String artist, String genre, String album, String duration,
+            byte[] albumImage) {
+
+        this.id = id;
+        this.filename = filename;
+        this.title = title;
+        this.artist = artist;
+        this.genre = genre;
+        this.album = album;
+        this.duration = duration;
+        this.albumImage = albumImage;
+    }
+    
     public Song(final File file) throws UnsupportedTagException, InvalidDataException, IOException {
         Mp3File mp3file = new Mp3File(file);
         this.filename = file.getName();

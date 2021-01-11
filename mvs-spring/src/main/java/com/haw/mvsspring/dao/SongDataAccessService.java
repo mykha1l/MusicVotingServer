@@ -41,7 +41,7 @@ public class SongDataAccessService implements SongDao {
         final String sql = "SELECT * FROM song";
         try {
             var result = jdbcTemplate.query(sql, (resultSet, i) -> {
-                return new Song(resultSet.getString("filename"), resultSet.getString("title"),
+                return new Song(resultSet.getInt("id"), resultSet.getString("filename"), resultSet.getString("title"),
                         resultSet.getString("artist"), resultSet.getString("genre"), resultSet.getString("album"),
                         resultSet.getString("duration"), resultSet.getBytes("album_image"));
             });
