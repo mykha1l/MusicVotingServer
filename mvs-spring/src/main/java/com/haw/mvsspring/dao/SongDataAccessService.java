@@ -5,10 +5,12 @@ import java.io.FileFilter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import com.haw.mvsspring.Exceptions.MyDatabaseException;
 import com.haw.mvsspring.Exceptions.WrongDataException;
 import com.haw.mvsspring.model.Song;
+import com.haw.mvsspring.sqlite.SongRowMapper;
 import com.mpatric.mp3agic.InvalidDataException;
 import com.mpatric.mp3agic.UnsupportedTagException;
 
@@ -16,6 +18,9 @@ import org.apache.commons.io.filefilter.WildcardFileFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
 
 @Repository("sqlite")
@@ -23,16 +28,19 @@ public class SongDataAccessService implements SongDao {
 
     private final JdbcTemplate jdbcTemplate;
 
+    private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+
     @Autowired
-    public SongDataAccessService(JdbcTemplate jdbcTemplate){
+    public SongDataAccessService(JdbcTemplate jdbcTemplate, NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
+        this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
     }
 
     @Override
     public int insertSong(Song song) {
         final String sql = "INSERT INTO song (filename, title, artist, genre, album, duration, album_image) VALUES(?, ?, ?, ?, ?, ?, ?)";
-        jdbcTemplate.update(sql, new Object [] { song.getFilename(), song.getTitle(), song.getArtist(), song.getGenre(),
-        song.getAlbum(), song.getDuration(), song.getAlbumImage()} );
+        jdbcTemplate.update(sql, new Object[] { song.getFilename(), song.getTitle(), song.getArtist(), song.getGenre(),
+                song.getAlbum(), song.getDuration(), song.getAlbumImage() });
         return 0;
     }
 
@@ -59,7 +67,7 @@ public class SongDataAccessService implements SongDao {
         jdbcTemplate.execute(sql);
         return 0;
     }
-    
+
     private boolean exists(final int id) {
         final String sql = "SELECT COUNT(*) FROM song WHERE id=" + id;
         final int count = jdbcTemplate.queryForObject(sql, Integer.class);
@@ -101,5 +109,50 @@ public class SongDataAccessService implements SongDao {
         }
         return 0;
     }
-    
+
+    public List<Song> searchInDB(final Map<String, String> searchItems) {
+
+        final var keySet = searchItems.keySet();
+        final String key = (String) keySet.toArray()[0];
+        final String value = searchItems.get(key);
+
+        String sql;
+        List<Song> result = new ArrayList<>();
+        switch (key) {
+            case "artist":
+                sql = "SELECT * FROM song WHERE artist = ? ";
+                result = jdbcTemplate.query(sql, new Object[] { value }, new SongRowMapper());
+                break;
+            case "album":
+                sql = "SELECT * FROM song WHERE album= ? ";
+                result = jdbcTemplate.query(sql, new Object[] { value }, new SongRowMapper());
+                break;
+            case "duration":
+                sql = "SELECT * FROM song WHERE duration = ? ";
+                result = jdbcTemplate.query(sql, new Object[] { value }, new SongRowMapper());
+                break;
+            case "filename":
+                sql = "SELECT * FROM song WHERE filename = ? ";
+                result = jdbcTemplate.query(sql, new Object[] { value }, new SongRowMapper());
+                break;
+            case "genre":
+                sql = "SELECT * FROM song WHERE genre = ? ";
+                result = jdbcTemplate.query(sql, new Object[] { value }, new SongRowMapper());
+                break;
+            case "title":
+                sql = "SELECT * FROM song WHERE title = ? ";
+                result = jdbcTemplate.query(sql, new Object[] { value }, new SongRowMapper());
+                break;
+            case "search":
+                System.out.println(value);
+                sql = "SELECT * FROM song WHERE  artist LIKE :value OR album LIKE :value OR duration LIKE :value OR filename LIKE :value OR genre LIKE :value OR title LIKE :value ";
+                final SqlParameterSource namedParameters = new MapSqlParameterSource("value", "%" + value + "%");
+                result = namedParameterJdbcTemplate.query(sql, namedParameters, new SongRowMapper());
+                break;
+        }
+
+        return result;
+    }
+
 }
+ 

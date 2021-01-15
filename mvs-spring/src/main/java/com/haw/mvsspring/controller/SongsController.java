@@ -8,6 +8,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.List;
+import java.util.Map;
 
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
@@ -49,8 +50,23 @@ public class SongsController {
     private MyPlayer myPlayer;
 
     @GetMapping("/api/v1/songs")
-    public List<Song> getSongList() throws UnsupportedTagException, InvalidDataException, IOException {
-        return songService.getAllSongs();
+    public List<Song> getSongList(@RequestParam final Map<String, String> params)
+            throws UnsupportedTagException, InvalidDataException, IOException {
+
+        if (params.isEmpty()) {
+            return songService.getAllSongs();
+        }
+
+        final var keySet = params.keySet();
+        if (keySet.size() > 1) {
+            return new ArrayList<Song>();
+        }
+
+        if (!Song.searchableFields.contains((String)keySet.toArray()[0])){
+            return new ArrayList<Song>();
+        }
+
+        return songService.searchInDB(params);
     }
 
     @GetMapping("/api/v1/pairs")
@@ -111,7 +127,7 @@ public class SongsController {
 
     @GetMapping("/api/v1/songs/mostlyVoted")
     public ArrayList<String> mostlyVotedSongs() {
-       return votesHandler.mostlyVoted; 
+        return votesHandler.mostlyVoted;
     }
 
     @GetMapping("/api/v1/songs/current/stop")

@@ -2,6 +2,8 @@ package com.haw.mvsspring.model;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,6 +18,9 @@ import com.mpatric.mp3agic.UnsupportedTagException;
 
 @Entity
 public class Song {
+
+    final public static List<String> searchableFields = Arrays.asList("album", "artist", "duration", "filename",
+            "genre", "title", "search");
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

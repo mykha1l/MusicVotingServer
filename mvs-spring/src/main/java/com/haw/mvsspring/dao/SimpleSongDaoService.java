@@ -5,6 +5,7 @@ import java.io.FileFilter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import com.haw.mvsspring.model.Song;
 import com.mpatric.mp3agic.InvalidDataException;
@@ -53,5 +54,9 @@ public class SimpleSongDaoService implements SongDao {
 
     public int deleteSong(Integer id){
         return 0;
+    }
+
+    public List<Song> searchInDB(final Map<String, String> searchItems){
+        return new ArrayList<Song>();
     }
 }

@@ -3,6 +3,7 @@ package com.haw.mvsspring.service;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import com.haw.mvsspring.dao.SongDao;
 import com.haw.mvsspring.model.Song;
@@ -65,5 +66,9 @@ public class SongService {
     public int deleteSong(Integer id) {
         songDao.deleteSong(id);
         return 0;
+    }
+    
+    public List<Song> searchInDB(final Map<String, String> searchItems){
+        return songDao.searchInDB(searchItems);
     }
 }
