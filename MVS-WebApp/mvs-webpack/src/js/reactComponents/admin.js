@@ -42,36 +42,18 @@ class Admin extends React.Component {
     }
 
     render() {
-        if (this.state.error) {
-            return (
-                <div>
-                    <AdminNavbar buttonClicked={this.buttonClicked.bind(this)}></AdminNavbar>
-                    <div>{this.state.error.toString()}</div>
-                </div>
-            )
-        } else if (this.state.allSongs) {
-            return (
-                <div>
-                    <AdminNavbar buttonClicked={this.buttonClicked.bind(this)}></AdminNavbar>
-                    <SongList songs={this.state.allSongs} isEditable={true} onSongRemove={this.refreshAllSongs.bind(this)}></SongList>
-                </div>
-
-            )
-        } else if (this.state.currentSong) {
-            return (
-                <div>
-                    <AdminNavbar buttonClicked={this.buttonClicked.bind(this)}></AdminNavbar>
-                    <CurrentSong></CurrentSong>
-                </div>
-            )
-        } else {
-            return (
-                <div>
-                    <AdminNavbar buttonClicked={this.buttonClicked.bind(this)}></AdminNavbar>
-                    <SongList songs={this.state.mostlyVoted}></SongList>
-                </div>
-            )
+        const BUTTON_CLICKED = {
+            allSongs: <SongList songs={this.state.allSongs} isEditable={true} onSongRemove={this.refreshAllSongs.bind(this)}></SongList>,
+            currentSong: <CurrentSong></CurrentSong>,
+            mostlyVoted: <SongList songs={this.state.mostlyVoted}></SongList>,
         }
+        return (
+            <div>
+                <AdminNavbar buttonClicked={this.buttonClicked.bind(this)}></AdminNavbar>
+                {this.state.error ? <div className='error'>{this.state.error}</div> : BUTTON_CLICKED[this.state.buttonClicked]}
+            </div>
+        )
+
     }
 }
 
