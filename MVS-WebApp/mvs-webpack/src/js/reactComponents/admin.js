@@ -22,7 +22,12 @@ class Admin extends React.Component {
     }
 
     refreshAllSongs() {
-        getAllSongs().then(data => { this.setState({ allSongs: data, error: null }) });
+        getAllSongs().then(data => { data.error ? this.catchError(data.error) : this.setState({ allSongs: data, error: null }) });
+    }
+
+    catchError(error) {
+        console.log("catched error");
+        this.setState({error: error, buttonClicked: '', allSongs: ''});
     }
 
     componentDidUpdate(prevProps, prevState) {

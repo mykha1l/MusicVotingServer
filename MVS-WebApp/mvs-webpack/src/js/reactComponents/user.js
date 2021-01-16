@@ -28,9 +28,9 @@ class User extends React.Component {
     componentDidUpdate(prevProps, prevState) {
         if (prevState.buttonClicked != this.state.buttonClicked) {
             if (this.state.buttonClicked === 'allSongs') {
-                getAllSongs().then(data => { this.setState({ allSongs: data }) });
+                getAllSongs().then(data => { data.error ? this.catchError(data.error) : this.setState({ allSongs: data }) });
             } else if (this.state.buttonClicked === 'voting') {
-                getPairs().then(data => { this.setState({ songPairs: data }) })
+                getPairs().then(data => { data.error ? this.catchError(data.error) : this.setState({ songPairs: data }) })
             }
         }
     }

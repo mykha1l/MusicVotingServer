@@ -14,18 +14,19 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
     @ExceptionHandler(value = { MyDatabaseException.class })
     protected ResponseEntity<Object> handleConflict(RuntimeException ex, WebRequest request) {
         final String bodyOfResponse = "Database exeption: " + ex.getMessage();
-        return handleExceptionInternal(ex, bodyOfResponse, new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR, request);
+        return handleExceptionInternal(ex, new ErrorResponseBody(bodyOfResponse), new HttpHeaders(),
+                HttpStatus.INTERNAL_SERVER_ERROR, request);
     }
 
     @ExceptionHandler(value = { FileUploadException.class })
     protected ResponseEntity<Object> handleFileUploadException(RuntimeException ex, WebRequest request) {
         final String bodyOfResponse = "File upload exeption: " + ex.getMessage();
-        return handleExceptionInternal(ex, bodyOfResponse, new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR, request);
+        return handleExceptionInternal(ex, new ErrorResponseBody(bodyOfResponse), new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR, request);
     }
 
     @ExceptionHandler(value = { WrongDataException.class })
     protected ResponseEntity<Object> handleWrongDataException(RuntimeException ex, WebRequest request) {
         final String bodyOfResponse = "Invalid data: " + ex.getMessage();
-        return handleExceptionInternal(ex, bodyOfResponse, new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
+        return handleExceptionInternal(ex, new ErrorResponseBody(bodyOfResponse), new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
     }
 }
