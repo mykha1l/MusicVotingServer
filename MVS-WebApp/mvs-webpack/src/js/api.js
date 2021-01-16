@@ -53,3 +53,7 @@ export async function skipSong() {
 export async function logout() {
     await fetch("/logout", {method: 'POST'});
 }
+
+export async function deleteSong(id) {
+    await fetch("/api/v1/songs/" + id, { method: 'DELETE' });
+}

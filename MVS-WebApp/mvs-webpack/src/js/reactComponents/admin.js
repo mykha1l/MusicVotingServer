@@ -21,12 +21,16 @@ class Admin extends React.Component {
 
     buttonClicked(button) {
         this.setState({buttonClicked : button});
-    } 
+    }
+
+    refreshAllSongs() {
+        getAllSongs().then(data => { this.setState({ allSongs: data, error: null }) });
+    }
 
     componentDidUpdate(prevProps, prevState) {
         if (prevState.buttonClicked != this.state.buttonClicked) {
             if (this.state.buttonClicked === 'allSongs') {
-                getAllSongs().then(data => { this.setState({ allSongs: data, error: null }) });
+                this.refreshAllSongs();
             } else if (this.state.buttonClicked === 'currentSong') {
                 this.setState({ allSongs: null, error: null, currentSong: true });
             } else if (this.state.buttonClicked === 'mostlyVoted') {
@@ -51,7 +55,7 @@ class Admin extends React.Component {
             return (
                 <div>
                     <AdminNavbar buttonClicked={this.buttonClicked.bind(this)}></AdminNavbar>
-                    <SongList songs={this.state.allSongs}></SongList>
+                    <SongList songs={this.state.allSongs} isEditable={true} onSongRemove={this.refreshAllSongs.bind(this)}></SongList>
                 </div>
 
             )

@@ -131,3 +131,8 @@ form > * {
 form > * > * {
     margin: 0.5em;
 }
+
+#delete-song-icon {
+    position: absolute;
+    left: 90%;
+}

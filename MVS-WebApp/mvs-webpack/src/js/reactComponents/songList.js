@@ -26,12 +26,13 @@ export class SongList extends React.Component {
     render() {
         const songs = this.props.songs;
         const pairs = this.props.pairs;
+        const isEditable = this.props.isEditable;
         if (songs) {
             return (
                 <div className='songlist'>
                     {songs.map((item, idx) => {
                         return (
-                            <Song data={item}></Song>)
+                            <Song data={item} isEditable={isEditable} onDelete={this.props.onSongRemove}></Song>)
                     })}
                 </div>)
         } else if (pairs) {
