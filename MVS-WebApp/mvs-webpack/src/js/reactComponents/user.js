@@ -42,6 +42,7 @@ class User extends React.Component {
             login: <LoginForm></LoginForm>,
             allSongs: <SongList songs={this.state.allSongs} pairs={this.state.songPairs}></SongList>,
             voting: <SongList songs={this.state.allSongs} pairs={this.state.songPairs}></SongList>,
+            home: <div></div>
         };
         return (
             <div>
