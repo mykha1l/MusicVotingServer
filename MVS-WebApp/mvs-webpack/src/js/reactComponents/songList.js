@@ -1,5 +1,3 @@
-'use strict';
-
 import { Song } from './song'
 import { sendVotes } from '../api'
 

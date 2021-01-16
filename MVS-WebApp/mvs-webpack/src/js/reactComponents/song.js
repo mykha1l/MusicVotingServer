@@ -1,5 +1,3 @@
-'use strict';
-
 import {deleteSong} from '../api'
 
 export class Song extends React.Component {

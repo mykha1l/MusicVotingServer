@@ -1,5 +1,3 @@
-'use strict';
-
 import { Navbar } from './navbar';
 
 export class AdminNavbar extends Navbar {

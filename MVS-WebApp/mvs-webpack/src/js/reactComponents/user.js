@@ -1,5 +1,3 @@
-'use strict';
-
 import { Navbar } from './navbar'
 import { SongList } from './songList';
 import { getAllSongs, getPairs } from '../api';

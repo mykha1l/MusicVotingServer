@@ -1,5 +1,3 @@
-"use strict";
-
 export class Hamburger extends React.Component {
 
     handleClick(e) {

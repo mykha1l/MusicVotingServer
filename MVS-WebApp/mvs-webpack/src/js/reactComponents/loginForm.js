@@ -1,5 +1,3 @@
-'use strict';
-
 export class LoginForm extends React.Component {
 
     render() {

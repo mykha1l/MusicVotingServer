@@ -1,5 +1,3 @@
-'use strict';
-
 import { skipSong, getCurrentSong } from '../api'
 
 class SkipButton extends React.Component {

@@ -1,5 +1,3 @@
-'use strict';
-
 export class SongUpload extends React.Component {
 
     upload(input) {

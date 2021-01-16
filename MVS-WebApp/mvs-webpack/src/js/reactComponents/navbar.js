@@ -1,5 +1,3 @@
-'use strict';
-
 import { getUser, logout } from '../api';
 import { Hamburger } from './hamburger';
 
