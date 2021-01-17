@@ -136,3 +136,11 @@ form > * > * {
     position: absolute;
     left: 90%;
 }
+
+#error-validation {
+	width: auto;
+	border: 1px solid #ff00006b;
+	padding: 0.5em;
+	background: #ff00001f;
+	margin-bottom: 0.5em;
+}
