@@ -14,15 +14,19 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 
 import com.haw.mvsspring.service.MyPlayer;
 import com.haw.mvsspring.Exceptions.FileUploadException;
+import com.haw.mvsspring.authentication.SecurityConfig;
 import com.haw.mvsspring.model.Song;
 import com.haw.mvsspring.service.VotesHandler;
 import com.haw.mvsspring.service.SongService;
+import com.haw.mvsspring.service.UserService;
 import com.mpatric.mp3agic.InvalidDataException;
 import com.mpatric.mp3agic.UnsupportedTagException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -34,6 +38,9 @@ public class SongsController {
 
     @Autowired
     private SongService songService;
+
+    @Autowired
+    private UserService userService;
 
     @Autowired
     private VotesHandler votesHandler;
@@ -54,7 +61,12 @@ public class SongsController {
     @PostMapping("/api/v1/vote")
     void submitVotes(@RequestBody final List<String> songs)
             throws UnsupportedAudioFileException, IOException, LineUnavailableException, JavaLayerException {
+        final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        final String username = authentication.getName();
         votesHandler.votes.add(songs);
+        for (final String song : songs) {
+            userService.storeUsersVote(username, song);
+        }
         if (votesHandler.votes.size() == votesHandler.votersNumber) {
             System.out.println("Mostly voted songs: " + votesHandler.calculateMostlyVotedSongs());
             myPlayer.play(votesHandler.calculateMostlyVotedSongs());

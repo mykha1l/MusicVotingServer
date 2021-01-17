@@ -14,4 +14,6 @@ public interface UserDao {
 
     User getUser(String name);
 
+    int storeUsersVote(final String username, final String songname);
+
 }

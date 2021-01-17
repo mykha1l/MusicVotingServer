@@ -40,6 +40,15 @@ public class UserDataAccessService implements UserDao {
     }
 
     @Override
+    public int storeUsersVote(final String username, final String songname) {
+        System.out.println("'inserting'");
+        final String sql = "INSERT INTO voting_history (song_id, username, date_time) VALUES((SELECT id FROM song WHERE filename = ?), ?, datetime('now', 'localtime'))";
+        jdbcTemplate.update(sql, new Object[] { songname, username });
+
+        return 0;
+    }
+
+    @Override
     public List<User> getAllUsers() {
         List<User> users = this.jdbcTemplate.query(
                 "SELECT * FROM users INNER JOIN authorities ON users.username = authorities.username",
@@ -64,6 +73,9 @@ public class UserDataAccessService implements UserDao {
         final String sqlDetails = "CREATE TABLE IF NOT EXISTS user_details"
                 + "(username varchar_ignorecase(50) not null primary key,nationality varchar_ignorecase(50),genre varchar_ignorecase(50), age number, constraint fk_user_details foreign key(username) references users(username))";
         jdbcTemplate.execute(sqlDetails);
+        final String sqlVotingHistory = "CREATE TABLE IF NOT EXISTS voting_history"
+                + "(song_id integer not null,username varchar_ignorecase(50) not null, date_time text, constraint fk_voting_history_id foreign key(song_id) references song(id), constraint fk_voting_history_user foreign key(username) references users(username))";
+        jdbcTemplate.execute(sqlVotingHistory);
         final String sqlAdmin = "INSERT OR IGNORE INTO users ( username, password, enabled ) VALUES( ?, ?, ? )";
         jdbcTemplate.update(sqlAdmin,
                 new Object[] { "admin", securityConfig.passwordEncoder().encode("admin"), 1});

@@ -55,4 +55,8 @@ public class UserService {
         return userDao.getUser(username);
     }
 
+    public int storeUsersVote(final String username, final String songname) {
+        return userDao.storeUsersVote(username, songname);
+    }
+
 }
