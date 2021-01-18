@@ -40,8 +40,8 @@ class User extends React.Component {
             upload: <SongUpload error={this.catchError.bind(this)}></SongUpload>,
             register: <RegistrationForm></RegistrationForm>,
             login: <LoginForm></LoginForm>,
-            allSongs: <SongList songs={this.state.allSongs} pairs={this.state.songPairs}></SongList>,
-            voting: <SongList songs={this.state.allSongs} pairs={this.state.songPairs}></SongList>,
+            allSongs: <SongList songs={this.state.allSongs}></SongList>,
+            voting: <SongList pairs={this.state.songPairs}></SongList>,
             home: <div></div>
         };
         return (
