@@ -4,6 +4,7 @@ import { getAllSongs, getPairs } from '../api';
 import { SongUpload } from './SongUpload';
 import { RegistrationForm } from './registrationForm';
 import { LoginForm } from './loginForm';
+import { Welcome } from './welcome';
 
 class User extends React.Component {
 
@@ -47,12 +48,13 @@ class User extends React.Component {
             allSongs: <SongList songs={this.state.allSongs}></SongList>,
             search: <SongList songs={this.state.allSongs}></SongList>,
             voting: <SongList pairs={this.state.songPairs}></SongList>,
-            home: <div></div>
+            home: <Welcome></Welcome>
         };
         return (
             <div>
                 <Navbar buttonClicked={this.buttonClicked.bind(this)} updateSongList={this.updateSongList.bind(this)} ></Navbar>
                 {this.state.error ? <div className='error'>{this.state.error}</div> : BUTTON_CLICKED[this.state.buttonClicked]}
+                {!this.state.buttonClicked && <Welcome></Welcome>}
             </div>
         )
     }
