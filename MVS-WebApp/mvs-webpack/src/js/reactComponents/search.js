@@ -10,6 +10,7 @@ export class Search extends React.Component {
     }
 
     handleClick() {
+        this.props.updateTab();
         searchSong(this.state.searchText).then((data) => {
             this.props.updateSongList(data);
             this.props.updateButtonClicked("search");

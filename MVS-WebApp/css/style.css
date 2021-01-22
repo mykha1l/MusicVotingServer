@@ -48,7 +48,7 @@ body {
     text-align: center;
 }
 
-.navigationbar-items:hover {
+.navigationbar-items:hover, .navigationbar-items.active {
     background-color: rgb(211, 211, 42);
   }
 

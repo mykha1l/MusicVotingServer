@@ -7,7 +7,8 @@ export class Navbar extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            user: ''
+            user: '',
+            tab:'',
         }
     }
 
@@ -15,14 +16,23 @@ export class Navbar extends React.Component {
         getUser().then((data) => { this.setState({ user: data.username }) });
     }
 
+    handleClick(button) {
+        this.props.buttonClicked(button);
+        this.setState({tab: button});
+    }
+
+    updateTab() {
+        this.setState({tab: ''});
+    }
+
     render() {
         return (
             <div className="navbar">
-                <img src="img/icon.png" onClick={() => this.props.buttonClicked("home")} />
-                <button className="navigationbar-items" onClick={() => this.props.buttonClicked("allSongs")}>All Songs</button>
-                <button className="navigationbar-items" onClick={() => this.props.buttonClicked("voting")}>Start voting</button>
-                <button className="navigationbar-items" onClick={() => this.props.buttonClicked("upload")}>Song Upload</button>
-                <Search updateSongList={this.props.updateSongList} updateButtonClicked={this.props.buttonClicked}></Search>
+                <img src="img/icon.png" onClick={() => this.handleClick("home")} />
+                <button className={`navigationbar-items ${this.state.tab === "allSongs" ? "active" : ""}`} onClick={() => this.handleClick("allSongs")}>All Songs</button>
+                <button className={`navigationbar-items ${this.state.tab === "voting" ? "active" : ""}`} onClick={() => this.handleClick("voting")}>Start voting</button>
+                <button className={`navigationbar-items ${this.state.tab === "upload" ? "active" : ""}`} onClick={() => this.handleClick("upload")}>Song Upload</button>
+                <Search updateSongList={this.props.updateSongList} updateButtonClicked={this.props.buttonClicked} updateTab={this.updateTab.bind(this)}></Search>
                 <div className="navigationbar-username">{this.state.user}</div>
                 {
                     this.state.user !== 'anonymousUser' ? <button className="navigationbar-items" onClick={
