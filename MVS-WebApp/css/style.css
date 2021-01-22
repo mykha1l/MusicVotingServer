@@ -144,3 +144,11 @@ form > * > * {
 	background: #ff00001f;
 	margin-bottom: 0.5em;
 }
+
+#search-bar {
+    margin-left: 1.5em;
+}
+
+#search-image {
+    height: 25px;
+}

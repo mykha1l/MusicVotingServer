@@ -21,6 +21,10 @@ class User extends React.Component {
         this.setState({ buttonClicked: button, error: '' });
     }
 
+    updateSongList(songList) {
+        this.setState({ allSongs: songList, error: '' });
+    }
+
     catchError(error) {
         this.setState({error: error, buttonClicked: '', allSongs: '', songPairs: ''});
     }
@@ -41,12 +45,13 @@ class User extends React.Component {
             register: <RegistrationForm></RegistrationForm>,
             login: <LoginForm></LoginForm>,
             allSongs: <SongList songs={this.state.allSongs}></SongList>,
+            search: <SongList songs={this.state.allSongs}></SongList>,
             voting: <SongList pairs={this.state.songPairs}></SongList>,
             home: <div></div>
         };
         return (
             <div>
-                <Navbar buttonClicked={this.buttonClicked.bind(this)}></Navbar>
+                <Navbar buttonClicked={this.buttonClicked.bind(this)} updateSongList={this.updateSongList.bind(this)} ></Navbar>
                 {this.state.error ? <div className='error'>{this.state.error}</div> : BUTTON_CLICKED[this.state.buttonClicked]}
             </div>
         )

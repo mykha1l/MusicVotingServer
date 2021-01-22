@@ -1,5 +1,6 @@
 import { getUser, logout } from '../api';
 import { Hamburger } from './hamburger';
+import { Search } from './search';
 
 export class Navbar extends React.Component {
 
@@ -21,6 +22,7 @@ export class Navbar extends React.Component {
                 <button className="navigationbar-items" onClick={() => this.props.buttonClicked("allSongs")}>All Songs</button>
                 <button className="navigationbar-items" onClick={() => this.props.buttonClicked("voting")}>Start voting</button>
                 <button className="navigationbar-items" onClick={() => this.props.buttonClicked("upload")}>Song Upload</button>
+                <Search updateSongList={this.props.updateSongList} updateButtonClicked={this.props.buttonClicked}></Search>
                 <div className="navigationbar-username">{this.state.user}</div>
                 {
                     this.state.user !== 'anonymousUser' ? <button className="navigationbar-items" onClick={

@@ -57,3 +57,10 @@ export async function logout() {
 export async function deleteSong(id) {
     await fetch("/api/v1/songs/" + id, { method: 'DELETE' });
 }
+
+export async function searchSong(input) {
+    const response = await fetch("/api/v1/songs?search=" + encodeURIComponent(input));
+    const result = await response.json();
+
+    return result;
+}
