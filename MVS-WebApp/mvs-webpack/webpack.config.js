@@ -7,7 +7,7 @@ module.exports = {
         admin: './src/js/reactComponents/admin.js'
     },
     output: {
-        path: path.resolve(__dirname, 'dist'),
+        path: path.resolve(__dirname, '../js'),
         filename: "[name].js"
     },
     module: {
