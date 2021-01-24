@@ -1,4 +1,4 @@
-import { searchSong } from '../api'
+import { searchSong } from '../../api'
 
 export class Search extends React.Component {
 

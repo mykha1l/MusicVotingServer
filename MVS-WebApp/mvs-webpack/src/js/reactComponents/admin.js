@@ -1,6 +1,6 @@
-import { AdminNavbar } from './AdminNavbar'
-import { CurrentSong } from './CurrentSong'
-import { SongList } from './SongList'
+import { AdminNavbar } from './components/AdminNavbar'
+import { CurrentSong } from './pages/CurrentSong'
+import { SongList } from './pages/SongList'
 import { getAllSongs } from '../api'
 import { getMostlyVoted } from '../api'
 

@@ -1,4 +1,4 @@
-import { skipSong, getCurrentSong } from '../api'
+import { skipSong, getCurrentSong } from '../../api'
 
 class SkipButton extends React.Component {
 

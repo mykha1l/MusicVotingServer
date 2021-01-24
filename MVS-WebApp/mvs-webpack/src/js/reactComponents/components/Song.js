@@ -1,4 +1,4 @@
-import {deleteSong} from '../api'
+import {deleteSong} from '../../api'
 
 export class Song extends React.Component {
 
