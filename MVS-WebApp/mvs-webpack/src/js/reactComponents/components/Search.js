@@ -24,12 +24,12 @@ export class Search extends React.Component {
 
     render () {
         return (
-            <>
+            <div className="collapsable">
                 <input id="search-bar" type="text" onChange={this.handleChange.bind(this)}></input>
                 <span>
                     <img id="search-image" src="../img/search.png" onClick={this.handleClick.bind(this)}></img>
                 </span>
-            </>
+            </div>
         )
     }
 }

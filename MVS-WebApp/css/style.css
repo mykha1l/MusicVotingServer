@@ -1,14 +1,22 @@
 @media only screen and (max-width: 768px) {
-    .navigationbar-items {
-        display: none;
+    .collapsable {
+        display: none !important;
     }
 }
 
 .dropdown {
     position: relative;
     display: inline-block;
+    margin-left: auto;
   }
-  
+
+.account-container {
+    margin-left: auto;
+    flex-direction: row;
+    display: flex;
+    align-items: center;
+}
+
 .dropdown-content {
     display: none;
     flex-direction: column;
@@ -46,6 +54,10 @@ body {
     font-weight: 200;
     height: min-content;
     text-align: center;
+}
+
+.collapsable{
+    display: flex;
 }
 
 .navigationbar-items:hover, .navigationbar-items.active {
