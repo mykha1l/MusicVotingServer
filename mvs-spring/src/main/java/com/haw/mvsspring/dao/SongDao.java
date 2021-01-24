@@ -15,9 +15,11 @@ public interface SongDao {
     List<Song> getAllSongs();
 
     int init() throws UnsupportedTagException, InvalidDataException, IOException;
-    
+
     int deleteSong(Integer id);
 
     List<Song> searchInDB(final Map<String, String> searchItems);
-    
+
+    void changeSongInfo(Integer id, Map<String, String> body);
+
 }

@@ -154,5 +154,39 @@ public class SongDataAccessService implements SongDao {
         return result;
     }
 
+    public void changeSongInfo(Integer id, Map<String, String> body) {
+
+        final var keySet = body.keySet();
+        String sql;
+
+        for (String key : keySet) {
+            final String value = body.get(key);
+
+            switch (key) {
+                case "artist":
+                    sql = "UPDATE song set artist = ?  WHERE id= ?";
+                    jdbcTemplate.update(sql, value, id);
+                    break;
+                case "album":
+                    sql = "UPDATE song set album = ?  WHERE id= ?";
+                    jdbcTemplate.update(sql, value, id);
+                    break;
+                case "duration":
+                    sql = "UPDATE song set duration = ?  WHERE id= ?";
+                    jdbcTemplate.update(sql, value, id);
+                    break;
+                case "genre":
+                    sql = "UPDATE song set genre = ?  WHERE id= ?";
+                    jdbcTemplate.update(sql, value, id);
+                    break;
+                case "title":
+                    sql = "UPDATE song set title = ?  WHERE id= ?";
+                    jdbcTemplate.update(sql, value, id);
+                    break;
+                default:
+                    throw new WrongDataException("This key " + key + " is not supported.");
+
+            }
+        }
+    }
 }
- 

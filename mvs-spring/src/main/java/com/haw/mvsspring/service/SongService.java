@@ -71,4 +71,9 @@ public class SongService {
     public List<Song> searchInDB(final Map<String, String> searchItems){
         return songDao.searchInDB(searchItems);
     }
+
+    public void changeSongInfo( Integer id, Map<String, String> body){
+        songDao.changeSongInfo(id, body);
+    }
+
 }

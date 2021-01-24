@@ -140,4 +140,10 @@ public class SongsController {
         songService.deleteSong(id);
     }
 
+    @PutMapping(value = "/api/v1/songs/{id}")
+    public void changeSongInfo(@PathVariable Integer id, @RequestBody Map<String, String> body)
+    {
+        songService.changeSongInfo(id, body);
+    }
+
 }
