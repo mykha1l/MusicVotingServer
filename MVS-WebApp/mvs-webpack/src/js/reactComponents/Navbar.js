@@ -1,6 +1,6 @@
 import { getUser, logout } from '../api';
-import { Hamburger } from './hamburger';
-import { Search } from './search';
+import { Hamburger } from './Hamburger';
+import { Search } from './Search';
 
 export class Navbar extends React.Component {
 

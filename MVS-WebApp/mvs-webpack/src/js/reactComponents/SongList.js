@@ -1,6 +1,6 @@
-import { Song } from './song'
+import { Song } from './Song'
 import { sendVotes } from '../api'
-import { Modal } from './modal'
+import { Modal } from './Modal'
 
 export class SongList extends React.Component {
 

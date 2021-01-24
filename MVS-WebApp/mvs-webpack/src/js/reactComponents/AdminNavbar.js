@@ -1,4 +1,4 @@
-import { Navbar } from './navbar';
+import { Navbar } from './Navbar';
 
 export class AdminNavbar extends Navbar {
     render() {

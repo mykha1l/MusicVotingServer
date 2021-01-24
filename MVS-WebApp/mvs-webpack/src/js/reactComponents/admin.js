@@ -1,6 +1,6 @@
-import { AdminNavbar } from './admin-navbar'
-import { CurrentSong } from './currentSong'
-import { SongList } from './songList'
+import { AdminNavbar } from './AdminNavbar'
+import { CurrentSong } from './CurrentSong'
+import { SongList } from './SongList'
 import { getAllSongs } from '../api'
 import { getMostlyVoted } from '../api'
 

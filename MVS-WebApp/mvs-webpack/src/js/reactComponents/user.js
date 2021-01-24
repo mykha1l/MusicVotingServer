@@ -1,10 +1,10 @@
-import { Navbar } from './navbar'
-import { SongList } from './songList';
+import { Navbar } from './Navbar'
+import { SongList } from './SongList';
 import { getAllSongs, getPairs } from '../api';
 import { SongUpload } from './SongUpload';
-import { RegistrationForm } from './registrationForm';
-import { LoginForm } from './loginForm';
-import { Welcome } from './welcome';
+import { RegistrationForm } from './RegistrationForm';
+import { LoginForm } from './LoginForm';
+import { Welcome } from './Welcome';
 
 class User extends React.Component {
 
