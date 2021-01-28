@@ -22,10 +22,16 @@ export class Search extends React.Component {
         this.setState({ searchText: val });
     }
 
+    handleKeyPress() {
+        if (event.keyCode === 13) {
+            this.handleClick();
+        }
+    }
+
     render () {
         return (
             <div className="collapsable">
-                <input id="search-bar" type="text" onChange={this.handleChange.bind(this)}></input>
+                <input id="search-bar" type="text" onChange={this.handleChange.bind(this)} onKeyPress={this.handleKeyPress.bind(this)}></input>
                 <span>
                     <img id="search-image" src="../img/search.png" onClick={this.handleClick.bind(this)}></img>
                 </span>
