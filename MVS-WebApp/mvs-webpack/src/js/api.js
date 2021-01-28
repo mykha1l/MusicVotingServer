@@ -55,12 +55,29 @@ export async function logout() {
 }
 
 export async function deleteSong(id) {
-    await fetch("/api/v1/songs/" + id, { method: 'DELETE' });
+    const response = await fetch("/api/v1/songs/" + id, { method: 'DELETE' });
+    const result = await response;
+
+    return result;
 }
 
 export async function searchSong(input) {
     const response = await fetch("/api/v1/songs?search=" + encodeURIComponent(input));
     const result = await response.json();
+
+    return result;
+}
+
+export async function updateSong(id, details) {
+    const response = await fetch(`/api/v1/songs/${id}`, {
+        method: 'PUT',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(details)
+    });
+    const result = await response;
 
     return result;
 }

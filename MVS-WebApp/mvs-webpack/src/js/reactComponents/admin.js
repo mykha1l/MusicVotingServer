@@ -48,7 +48,7 @@ class Admin extends React.Component {
 
     render() {
         const BUTTON_CLICKED = {
-            allSongs: <SongList songs={this.state.allSongs} isEditable={true} onSongRemove={this.refreshAllSongs.bind(this)}></SongList>,
+            allSongs: <SongList songs={this.state.allSongs} isEditable={true} onSongChange={this.refreshAllSongs.bind(this)}></SongList>,
             currentSong: <CurrentSong></CurrentSong>,
             mostlyVoted: <SongList songs={this.state.mostlyVoted}></SongList>,
             home: <div></div>

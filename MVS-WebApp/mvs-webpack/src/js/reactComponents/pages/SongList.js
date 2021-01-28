@@ -24,7 +24,9 @@ export class SongList extends React.Component {
     }
 
     showSongDetails(songInfo) {
-        this.setState({ songInfo: songInfo });
+        if (!this.props.isEditable) {
+            this.setState({ songInfo: songInfo });
+        }
     }
 
     clearSongDetails() {
@@ -40,7 +42,7 @@ export class SongList extends React.Component {
                 <div className='songlist'>
                     {songs.map((item, idx) => {
                         return (
-                            <Song onClick={() => this.showSongDetails(item)} data={item} isEditable={isEditable} onDelete={this.props.onSongRemove}></Song>)
+                            <Song onClick={() => this.showSongDetails(item)} data={item} isEditable={isEditable} onSongChange={this.props.onSongChange}></Song>)
                     })}
                     {this.state.songInfo && <Modal data={this.state.songInfo} clear={this.clearSongDetails.bind(this)}></Modal>}
                 </div>)
