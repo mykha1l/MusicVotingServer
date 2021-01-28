@@ -149,6 +149,11 @@ form > * > * {
     left: 90%;
 }
 
+#song-upload {
+    text-align: center;
+    padding: 1em;
+}
+
 #error-validation {
 	width: auto;
 	border: 1px solid #ff00006b;

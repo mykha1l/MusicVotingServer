@@ -29,7 +29,7 @@ export class SongUpload extends React.Component {
 
     render() {
         return (
-            <div>You can upload an mp3 file to the server:
+            <div id="song-upload">You can upload an mp3 file to the server:
                 <div><input type="file" id="input" onChange={this.upload.bind(this)}></input></div>
             </div>
         )
