@@ -1,6 +1,7 @@
 import { Song } from '../components/Song'
 import { sendVotes } from '../../api'
 import { Modal } from '../components/Modal'
+import { VotingProgress } from '../components/VotingProgress'
 
 export class SongList extends React.Component {
 
@@ -53,10 +54,14 @@ export class SongList extends React.Component {
                 );
             } else {
                 return (
-                    <div className='songlist'>
-                        <Song data={pairs[this.state.counter][0]} onClick={this.clickSong.bind(this)}></Song>
-                        <Song data={pairs[this.state.counter][1]} onClick={this.clickSong.bind(this)}></Song>
-                    </div>);
+                    <>
+                        <VotingProgress total={pairs.length} counter={this.state.counter}></VotingProgress>
+                        <div className='songlist'>
+                            <Song data={pairs[this.state.counter][0]} onClick={this.clickSong.bind(this)}></Song>
+                            <Song data={pairs[this.state.counter][1]} onClick={this.clickSong.bind(this)}></Song>
+                        </div>
+                    </>
+                );
             }
         } else {
             return (<div></div>);

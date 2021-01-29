@@ -230,3 +230,15 @@ form > * > * {
     font-family: Verdana, sans-serif;
     padding-left: 0.3em;
 }
+
+#progress {
+    width: 60%;
+    background-color: #8080801c;
+    margin: 5px auto;
+}
+
+#bar {
+    width: 1%;
+    height: 0.5em;
+    background-color: #2eff2e91;
+}
