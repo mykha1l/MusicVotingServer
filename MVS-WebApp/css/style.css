@@ -77,14 +77,14 @@ body {
     flex-direction: column;
     flex-wrap: wrap;
     justify-content: center;
-    padding: 5px;
+    padding: 1em;
 }
 
 .song {
     cursor: pointer;
     display: grid;
-    grid-template-columns: 20% 80%;
-    margin-bottom: 50px;
+    grid-template-columns: 15%;
+    margin-bottom: 2em;
     grid-gap: 1vw;
 }
 
@@ -99,6 +99,7 @@ body {
 .image {
     grid-column: 1;
     grid-row: 1/ span 2;
+    max-width: 200px;
 }
 
 .artist {
@@ -201,7 +202,6 @@ form > * > * {
     flex: 0 0 auto;
     max-width: 1024px;
     max-height: 90vh;
-    width: calc(100% - 16px);
     background: #ffffff;
     font: 14px "Lato";
     opacity: 1;
@@ -217,4 +217,16 @@ form > * > * {
 
 #song-info-table {
     border-spacing: 0.6em;
+    width: 100%;
+}
+
+#song-info-table > caption {
+    font-size: large;
+    margin-top: 0.5em;
+}
+
+.details-key {
+    background: #79dd753d;
+    font-family: Verdana, sans-serif;
+    padding-left: 0.3em;
 }
