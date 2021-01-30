@@ -2,6 +2,7 @@ import React from 'react';
 import { getUser, logout } from '../../api';
 import { Hamburger } from './Hamburger';
 import { Search } from './Search';
+import { NavLink, Link } from 'react-router-dom';
 
 export class Navbar extends React.Component {
 
@@ -29,10 +30,18 @@ export class Navbar extends React.Component {
     render() {
         return (
             <div className="navbar">
-                <img src="img/icon.png" onClick={() => this.handleClick("home")} />
-                <button className={`navigationbar-items collapsable ${this.state.tab === "allSongs" ? "active" : ""}`} onClick={() => this.handleClick("allSongs")}>All Songs</button>
-                <button className={`navigationbar-items collapsable ${this.state.tab === "voting" ? "active" : ""}`} onClick={() => this.handleClick("voting")}>Start voting</button>
-                <button className={`navigationbar-items collapsable ${this.state.tab === "upload" ? "active" : ""}`} onClick={() => this.handleClick("upload")}>Song Upload</button>
+                <Link to='/'>
+                    <img src="img/icon.png" />
+                </Link>
+                <button className='navigationbar-items collapsable'>
+                    <NavLink to='/allSongs' activeClassName='active'>All Songs</NavLink>
+                </button>
+                <button className='navigationbar-items collapsable'>
+                    <NavLink to='/vote' activeClassName='active'>Start voting</NavLink>
+                </button>
+                <button className='navigationbar-items collapsable' >
+                    <NavLink to='/upload' activeClassName='active'>Song Upload</NavLink>
+                </button>
                 <Search updateSongList={this.props.updateSongList} updateButtonClicked={this.props.buttonClicked} updateTab={this.updateTab.bind(this)}></Search>
                 <div className="account-container">
                     <div className="navigationbar-username collapsable">{this.state.user}</div>
@@ -41,8 +50,12 @@ export class Navbar extends React.Component {
                             () => logout().then(() => location.reload())
                         }>Logout</button>
                             : <>
-                                <button className="navigationbar-items collapsable" onClick={() => this.props.buttonClicked("login")}>Log in</button>
-                                <button className="navigationbar-items collapsable" onClick={() => this.props.buttonClicked("register")}>Register</button>
+                                <button className="navigationbar-items collapsable">
+                                    <NavLink to='/login' activeClassName='active'>Login</NavLink>
+                                </button>
+                                <button className="navigationbar-items collapsable">
+                                    <NavLink to='/register' activeClassName='active'>Register</NavLink>
+                                </button>
                             </>
                     }
                 </div>

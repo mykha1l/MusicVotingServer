@@ -49,20 +49,30 @@ body {
     margin: 5px;
     margin-bottom: 15px;
     margin-top: 15px;
-    padding: 5px;
+    padding: 0px;
     font-size: medium;
     font-weight: 200;
     height: min-content;
     text-align: center;
 }
 
+a {
+    text-decoration: none;
+    padding: 2px
+}
+
 .collapsable{
     display: flex;
 }
 
-.navigationbar-items:hover, .navigationbar-items.active {
+.navigationbar-items:hover, .navigationbar-items .active {
     background-color: rgb(211, 211, 42);
   }
+
+.navigationbar-items .active {
+    text-decoration: none;
+    padding: 4px;
+}
 
 .navigationbar-username {
     text-align: right;

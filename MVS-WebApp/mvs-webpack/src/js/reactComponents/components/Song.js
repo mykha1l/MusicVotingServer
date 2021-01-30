@@ -34,7 +34,7 @@ export class Song extends React.Component {
     }
 
     render() {
-        const isEditable = this.props.isEditable;
+        const isEditable = this.state.isEditable;
         if (this.props.data) {
             if (!this.props.data.filename) {
                 return (

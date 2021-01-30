@@ -1,4 +1,5 @@
 import React from 'react';
+import { Redirect } from 'react-router-dom';
 
 export class LoginForm extends React.Component {
 
@@ -8,6 +9,7 @@ export class LoginForm extends React.Component {
             username: '',
             password: '',
             errorMessages: [],
+            done: false,
         };
 
         this.handleChange = this.handleChange.bind(this);
@@ -21,7 +23,7 @@ export class LoginForm extends React.Component {
             formData.append('username', this.state.username);
             formData.append('password', this.state.password);
             console.log('fetching');
-            fetch("/login", { method: 'POST', body: formData }).then(() => window.location.reload());
+            fetch("/login", { method: 'POST', body: formData }).then(() => this.setState({ done: true }));
         } else {
             let errorMsg = [];
             if (!this.state.username) {
@@ -42,15 +44,21 @@ export class LoginForm extends React.Component {
 
     render() {
         const errors = this.state.errorMessages.map((msg) => <div id="error-validation" >{msg}</div>);
-        return (
-            <form onSubmit={this.handleSubmit}>
-                {this.state.errorMessages && <React.Fragment>{errors}</React.Fragment>}
-                <label for="username">Username:</label>
-                <input type="text" id="username" name="username" onChange={this.handleChange}></input>
-                <label for="password">Password:</label>
-                <input type="password" id="password" name="password" onChange={this.handleChange}></input>
-                <input type="submit" value="Submit"></input>
-            </form>
-        )
+        if (this.state.done) {
+            return (
+                <Redirect to='/'></Redirect>
+            );
+        } else {
+            return (
+                <form onSubmit={this.handleSubmit}>
+                    {this.state.errorMessages && <React.Fragment>{errors}</React.Fragment>}
+                    <label htmlFor="username">Username:</label>
+                    <input type="text" id="username" name="username" onChange={this.handleChange}></input>
+                    <label htmlFor="password">Password:</label>
+                    <input type="password" id="password" name="password" onChange={this.handleChange}></input>
+                    <input type="submit" value="Submit"></input>
+                </form>
+            );
+        }
     }
 }

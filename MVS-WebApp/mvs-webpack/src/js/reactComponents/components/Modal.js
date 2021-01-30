@@ -12,9 +12,9 @@ export function Modal(props) {
             value = (minutes < 10 ? `0${minutes}` : minutes) + ":" + (seconds < 10 ? `0${seconds}` : seconds);
         }
         return (
-            <tr>
-                <td className="details-key">{key}</td>
-                <td>{value}</td>
+            <tr key={'tr' + props.data.id + key}>
+                <td key={'td1' + props.data.id + key} className="details-key">{key}</td>
+                <td key={'td2' + props.data.id + key}>{value}</td>
             </tr>
         );
     });
@@ -24,9 +24,9 @@ export function Modal(props) {
             <div id="modal-container">
                 <table id="song-info-table">
                     <caption>Song Details</caption>
-                    <body>
+                    <tbody>
                         {output}
-                    </body>
+                    </tbody>
                 </table>
             </div>
         </div>
