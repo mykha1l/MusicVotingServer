@@ -1,3 +1,4 @@
+import React from 'react';
 import { getUser, logout } from '../../api';
 import { Hamburger } from './Hamburger';
 import { Search } from './Search';

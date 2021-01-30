@@ -1,3 +1,5 @@
+import React from 'react';
+import ReactDOM from 'react-dom' ;
 import { AdminNavbar } from './components/AdminNavbar'
 import { CurrentSong } from './pages/CurrentSong'
 import { SongList } from './pages/SongList'

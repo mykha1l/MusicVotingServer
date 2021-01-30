@@ -1,3 +1,4 @@
+import React from 'react';
 import { Song } from '../components/Song'
 import { sendVotes } from '../../api'
 import { Modal } from '../components/Modal'

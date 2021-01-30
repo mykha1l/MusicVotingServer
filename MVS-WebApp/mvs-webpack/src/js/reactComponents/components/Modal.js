@@ -1,3 +1,5 @@
+import React from 'react';
+
 export function Modal(props) {
 
     const output = Object.entries(props.data).map(([key, value]) => {

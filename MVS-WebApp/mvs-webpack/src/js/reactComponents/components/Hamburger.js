@@ -1,3 +1,5 @@
+import React from 'react';
+
 export class Hamburger extends React.Component {
 
     handleClick(e) {

@@ -1,3 +1,5 @@
+import React from 'react';
+
 export class SongUpload extends React.Component {
 
     upload(input) {

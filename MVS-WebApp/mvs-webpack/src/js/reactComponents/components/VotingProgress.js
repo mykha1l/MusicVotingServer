@@ -1,3 +1,5 @@
+import React from 'react';
+
 export function VotingProgress(props) {
 
     const percentage = props.counter / props.total * 100 + "%";

@@ -1,3 +1,5 @@
+import React from 'react';
+
 export function Welcome(props) {
     const welcomeMsg = ` Hey there! Welcome to the Music Voting Server -
      an application that generates playlists according to collected votes from users and plays music.

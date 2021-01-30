@@ -1,3 +1,5 @@
+import React from 'react';
+
 export class LoginForm extends React.Component {
 
     constructor(props) {

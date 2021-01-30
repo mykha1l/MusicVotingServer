@@ -1,3 +1,4 @@
+import React from 'react';
 import { searchSong } from '../../api'
 
 export class Search extends React.Component {
