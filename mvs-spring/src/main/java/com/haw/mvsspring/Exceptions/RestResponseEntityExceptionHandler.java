@@ -29,4 +29,9 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
         final String bodyOfResponse = "Invalid data: " + ex.getMessage();
         return handleExceptionInternal(ex, new ErrorResponseBody(bodyOfResponse), new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
     }
+
+    @ExceptionHandler(value = { NoContentException.class })
+    protected ResponseEntity<Object> handleNoContentException(RuntimeException ex, WebRequest request) {
+        return handleExceptionInternal(ex, null, new HttpHeaders(), HttpStatus.NO_CONTENT, request);
+    }
 }

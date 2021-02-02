@@ -15,6 +15,9 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 
 import com.haw.mvsspring.service.MyPlayer;
 import com.haw.mvsspring.Exceptions.FileUploadException;
+import com.haw.mvsspring.Exceptions.MyDatabaseException;
+import com.haw.mvsspring.Exceptions.NoContentException;
+import com.haw.mvsspring.Exceptions.WrongDataException;
 import com.haw.mvsspring.authentication.SecurityConfig;
 import com.haw.mvsspring.model.Song;
 import com.haw.mvsspring.service.VotesHandler;
@@ -24,6 +27,7 @@ import com.mpatric.mp3agic.InvalidDataException;
 import com.mpatric.mp3agic.UnsupportedTagException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -59,14 +63,25 @@ public class SongsController {
 
         final var keySet = params.keySet();
         if (keySet.size() > 1) {
-            return new ArrayList<Song>();
+            throw new WrongDataException("Too many search parameters");
         }
 
-        if (!Song.searchableFields.contains((String)keySet.toArray()[0])){
-            return new ArrayList<Song>();
+        if (!Song.searchableFields.contains((String) keySet.toArray()[0])) {
+            throw new WrongDataException("This search Key  does not exist: " + (String) keySet.toArray()[0]);
         }
 
-        return songService.searchInDB(params);
+        try {
+            final List<Song> songList = songService.searchInDB(params);
+            if (songList.isEmpty()) {
+                throw new NoContentException();
+            } else {
+                return songList;
+            }
+
+        } catch (DataAccessException e) {
+            throw new MyDatabaseException(e);
+        }
+
     }
 
     @GetMapping("/api/v1/pairs")
@@ -141,8 +156,7 @@ public class SongsController {
     }
 
     @PutMapping(value = "/api/v1/songs/{id}")
-    public void changeSongInfo(@PathVariable Integer id, @RequestBody Map<String, String> body)
-    {
+    public void changeSongInfo(@PathVariable Integer id, @RequestBody Map<String, String> body) {
         songService.changeSongInfo(id, body);
     }
 
