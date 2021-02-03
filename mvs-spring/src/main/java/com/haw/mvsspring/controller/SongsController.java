@@ -160,4 +160,27 @@ public class SongsController {
         songService.changeSongInfo(id, body);
     }
 
+    @GetMapping("/api/v1/songs/get-voters-number")
+    public int getVotersNumber() {
+        return votesHandler.votersNumber;
+    }
+
+    @PostMapping(value = "/api/v1/songs/set-voters-number")
+    public void setVotersNumber(@RequestBody Map<String, Integer> body) {
+        final var keySet = body.keySet();
+        final var value = body.get((String)keySet.toArray()[0]);
+        votesHandler.votersNumber= value;
+    }
+
+    @GetMapping("/api/v1/songs/get-playlist-size")
+    public int getPlayListSize() {
+        return votesHandler.playlistSize;
+    }
+
+    @PostMapping(value = "/api/v1/songs/set-playlist-size")
+    public void setPlayListSize(@RequestBody Map<String, Integer> body) {
+        final var keySet = body.keySet();
+        final var value = body.get((String)keySet.toArray()[0]);
+        votesHandler.playlistSize= value;
+    }
 }

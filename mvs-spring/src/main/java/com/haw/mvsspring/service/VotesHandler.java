@@ -14,8 +14,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class VotesHandler {
 
-    public final int votersNumber = 2;
-    public final int playlistSize = 3;
+    public  int votersNumber = 2;
+    public  int playlistSize = 3;
 
     public final ArrayList<List<String>> votes = new ArrayList<>();
     public ArrayList<String> mostlyVoted = new ArrayList<>();
