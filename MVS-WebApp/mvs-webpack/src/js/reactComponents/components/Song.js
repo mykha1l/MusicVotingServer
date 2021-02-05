@@ -13,7 +13,31 @@ export class Song extends React.Component {
     }
 
     handleSongDelete() {
-        deleteSong(this.props.data.id).then(() => this.props.onSongChange());
+        const updatedSonglist = this.removeIndexFromArray(this.props.idx, this.props.songlist);
+        deleteSong(this.props.data.id).then(() => this.props.setSongList(updatedSonglist));
+    }
+
+    removeIndexFromArray(index, array) {
+        const newArray = [];
+        for (let i = 0; i < array.length; i++) {
+            if (i !== index) {
+                newArray.push(array[i]);
+            }
+        }
+
+        return newArray;
+    }
+
+    changeValueInArray(index, array, keys, values) {
+        const newArray = [];
+        for (let i = 0; i < array.length; i++) {
+            newArray.push(array[i]);
+        }
+        for (let i = 0; i < keys.length; i++) {
+            newArray[index][keys[i]] = values[i];
+        }
+
+        return newArray;
     }
 
     handleSongUpdate() {
@@ -21,8 +45,14 @@ export class Song extends React.Component {
         if ((this.state.artist === this.props.data.artist) && (this.state.title === this.props.data.title)) {
             return;
         }
+        const newSongList = this.changeValueInArray(
+            this.props.idx,
+            this.props.songlist,
+            ["artist", "title"],
+            [this.state.artist, this.state.title]
+        );
         updateSong(this.props.data.id, { artist: this.state.artist, title: this.state.title })
-            .then(() => this.props.onSongChange());
+            .then(() => this.props.setSongList(newSongList));
     }
 
     handleInputFieldChange(e) {
@@ -34,7 +64,7 @@ export class Song extends React.Component {
     }
 
     render() {
-        const isEditable = this.state.isEditable;
+        const isEditable = this.props.isEditable;
         if (this.props.data) {
             if (!this.props.data.filename) {
                 return (

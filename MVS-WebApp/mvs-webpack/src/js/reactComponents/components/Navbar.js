@@ -33,8 +33,11 @@ export class Navbar extends React.Component {
                 <Link to='/'>
                     <img src="img/icon.png" />
                 </Link>
-                <button className='navigationbar-items collapsable'>
-                    <NavLink to='/allSongs' activeClassName='active'>All Songs</NavLink>
+                <button className='navigationbar-items collapsable'>                    
+                <NavLink to={{
+                        pathname: "/allSongs",
+                        state: { isEditable: false },
+                    }} activeClassName='active'>All Songs</NavLink>
                 </button>
                 <button className='navigationbar-items collapsable'>
                     <NavLink to='/vote' activeClassName='active'>Start voting</NavLink>
