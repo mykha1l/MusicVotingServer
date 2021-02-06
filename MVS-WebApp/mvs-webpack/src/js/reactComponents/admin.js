@@ -6,6 +6,7 @@ import { CurrentSong } from './pages/CurrentSong';
 import { WelcomeAdmin } from './pages/WelcomeAdmin';
 import { AllSongs } from './pages/AllSongs';
 import { MostlyVoted } from './pages/MostlyVoted';
+import { Settings } from './pages/Settings';
 
 function Admin() {
     return (
@@ -16,6 +17,7 @@ function Admin() {
                 <Route exact path='/allSongs-admin' component={AllSongs} />
                 <Route exact path='/currentSong-admin' component={CurrentSong} />
                 <Route exact path='/mostlyVoted-admin' component={MostlyVoted} />
+                <Route exact path='/settings-admin' component={Settings} />
             </BrowserRouter>
         </>
     )

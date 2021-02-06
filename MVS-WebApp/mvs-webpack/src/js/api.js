@@ -81,3 +81,41 @@ export async function updateSong(id, details) {
 
     return result;
 }
+
+export async function getVotersNumber() {
+    const response = await fetch("/api/v1/get-voters-number");
+    const data = await response.text();
+
+    return data;
+}
+
+export async function getPlaylistSize() {
+    const response = await fetch("/api/v1/get-playlist-size");
+    const data = await response.text();
+
+    return data;
+}
+
+export async function setVotersNumber(number) {
+    const obj = { numb: number };
+    await fetch('/api/v1/set-voters-number', {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(obj),
+    });
+}
+
+export async function setPlaylistSize(number) {
+    const obj = { numb: number };
+    await fetch('/api/v1/set-playlist-size', {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(obj),
+    });
+}

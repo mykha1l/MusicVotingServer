@@ -21,6 +21,9 @@ export class AdminNavbar extends Navbar {
                 <button className="navigationbar-items collapsable">
                     <NavLink to="/mostlyVoted-admin">Mostly voted</NavLink>
                 </button>
+                <button className="navigationbar-items collapsable">
+                    <NavLink to="/settings-admin">Settings</NavLink>
+                </button>
                 <div className="navigationbar-username">{this.state.user}</div>
             </div>
         )

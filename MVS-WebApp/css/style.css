@@ -147,6 +147,10 @@ form {
     justify-content: center;
 }
 
+form > label {
+    width: auto !important;
+}
+
 form > * {
     width: min-content;
 }

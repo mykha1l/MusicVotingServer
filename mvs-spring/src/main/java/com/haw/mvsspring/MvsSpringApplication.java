@@ -36,10 +36,10 @@ public class MvsSpringApplication {
                 registry.addMapping("/api/v1/upload").allowedOrigins("*");
                 registry.addMapping("/api/v1/getUser").allowedOrigins("*");
                 registry.addMapping("/api/v1/songs/{id}").allowedOrigins("*");
-                registry.addMapping("/api/v1/songs/get-voters-number").allowedOrigins("*");
-                registry.addMapping("/api/v1/songs/set-voters-number").allowedOrigins("*");
-                registry.addMapping("/api/v1/songs/get-playlist-size").allowedOrigins("*");
-                registry.addMapping("/api/v1/songs/set-playlist-size").allowedOrigins("*");
+                registry.addMapping("/api/v1/get-voters-number").allowedOrigins("*");
+                registry.addMapping("/api/v1/set-voters-number").allowedOrigins("*");
+                registry.addMapping("/api/v1/get-playlist-size").allowedOrigins("*");
+                registry.addMapping("/api/v1/set-playlist-size").allowedOrigins("*");
             }
         };
     }
