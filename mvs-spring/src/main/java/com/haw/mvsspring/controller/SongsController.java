@@ -10,6 +10,7 @@ import java.nio.file.StandardCopyOption;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
@@ -85,13 +86,19 @@ public class SongsController {
     }
 
     @GetMapping("/api/v1/pairs")
-    public List<Song[]> getSongPairs() throws UnsupportedTagException, InvalidDataException, IOException {
+    public List<Song[]> getSongPairs(HttpSession session)
+            throws UnsupportedTagException, InvalidDataException, IOException {
+        if (votesHandler.sessionIDs.contains(session.getId())) {
+            return new ArrayList<>();
+        } else {
         return songService.getSongPairs();
+    }
     }
 
     @PostMapping("/api/v1/vote")
-    void submitVotes(@RequestBody final List<String> songs)
+    void submitVotes(@RequestBody final List<String> songs, HttpSession session)
             throws UnsupportedAudioFileException, IOException, LineUnavailableException, JavaLayerException {
+        votesHandler.sessionIDs.add(session.getId());
         final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         final String username = authentication.getName();
         votesHandler.votes.add(songs);

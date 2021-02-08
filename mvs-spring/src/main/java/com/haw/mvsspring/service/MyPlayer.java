@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javazoom.jl.decoder.JavaLayerException;
@@ -16,6 +17,9 @@ public class MyPlayer {
 
     public String currentSong;
     public Player player;
+
+    @Autowired
+    private VotesHandler votesHandler;
 
     public void play(List<String> filenames)
             throws FileNotFoundException, JavaLayerException, UnsupportedEncodingException {
@@ -28,11 +32,13 @@ public class MyPlayer {
             player.play(300);
             player.close();
         }
+        votesHandler.refreshSessionList();
     }
 
     public void stop() {
         if (player != null) {
             player.close();
+            votesHandler.refreshSessionList();
         }
     }
 

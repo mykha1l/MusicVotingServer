@@ -19,6 +19,7 @@ public class VotesHandler {
 
     public final ArrayList<List<String>> votes = new ArrayList<>();
     public ArrayList<String> mostlyVoted = new ArrayList<>();
+    public final ArrayList<String> sessionIDs = new ArrayList<>();
 
     public ArrayList<String> calculateMostlyVotedSongs() {
         final Map<String, Integer> songMap = createSongMap(votes);
@@ -41,6 +42,10 @@ public class VotesHandler {
         }
 
         return songMap;
+    }
+
+    public void refreshSessionList() {
+        sessionIDs.clear();
     }
 
     public Map<String, Integer> sortSongMap(final Map<String, Integer> songMap) {
