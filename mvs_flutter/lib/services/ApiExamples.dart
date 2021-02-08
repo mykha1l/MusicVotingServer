@@ -41,3 +41,13 @@ Future<Response> postRequest(List<String> votes) async {
 
   return response;
 }
+
+
+Future<Response> login(Map<String, String> formData) async {
+  const String url = HOST + '/login';
+
+  Response response = await post(url,
+      headers: {"Content-Type": "application/x-www-form-urlencoded"}, body: formData);
+
+  return response;
+}

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mvs_flutter/pages/Login.dart';
 import 'package:mvs_flutter/pages/SongList.dart';
 import 'package:mvs_flutter/pages/Home.dart';
 import 'package:mvs_flutter/pages/PairsOfSongs.dart';
@@ -14,6 +15,7 @@ void main() {
       '/songList': (context) => SongList(),
       '/pairsOfSongs': (context) => PairsOfSongs(),
       '/uploadSongs': (context) => UploadSongs(),
+      '/login': (context) => Login(),
     },
   ));
 }

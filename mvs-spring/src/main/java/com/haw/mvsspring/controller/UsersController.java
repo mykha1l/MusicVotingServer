@@ -67,6 +67,7 @@ public class UsersController {
 
     @PostMapping("/login")
     RedirectView login(@ModelAttribute final UserDTO userDTO, HttpServletRequest req) {
+        System.out.println("Logging in...");
         userService.login(userDTO, req);
         return new RedirectView("/index.html", false);
     }

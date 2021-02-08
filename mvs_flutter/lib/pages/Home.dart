@@ -71,6 +71,23 @@ class _HomeState extends State<Home> {
                 ),
               ),
             ),
+            const SizedBox(height: 30),
+            ButtonTheme(
+              buttonColor: Colors.blue[400],
+              minWidth: 200.0,
+              height: 60.0,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20)),
+              child: RaisedButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, '/login');
+                },
+                child: Text(
+                  'Login',
+                  style: TextStyle(color: Colors.white, fontSize: 17),
+                ),
+              ),
+            ),
           ],
         ),
       ),
