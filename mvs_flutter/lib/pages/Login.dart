@@ -66,6 +66,8 @@ class _LoginState extends State<Login> {
                         formData["password"] = passwordController.text;
                         login(formData).then((value) {
                           print('DONE');
+                          getUser().then((value) => print(value));
+
                         });
                       },
                     )),

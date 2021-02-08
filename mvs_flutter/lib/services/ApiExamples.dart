@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:http/http.dart';
 import 'package:mvs_flutter/Model/Song.dart';
+import 'package:requests/requests.dart' as CustomHttp;
 
 const String HOST = 'http://10.0.2.2:8080';
 
@@ -42,12 +43,23 @@ Future<Response> postRequest(List<String> votes) async {
   return response;
 }
 
-
-Future<Response> login(Map<String, String> formData) async {
+Future<int> login(Map<String, String> formData) async {
   const String url = HOST + '/login';
 
-  Response response = await post(url,
+  var response = await CustomHttp.Requests.post(url,
       headers: {"Content-Type": "application/x-www-form-urlencoded"}, body: formData);
+  response.raiseForStatus();
+  dynamic status = response.statusCode;
 
-  return response;
+  return status;
+}
+
+Future<dynamic> getUser() async {
+  const String url = HOST + '/api/v1/user';
+
+  var response = await CustomHttp.Requests.get(url);
+  response.raiseForStatus();
+  dynamic content = response.json()['username'];
+
+  return content;
 }
