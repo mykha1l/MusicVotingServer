@@ -20,6 +20,9 @@ public class SongService {
     private final SongDao songDao;
 
     @Autowired
+    private VotesHandler votesHandler;
+
+    @Autowired
     public SongService(@Qualifier("sqlite") SongDao songDao)
             throws UnsupportedTagException, InvalidDataException, IOException {
         songDao.init();
@@ -36,18 +39,28 @@ public class SongService {
 
     public List<Song[]> getSongPairs() {
         
-        final var evenSongList = getEvenSongList();
+        final List<Song> filteredVotes = getFilteredAlreadyVoted(getAllSongs());
         
-        return getPairsList(evenSongList);
+        makeEvenSongList(filteredVotes);
+        return getPairsList(filteredVotes);
     }
 
-    private List<Song> getEvenSongList() {
-        final var songList = getAllSongs();
-        if ((songList.size() % 2) != 0) {
-            songList.remove(songList.size() - 1);
+    private List<Song> getFilteredAlreadyVoted(List<Song> songs) {
+        ArrayList<Song> filteredVotes = new ArrayList<>();
+
+        for (Song el : songs) {
+
+            if (!votesHandler.mostlyVoted.contains(el.getFilename())) {
+                filteredVotes.add(el);
+            }
+        }
+        return filteredVotes;
         }
 
-        return songList;
+    private void makeEvenSongList(List<Song> filteredVotes) {
+        if ((filteredVotes.size() % 2) != 0) {
+            filteredVotes.remove(filteredVotes.size() - 1);
+        }
     }
 
     private List<Song[]> getPairsList(List<Song> songList) {
