@@ -18,4 +18,20 @@ Server side is written in Java using Spring Boot framework. On the client side t
 <img src="https://i.ibb.co/x200Rsy/Blank-Diagram.png" alt="Blank-Diagram" border="0" width="1000"></a>
 
 
-
+| Http method | Endpoint                       | Description                    |
+| ----------- | ------------------------------ | -------------------------------|
+| GET         | api/v1/songs                   | Returns a list of all songs |
+| GET         | api/v1/pairs                   | Returns a list of songs pairs (for voting) |
+| POST        | api/v1/vote                    | Accepts list of songs chosen by a user |
+| POST        | api/v1/songs/upload            | Accepts mp3 song file |
+| GET         | api/v1/songs/current           | Returns currently played song |
+| GET         | api/v1/songs/mostlyVoted       | Returns a list of mostly voted songs |
+| GET         | api/v1/songs/current/stop      | Stops playing current song |
+| DELETE      | api/v1/songs/{id}              | Deletes a song |
+| PUT         | api/v1/songs/{id}              | Changes song info |
+| GET         | api/v1/get-voters-number       | Returns voters number setting |
+| POST        | api/v1/songs/set-voters-number | Changes voters number setting |
+| GET         | api/v1/songs/get-playlist-size | Returns playlist size setting |
+| POST        | api/v1/songs/set-playlist-size | Changes playlist size setting |
+| GET         | api/v1/user                    | Returns user info |
+| POST        | api/v1/register                | Registers a new user |
