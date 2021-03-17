@@ -1,5 +1,5 @@
 # MusicVotingServer
-Bachelor Project
+The application has been developed as a part of HAW CJ1 group project. Participants: Elvin Mammadov(Flutter), Mykhailo Svyrydovych(front-end, back-end), Parisa Ostadzadeh(back-end)
 
 Structure:
 - mvs-spring - contains backend. Written in Java with Spring Boot framework, using Maven for building.
