@@ -170,3 +170,6 @@ mvs-spring/mvsdb.db
 /mvs-spring/.vscode
 
 /MVS-WebApp/songs/
+
+.qmake.stash
+Makefile
