@@ -45,6 +45,9 @@ export class Navbar extends React.Component {
                 <button className='navigationbar-items collapsable' >
                     <NavLink to='/upload' activeClassName='active'>Song Upload</NavLink>
                 </button>
+                <button className='navigationbar-items collapsable' >
+                    <NavLink to='/chat' activeClassName='active'>Chat</NavLink>
+                </button>
                 <Search updateSongList={this.props.updateSongList} updateButtonClicked={this.props.buttonClicked} updateTab={this.updateTab.bind(this)}></Search>
                 <div className="account-container">
                     <div className="navigationbar-username collapsable">{this.state.user}</div>

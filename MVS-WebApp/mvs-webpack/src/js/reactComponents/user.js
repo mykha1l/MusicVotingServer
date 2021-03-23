@@ -8,6 +8,7 @@ import { Welcome } from './pages/Welcome';
 import { BrowserRouter, Route } from 'react-router-dom';
 import { AllSongs } from './pages/AllSongs';
 import { Voting } from './pages/Voting';
+import { Chat } from './pages/Chat';
 import { SearchResults } from './pages/SearchResults';
 
 function User() {
@@ -19,6 +20,7 @@ function User() {
             <Route exact path='/upload' component={SongUpload} />
             <Route exact path='/allSongs' component={AllSongs} />
             <Route exact path='/vote' component={Voting} />
+            <Route exact path='/chat' component={Chat} />
             <Route exact path='/login' component={LoginForm} />
             <Route exact path='/register' component={RegistrationForm} />
             <Route path='/search' component={SearchResults} />

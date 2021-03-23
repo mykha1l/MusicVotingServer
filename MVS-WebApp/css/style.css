@@ -256,3 +256,12 @@ form > * > * {
     height: 0.5em;
     background-color: #2eff2e91;
 }
+
+.chatarea {
+    margin-left: 2em;
+}
+
+.chat {
+    width: 80%;
+    min-height: 200px;
+}
