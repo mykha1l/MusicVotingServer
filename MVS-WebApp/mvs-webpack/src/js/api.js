@@ -1,3 +1,4 @@
+//sends data to back-end controller
 export async function getAllSongs() {
     const response = await fetch("/api/v1/songs");
     const json = await response.json();
