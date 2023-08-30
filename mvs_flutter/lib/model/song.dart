@@ -21,13 +21,13 @@ class Song {
     this.albumImage,
   });
 
-  String filename;
-  String title;
-  String artist;
-  String genre;
-  String album;
-  String duration;
-  String albumImage;
+  String? filename;
+  String? title;
+  String? artist;
+  String? genre;
+  String? album;
+  String? duration;
+  String? albumImage;
 
   //Below function is for fetching object from Json
   factory Song.fromJson(Map<String, dynamic> json) => Song(
@@ -42,11 +42,11 @@ class Song {
 
   Map<String, dynamic> toJson() => {
         "filename": filename,
-        "title": title == null ? null : title,
-        "artist": artist == null ? null : artist,
-        "genre": genre == null ? null : genre,
-        "album": album == null ? null : album,
+        "title": title,
+        "artist": artist,
+        "genre": genre,
+        "album": album,
         "duration": duration,
-        "albumImage": albumImage == null ? null : albumImage,
+        "albumImage":albumImage,
       };
 }

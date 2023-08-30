@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:mvs_flutter/Model/Song.dart';
-import 'package:mvs_flutter/services/ApiExamples.dart';
+import 'package:mvs_flutter/Model/song.dart';
+import 'package:mvs_flutter/services/api.dart';
 import 'dart:convert';
 import 'dart:typed_data';
 
@@ -10,7 +10,7 @@ class SongList extends StatefulWidget {
 }
 
 class _SongListState extends State<SongList> {
-  List<Song> _songs = List<Song>();
+  List<Song> _songs = <Song>[];
 
   @override
   void initState() {
@@ -34,20 +34,20 @@ class _SongListState extends State<SongList> {
       body: ListView.builder(
         itemBuilder: (context, index) {
           //Below variables are for deleting mp3 in the end of String  and capitalize first Letter
-          var myString = _songs[index].filename;
-          var withoutMp3 = myString.replaceAll(RegExp('.mp3'), '');
-          var withUpperCase =
-              withoutMp3[0].toUpperCase() + withoutMp3.substring(1);
-          String artist = '${index + 1}. Artist: ';
-          String newSong = 'Song: ';
-          String duration =
-              (int.parse(_songs[index].duration) / 60).toStringAsFixed(2);
-          String image64 = _songs[index].albumImage == null
+          String? myString = _songs[index].filename;
+          String? withoutMp3 = myString?.replaceAll(RegExp('.mp3'), '');
+          String? withUpperCase =
+              withoutMp3![0].toUpperCase() + withoutMp3.substring(1);
+          String? artist = '${index + 1}. Artist: ';
+          String? newSong = 'Song: ';
+          String? duration =
+              (int.parse(_songs[index].duration!) / 60).toStringAsFixed(2);
+          String? image64 = _songs[index].albumImage == null
               ? 'No data'
               : _songs[index].albumImage;
-          Uint8List bytes;
+          late Uint8List bytes;
           if (_songs[index].albumImage != null) {
-            bytes = base64.decode(image64);
+            bytes = base64.decode(image64!);
           }
           return Card(
             shape: RoundedRectangleBorder(
@@ -68,7 +68,7 @@ class _SongListState extends State<SongList> {
                       child: Image(
                         image: image64 == 'No data'
                             ? AssetImage('assets/images/no-image.png')
-                            : MemoryImage(bytes),
+                            : MemoryImage(bytes) as ImageProvider,
                         height: 180,
                         width: double.infinity,
                         fit: BoxFit.fitWidth,
@@ -97,7 +97,7 @@ class _SongListState extends State<SongList> {
                                 Text(
                                   _songs[index].artist == null
                                       ? 'No Artist data'
-                                      : _songs[index].artist,
+                                      : _songs[index].artist!,
                                   style: TextStyle(
                                       fontSize: 14,
                                       fontWeight: FontWeight.bold),
@@ -115,7 +115,7 @@ class _SongListState extends State<SongList> {
                                   child: Text(
                                     _songs[index].title == null
                                         ? withUpperCase
-                                        : _songs[index].title,
+                                        : _songs[index].title!,
                                     style: TextStyle(
                                         fontSize: 14,
                                         fontWeight: FontWeight.bold),
@@ -166,7 +166,7 @@ class _SongListState extends State<SongList> {
                           Text(
                             _songs[index].genre == null
                                 ? 'No data'
-                                : _songs[index].genre,
+                                : _songs[index].genre!,
                             maxLines: 1,
                             softWrap: false,
                             overflow: TextOverflow.clip,
@@ -191,7 +191,7 @@ class _SongListState extends State<SongList> {
                           Text(
                             _songs[index].album == null
                                 ? 'No data'
-                                : _songs[index].album,
+                                : _songs[index].album!,
                             maxLines: 1,
                             softWrap: false,
                             overflow: TextOverflow.clip,

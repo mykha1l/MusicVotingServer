@@ -1,21 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:mvs_flutter/pages/Login.dart';
-import 'package:mvs_flutter/pages/SongList.dart';
-import 'package:mvs_flutter/pages/Home.dart';
-import 'package:mvs_flutter/pages/PairsOfSongs.dart';
-import 'package:mvs_flutter/pages/UploadSongs.dart';
+import 'package:mvs_flutter/pages/login.dart';
+import 'package:mvs_flutter/pages/song_list.dart';
+import 'package:mvs_flutter/pages/home.dart';
+import 'package:mvs_flutter/pages/pairs_of_songs.dart';
+import 'package:mvs_flutter/pages/upload_songs.dart';
 
 void main() {
   //SharedPreferences.setMockInitialValues({});
-  runApp(MaterialApp(
-    initialRoute: '/home',
-    home: Home(),
-    routes: {
-      '/home': (context) => Home(),
-      '/songList': (context) => SongList(),
-      '/pairsOfSongs': (context) => PairsOfSongs(),
-      '/uploadSongs': (context) => UploadSongs(),
-      '/login': (context) => Login(),
-    },
-  ));
+  runApp(
+    MaterialApp(
+      initialRoute: '/home',
+      home: Home(),
+      routes: {
+        '/home': (context) => Home(),
+        '/songList': (context) => SongList(),
+        '/pairsOfSongs': (context) => PairsOfSongs(),
+        '/uploadSongs': (context) => UploadSongs(),
+        '/login': (context) => Login(),
+      },
+    ),
+  );
 }

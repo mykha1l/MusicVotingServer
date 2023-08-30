@@ -25,7 +25,7 @@ class _HomeState extends State<Home> {
               height: 60.0,
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20)),
-              child: RaisedButton(
+              child: ElevatedButton(
                 onPressed: () {
                   Navigator.pushNamed(context, '/songList');
                 },
@@ -44,7 +44,7 @@ class _HomeState extends State<Home> {
               height: 60.0,
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20)),
-              child: RaisedButton(
+              child: ElevatedButton(
                 onPressed: () {
                   Navigator.pushNamed(context, '/pairsOfSongs');
                 },
@@ -61,7 +61,7 @@ class _HomeState extends State<Home> {
               height: 60.0,
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20)),
-              child: RaisedButton(
+              child: ElevatedButton(
                 onPressed: () {
                   Navigator.pushNamed(context, '/uploadSongs');
                 },
@@ -78,7 +78,7 @@ class _HomeState extends State<Home> {
               height: 60.0,
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20)),
-              child: RaisedButton(
+              child: ElevatedButton(
                 onPressed: () {
                   Navigator.pushNamed(context, '/login');
                 },

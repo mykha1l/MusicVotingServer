@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:mvs_flutter/Model/Song.dart';
+import 'package:mvs_flutter/Model/song.dart';
 import 'dart:convert';
 import 'dart:typed_data';
-import 'package:mvs_flutter/services/ApiExamples.dart';
+import 'package:mvs_flutter/services/api.dart';
 
 class PairsOfSongsPage extends StatefulWidget {
   final List<Song> addedSongs;
-  final List<String> votes = [];
+  final List<String?> votes = [];
 
   PairsOfSongsPage(this.addedSongs);
 
@@ -17,15 +17,18 @@ class PairsOfSongsPage extends StatefulWidget {
 class _PairsOfSongsPageState extends State<PairsOfSongsPage> {
   int firstNumber = 0;
   int secondNumber = 1;
-  List<bool> likedList;
-  Color _colorContainer = Colors.cyan[100];
+  late List<bool> likedList;
+  Color? _colorContainer = Colors.cyan[100];
 
   void fillList() {
-    if (likedList?.isEmpty ?? true) {
-      likedList = new List<bool>.generate(10, (i) {
-        return false;
-      });
-    }
+    likedList = new List<bool>.generate(10, (i) {
+      return false;
+    });
+    // if (likedList.isEmpty?? true) {
+    //   likedList = new List<bool>.generate(10, (i) {
+    //     return false;
+    //   });
+    // }
   }
 
   void addNumber() {
@@ -44,13 +47,13 @@ class _PairsOfSongsPageState extends State<PairsOfSongsPage> {
 
   showAlertDialog(BuildContext context) {
     // set up the buttons
-    Widget cancelButton = FlatButton(
+    Widget cancelButton = TextButton(
       child: Text("Cancel"),
       onPressed: () {
         Navigator.of(context, rootNavigator: true).pop();
       },
     );
-    Widget continueButton = FlatButton(
+    Widget continueButton = TextButton(
       child: Text("Send"),
       onPressed: () {
         postRequest(widget.votes);
@@ -83,28 +86,29 @@ class _PairsOfSongsPageState extends State<PairsOfSongsPage> {
     List<Song> newAddedSongs = widget.addedSongs;
     fillList();
     print('length is ${widget.addedSongs.length}');
-    var myString = newAddedSongs[0].filename;
-    var withoutMp3 = myString.replaceAll(RegExp('.mp3'), '');
-    var withUpperCase = withoutMp3[0].toUpperCase() + withoutMp3.substring(1);
-    var myString2 = newAddedSongs[1].filename;
-    var withoutMp32 = myString2.replaceAll(RegExp('.mp3'), '');
+    String? myString = newAddedSongs[0].filename;
+    String? withoutMp3 = myString?.replaceAll(RegExp('.mp3'), '');
+    String? withUpperCase =
+        withoutMp3![0].toUpperCase() + withoutMp3.substring(1);
+    String? myString2 = newAddedSongs[1].filename;
+    String? withoutMp32 = myString2?.replaceAll(RegExp('.mp3'), '');
     var withUpperCase2 =
-        withoutMp32[1].toUpperCase() + withoutMp32.substring(1);
+        withoutMp32![1].toUpperCase() + withoutMp32.substring(1);
 
     String newSong = 'Song: ';
     String firstArtist = '1. Artist: ';
     String secondArtist = '2. Artist ';
-    String firstImage = newAddedSongs[firstNumber].albumImage == null
+    String? firstImage = newAddedSongs[firstNumber].albumImage == null
         ? 'No data'
         : newAddedSongs[firstNumber].albumImage;
-    String secondImage = newAddedSongs[secondNumber].albumImage == null
+    String? secondImage = newAddedSongs[secondNumber].albumImage == null
         ? 'No data'
         : newAddedSongs[secondNumber].albumImage;
-    Uint8List bytes;
+    late Uint8List bytes;
     if (newAddedSongs[firstNumber].albumImage != null) {
-      bytes = base64.decode(firstImage);
+      bytes = base64.decode(firstImage!);
     } else if (newAddedSongs[secondNumber].albumImage != null) {
-      bytes = base64.decode(secondImage);
+      bytes = base64.decode(secondImage!);
     }
     return Scaffold(
         body: Container(
@@ -132,7 +136,7 @@ class _PairsOfSongsPageState extends State<PairsOfSongsPage> {
                         child: Image(
                           image: firstImage == 'No data'
                               ? AssetImage('assets/images/no-image.png')
-                              : MemoryImage(bytes),
+                              : MemoryImage(bytes) as ImageProvider,
                           height: 150,
                           width: double.infinity,
                           fit: BoxFit.cover,
@@ -156,8 +160,9 @@ class _PairsOfSongsPageState extends State<PairsOfSongsPage> {
                                 likedList[firstNumber] =
                                     !likedList[firstNumber];
                                 if (likedList[firstNumber] == true) {
-                                  widget.votes
-                                      .add(newAddedSongs[firstNumber].filename);
+                                  widget.votes.add(
+                                    newAddedSongs[firstNumber].filename,
+                                  );
                                   print(widget.votes);
                                   print(jsonEncode(widget.votes));
                                 } else {
@@ -194,10 +199,11 @@ class _PairsOfSongsPageState extends State<PairsOfSongsPage> {
                                   Text(
                                     newAddedSongs[firstNumber].artist == null
                                         ? 'No Artist data'
-                                        : newAddedSongs[firstNumber].artist,
+                                        : newAddedSongs[firstNumber].artist!,
                                     style: TextStyle(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.bold),
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.bold,
+                                    ),
                                   ),
                                 ],
                               ),
@@ -212,7 +218,7 @@ class _PairsOfSongsPageState extends State<PairsOfSongsPage> {
                                     child: Text(
                                       newAddedSongs[firstNumber].title == null
                                           ? withUpperCase
-                                          : newAddedSongs[firstNumber].title,
+                                          : newAddedSongs[firstNumber].title!,
                                       style: TextStyle(
                                           fontSize: 14,
                                           fontWeight: FontWeight.bold),
@@ -254,7 +260,7 @@ class _PairsOfSongsPageState extends State<PairsOfSongsPage> {
                         child: Image(
                           image: secondImage == 'No data'
                               ? AssetImage('assets/images/no-image.png')
-                              : MemoryImage(bytes),
+                              : MemoryImage(bytes) as ImageProvider,
                           height: 150,
                           width: double.infinity,
                           fit: BoxFit.cover,
@@ -315,7 +321,7 @@ class _PairsOfSongsPageState extends State<PairsOfSongsPage> {
                                   Text(
                                     newAddedSongs[secondNumber].artist == null
                                         ? 'No Artist data'
-                                        : newAddedSongs[secondNumber].artist,
+                                        : newAddedSongs[secondNumber].artist!,
                                     style: TextStyle(
                                         fontSize: 14,
                                         fontWeight: FontWeight.bold),
@@ -333,7 +339,7 @@ class _PairsOfSongsPageState extends State<PairsOfSongsPage> {
                                     child: Text(
                                       newAddedSongs[secondNumber].title == null
                                           ? withUpperCase
-                                          : newAddedSongs[secondNumber].title,
+                                          : newAddedSongs[secondNumber].title!,
                                       style: TextStyle(
                                           fontSize: 14,
                                           fontWeight: FontWeight.bold),
@@ -403,7 +409,7 @@ class _PairsOfSongsPageState extends State<PairsOfSongsPage> {
 
 showAlertDialog2(BuildContext context) {
   // set up the button
-  Widget okButton = FlatButton(
+  Widget okButton = TextButton(
     child: Text("OK"),
     onPressed: () {
       Navigator.of(context, rootNavigator: true).pop();
@@ -431,7 +437,7 @@ showAlertDialog2(BuildContext context) {
 
 showAlertDialog3(BuildContext context) {
   // set up the button
-  Widget okButton = FlatButton(
+  Widget okButton = TextButton(
     child: Text("OK"),
     onPressed: () {
       Navigator.of(context, rootNavigator: true).pop();

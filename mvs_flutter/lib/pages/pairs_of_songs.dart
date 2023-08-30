@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:mvs_flutter/Model/Song.dart';
-import 'package:mvs_flutter/services/ApiExamples.dart';
+import 'package:mvs_flutter/Model/song.dart';
+import 'package:mvs_flutter/services/api.dart';
 
 import 'package:mvs_flutter/pages/PairsOfSongsPage.dart';
 
@@ -10,8 +10,8 @@ class PairsOfSongs extends StatefulWidget {
 }
 
 class _PairsOfSongsState extends State<PairsOfSongs> {
-  List<List<Song>> _songs = List<List<Song>>();
-  List<Song> addedSongs = new List<Song>();
+  List<List<Song>> _songs = <List<Song>>[];
+  List<Song> addedSongs = <Song>[];
   var song;
 
   @override

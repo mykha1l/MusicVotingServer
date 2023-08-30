@@ -2,20 +2,23 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
 
+import '../utils/constants/strings.dart';
+import 'package:mvs_flutter/utils/managers/snackbar_manager.dart';
+
 class UploadSongs extends StatefulWidget {
   @override
   _UploadSongsState createState() => _UploadSongsState();
 }
 
 class _UploadSongsState extends State<UploadSongs> {
-  final GlobalKey<ScaffoldState> _scaffoldstate =
+  final GlobalKey<ScaffoldState> _scaffoldState =
       new GlobalKey<ScaffoldState>();
-  String songName = 'No file choosen';
+  String songName = 'No file chosen';
   String songSize = '0';
-  PlatformFile file;
+   late PlatformFile? file;
 
   void _getDocuments() async {
-    FilePickerResult result = await FilePicker.platform.pickFiles(
+    FilePickerResult? result = await FilePicker.platform.pickFiles(
       type: FileType.custom,
       allowedExtensions: ['mp3'],
     );
@@ -23,8 +26,8 @@ class _UploadSongsState extends State<UploadSongs> {
     if (result != null) {
       file = result.files.first;
       //String name = file.name;
-      songName = file.name;
-      double size = double.parse((file.size / 1000).toStringAsFixed(2));
+      songName = file!.name;
+      double size = double.parse((file!.size / 1000).toStringAsFixed(2));
       songSize = size.toString() + ' MB';
     }
 
@@ -32,8 +35,8 @@ class _UploadSongsState extends State<UploadSongs> {
     setState(() {});
   }
 
-  Future<void> _uploadSongs(PlatformFile file) async {
-    const String HOST = 'http://10.0.2.2:8080';
+  Future<void> _uploadSongs(BuildContext context, PlatformFile? file) async {
+    const String HOST = 'http://192.168.0.72:8080';
 
     try {
       final dio = Dio();
@@ -43,7 +46,7 @@ class _UploadSongsState extends State<UploadSongs> {
       };
 
       final mainFile =
-          await MultipartFile.fromFile(file.path, filename: file.name);
+          await MultipartFile.fromFile(file!.path!, filename: file.name);
 
       final formData = FormData.fromMap(
           {'file': mainFile}); // 'file' - this is an api key, can be different
@@ -64,7 +67,7 @@ class _UploadSongsState extends State<UploadSongs> {
   }
 
   void updateMessage(String uploadMessage) {
-    showSnakBarMsg(uploadMessage);
+    showSnackBarMsg(uploadMessage);
 
     setState(() {
       file = null;
@@ -73,19 +76,22 @@ class _UploadSongsState extends State<UploadSongs> {
     });
   }
 
-  /// Method for showing snak bar message
-  void showSnakBarMsg(String msg) {
-    _scaffoldstate.currentState.showSnackBar(new SnackBar(
-      content: new Text(msg),
-      duration: Duration(seconds: 5),
-      backgroundColor: Colors.blueGrey,
-    ));
+  /// Method for showing snack bar message
+  void showSnackBarMsg(String msg) {
+    SnackBarManager.showSuccess(context, content: msg);
+    // _scaffoldState.currentState.showSnackBar(
+    //   SnackBar(
+    //     content: Text(msg),
+    //     duration: Duration(seconds: 5),
+    //     backgroundColor: Colors.blueGrey,
+    //   ),
+    // );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key: _scaffoldstate,
+      key: _scaffoldState,
       appBar: AppBar(
         title: Text('Upload Songs'),
         centerTitle: true,
@@ -99,12 +105,13 @@ class _UploadSongsState extends State<UploadSongs> {
             Container(
                 padding: EdgeInsets.all(20),
                 child: Text(
-                  'You can upload mp3 audio file to the server. Maximum size for each song should be 20 MB.',
+                  'You can upload mp3 audio file to the server. '
+                  'Maximum size for each song should be 20 MB.',
                   textAlign: TextAlign.left,
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                 )),
             const SizedBox(height: 30),
-            RaisedButton(
+            ElevatedButton(
               child: Text('Choose Song'),
               onPressed: _getDocuments,
             ),
@@ -119,7 +126,9 @@ class _UploadSongsState extends State<UploadSongs> {
                         "Song name :   ",
                         textAlign: TextAlign.left,
                         style: TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.bold),
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                     Container(
@@ -127,7 +136,9 @@ class _UploadSongsState extends State<UploadSongs> {
                         child: Text(
                           songName,
                           style: TextStyle(
-                              fontSize: 14, fontWeight: FontWeight.bold),
+                            fontSize: 14,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ),
                     ),
@@ -143,31 +154,35 @@ class _UploadSongsState extends State<UploadSongs> {
                         "Song size :   ",
                         textAlign: TextAlign.left,
                         style: TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.bold),
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                     Container(
                       child: Text(
                         songSize,
                         style: TextStyle(
-                            fontSize: 14, fontWeight: FontWeight.bold),
+                          fontSize: 14,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                   ],
                 )),
             const SizedBox(height: 30),
-            RaisedButton(
+            ElevatedButton(
               child: Text('Send Song'),
               onPressed: () {
                 if (songSize == '0') {
                   showAlertDialog2(context);
-                } else if (file.size > 20000) {
+                } else if (file!.size > 20000) {
                   showAlertDialog(context);
-                } else if (file.size > 0 && file.size < 20000) {
-                  print("File name is " + file.name);
+                } else if (file!.size > 0 && file!.size < 20000) {
+                  print("File name is " + file!.name);
 
                   try {
-                    _uploadSongs(file);
+                    _uploadSongs(context, file);
                   } catch (err) {
                     print('uploading error: $err');
                   }
@@ -184,7 +199,7 @@ class _UploadSongsState extends State<UploadSongs> {
 
 showAlertDialog(BuildContext context) {
   // set up the button
-  Widget okButton = FlatButton(
+  Widget okButton = TextButton(
     child: Text("OK"),
     onPressed: () {
       Navigator.of(context, rootNavigator: true).pop();
@@ -193,8 +208,12 @@ showAlertDialog(BuildContext context) {
 
   // set up the AlertDialog
   AlertDialog alert = AlertDialog(
-    title: Text("Alert"),
-    content: Text("You can't send more than 20 MB audio file."),
+    title: Text(
+      Strings.alert,
+    ),
+    content: Text(
+      Strings.sendingAlert,
+    ),
     actions: [
       okButton,
     ],
@@ -211,7 +230,7 @@ showAlertDialog(BuildContext context) {
 
 showAlertDialog2(BuildContext context) {
   // set up the button
-  Widget okButton = FlatButton(
+  Widget okButton = TextButton(
     child: Text("OK"),
     onPressed: () {
       Navigator.of(context, rootNavigator: true).pop();

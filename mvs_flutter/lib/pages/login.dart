@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mvs_flutter/services/ApiExamples.dart';
+import 'package:mvs_flutter/services/api.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -54,10 +54,16 @@ class _LoginState extends State<Login> {
                 Container(
                     height: 50,
                     padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
-                    child: RaisedButton(
-                      textColor: Colors.white,
-                      color: Colors.blue,
-                      child: Text('Login'),
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.blue,
+                      ),
+                      child: Text(
+                        'Login',
+                        style: TextStyle(
+                          color: Colors.white,
+                        ),
+                      ),
                       onPressed: () {
                         print(nameController.text);
                         print(passwordController.text);
@@ -67,7 +73,6 @@ class _LoginState extends State<Login> {
                         login(formData).then((value) {
                           print('DONE');
                           getUser().then((value) => print(value));
-
                         });
                       },
                     )),
@@ -75,11 +80,13 @@ class _LoginState extends State<Login> {
                     child: Row(
                   children: <Widget>[
                     Text('Does not have account?'),
-                    FlatButton(
-                      textColor: Colors.blue,
+                    TextButton(
                       child: Text(
                         'Sign in',
-                        style: TextStyle(fontSize: 20),
+                        style: TextStyle(
+                          fontSize: 20,
+                          color: Colors.blue,
+                        ),
                       ),
                       onPressed: () {
                         //signup screen
