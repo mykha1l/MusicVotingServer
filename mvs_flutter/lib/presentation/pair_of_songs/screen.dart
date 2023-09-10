@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:mvs_flutter/Model/song.dart';
 import 'package:mvs_flutter/services/api.dart';
 
-import 'package:mvs_flutter/pages/PairsOfSongsPage.dart';
+import 'package:mvs_flutter/presentation/pair_of_songs/pair_of_songs.dart';
+
+import '../../utils/constants/strings.dart';
 
 class PairsOfSongs extends StatefulWidget {
   @override
@@ -17,12 +19,7 @@ class _PairsOfSongsState extends State<PairsOfSongs> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[200],
-      appBar: new AppBar(
-        title: Text('Voting Panel'),
-        centerTitle: true,
-        elevation: 0,
-      ),
+      backgroundColor: Theme.of(context).backgroundColor,
       body: Container(
         child: FutureBuilder<List<List<Song>>>(
           future: fetchPairOfSongs(),

@@ -16,6 +16,6 @@ class FailSnackBar extends SnackBar {
     required BuildContext context,
   }) : super(
     content: Text(text),
-    backgroundColor: Colors.red,
+    backgroundColor: Theme.of(context).errorColor,
   );
 }

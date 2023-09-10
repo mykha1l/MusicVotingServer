@@ -2,7 +2,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
 
-import '../utils/constants/strings.dart';
+import '../../utils/constants/strings.dart';
 import 'package:mvs_flutter/utils/managers/snackbar_manager.dart';
 
 class UploadSongs extends StatefulWidget {
@@ -13,9 +13,9 @@ class UploadSongs extends StatefulWidget {
 class _UploadSongsState extends State<UploadSongs> {
   final GlobalKey<ScaffoldState> _scaffoldState =
       new GlobalKey<ScaffoldState>();
-  String songName = 'No file chosen';
+  String songName = Strings.noFileChosen;
   String songSize = '0';
-   late PlatformFile? file;
+  late PlatformFile? file;
 
   void _getDocuments() async {
     FilePickerResult? result = await FilePicker.platform.pickFiles(
@@ -57,12 +57,10 @@ class _UploadSongsState extends State<UploadSongs> {
       );
 
       if (response.statusCode == 200) {
-        String message = 'Your song has been delivered to server.';
-
-        updateMessage(message);
+        updateMessage(Strings.songDelivered);
       }
     } catch (err) {
-      print('uploading error: $err');
+      print('Uploading error: $err');
     }
   }
 
@@ -71,12 +69,11 @@ class _UploadSongsState extends State<UploadSongs> {
 
     setState(() {
       file = null;
-      songName = 'No file choosen';
+      songName = Strings.noFileChosen;
       songSize = '0';
     });
   }
 
-  /// Method for showing snack bar message
   void showSnackBarMsg(String msg) {
     SnackBarManager.showSuccess(context, content: msg);
     // _scaffoldState.currentState.showSnackBar(
@@ -92,27 +89,26 @@ class _UploadSongsState extends State<UploadSongs> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldState,
-      appBar: AppBar(
-        title: Text('Upload Songs'),
-        centerTitle: true,
-        elevation: 0,
-      ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             Container(
-                padding: EdgeInsets.all(20),
-                child: Text(
-                  'You can upload mp3 audio file to the server. '
-                  'Maximum size for each song should be 20 MB.',
-                  textAlign: TextAlign.left,
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                )),
+              padding: EdgeInsets.all(20),
+              child: Text(
+                Strings.uploadSongDescription,
+                textAlign: TextAlign.left,
+                style: Theme.of(context).textTheme.headlineMedium,
+              ),
+            ),
             const SizedBox(height: 30),
             ElevatedButton(
-              child: Text('Choose Song'),
+              style: Theme.of(context).elevatedButtonTheme.style,
+              child: Text(
+                Strings.chooseSong,
+                style: Theme.of(context).textTheme.headlineSmall,
+              ),
               onPressed: _getDocuments,
             ),
             const SizedBox(height: 30),
@@ -123,22 +119,16 @@ class _UploadSongsState extends State<UploadSongs> {
                   children: [
                     Container(
                       child: Text(
-                        "Song name :   ",
+                        Strings.songName,
                         textAlign: TextAlign.left,
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                        ),
+                        style: Theme.of(context).textTheme.headlineMedium,
                       ),
                     ),
                     Container(
                       child: Flexible(
                         child: Text(
                           songName,
-                          style: TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.bold,
-                          ),
+                          style: Theme.of(context).textTheme.displaySmall,
                         ),
                       ),
                     ),
@@ -151,28 +141,25 @@ class _UploadSongsState extends State<UploadSongs> {
                   children: [
                     Container(
                       child: Text(
-                        "Song size :   ",
+                        Strings.songSize,
                         textAlign: TextAlign.left,
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                        ),
+                        style: Theme.of(context).textTheme.headlineMedium,
                       ),
                     ),
                     Container(
                       child: Text(
                         songSize,
-                        style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.bold,
-                        ),
+                        style: Theme.of(context).textTheme.displaySmall,
                       ),
                     ),
                   ],
                 )),
             const SizedBox(height: 30),
             ElevatedButton(
-              child: Text('Send Song'),
+              child: Text(
+                Strings.sendSong,
+                style: Theme.of(context).textTheme.headlineSmall,
+              ),
               onPressed: () {
                 if (songSize == '0') {
                   showAlertDialog2(context);
@@ -198,9 +185,38 @@ class _UploadSongsState extends State<UploadSongs> {
 }
 
 showAlertDialog(BuildContext context) {
-  // set up the button
   Widget okButton = TextButton(
-    child: Text("OK"),
+    child: Text(Strings.ok),
+    onPressed: () {
+      Navigator.of(context, rootNavigator: true).pop();
+    },
+  );
+
+  AlertDialog alert = AlertDialog(
+    title: Text(
+      Strings.alert,
+    ),
+    content: Text(
+      Strings.sendingSizeAlert,
+    ),
+    actions: [
+      okButton,
+    ],
+  );
+
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return alert;
+    },
+  );
+}
+
+showAlertDialog2(BuildContext context) {
+  Widget okButton = TextButton(
+    child: Text(
+      Strings.ok,
+    ),
     onPressed: () {
       Navigator.of(context, rootNavigator: true).pop();
     },
@@ -212,35 +228,8 @@ showAlertDialog(BuildContext context) {
       Strings.alert,
     ),
     content: Text(
-      Strings.sendingAlert,
+      Strings.sendingEmptyAlert,
     ),
-    actions: [
-      okButton,
-    ],
-  );
-
-  // show the dialog
-  showDialog(
-    context: context,
-    builder: (BuildContext context) {
-      return alert;
-    },
-  );
-}
-
-showAlertDialog2(BuildContext context) {
-  // set up the button
-  Widget okButton = TextButton(
-    child: Text("OK"),
-    onPressed: () {
-      Navigator.of(context, rootNavigator: true).pop();
-    },
-  );
-
-  // set up the AlertDialog
-  AlertDialog alert = AlertDialog(
-    title: Text("Alert"),
-    content: Text("You can't send empty audio file"),
     actions: [
       okButton,
     ],
